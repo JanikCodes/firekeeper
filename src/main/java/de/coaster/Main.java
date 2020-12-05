@@ -62,6 +62,7 @@ public class Main {
                     .addEventListeners(new GuildMessageReceived())
                     .addEventListeners(new GuildMemberJoin())
                     .addEventListeners(new GuildsListener())
+                    .addEventListeners(new OnReadyListener())
                     .build();
 
 
