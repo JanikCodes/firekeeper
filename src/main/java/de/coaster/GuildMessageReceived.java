@@ -430,30 +430,10 @@ public class GuildMessageReceived extends ListenerAdapter {
                 }
             }
 
-        } catch (InsufficientPermissionException exception) {
-
-        }
+        } catch (InsufficientPermissionException exception) { }
     }
 
     /*
-
-    private static String initDescriptionPvp(GuildMessageReactionAddEvent event, String player1ID, String player2ID, int plrHealth1, int maxPlrHealth1, int plrHealth2, int maxPlrHealth2, String playerDamage1, String playerDamage2) {
-        String desc = null;
-
-        int plrProc1 = (plrHealth1 * 100) / maxPlrHealth1;
-        int plrProc2 = (plrHealth2 * 100) / maxPlrHealth2;
-
-        String plrHealthDisplay1 = calcXPBar(plrProc1, "boss");
-        String plrHealthDisplay2 = calcXPBar(plrProc2, "boss");
-        Member plr1Name = event.getGuild().getMemberById(player1ID);
-        Member plr2Name = event.getGuild().getMemberById(player2ID);
-
-        desc = plr1Name.getEffectiveName() + "'s health: **" + plrHealth1 + "/" + maxPlrHealth1 + "** \n" + plrHealthDisplay1 + playerDamage2 + "\n" + plr2Name.getEffectiveName() + "'s health: **" + plrHealth2 + "/" + maxPlrHealth2 + "**\n " + plrHealthDisplay2 + playerDamage1;
-
-        return desc;
-    }
-
-
     public static void fightPlayer(String idMember1, String idMember2, GuildMessageReactionAddEvent event, TextChannel currchat) {
         final int[] count1 = {0};
         final int[] count2 = {0};

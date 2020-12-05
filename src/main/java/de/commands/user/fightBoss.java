@@ -43,7 +43,7 @@ public class fightBoss {
                 estus_amount = Integer.parseInt(Integer.toString(faith).substring(0, 1));
             }
 
-            int playerMaxHealth = (vitality + resistance + playerArmor) * 10;
+            int playerMaxHealth = 250 + (vitality + resistance + playerArmor) * 10;
             int bossMaxHealth = Database.getBossHealth(bossID);
             ArrayList<String> bossAttacks = Database.getBossAttacks(bossID,1,0);
             int randomAttack = getRandomNumberInRange.methode(0,bossAttacks.size() - 1);
@@ -87,7 +87,7 @@ public class fightBoss {
         int weaponDamage = Database.getWeaponDamage(memberID);
         int playerArmor = Database.getArmorBonus(memberID);
 
-        int playerMaxHealth = (vitality + resistance + playerArmor) * 10;
+        int playerMaxHealth = 250 + (vitality + resistance + playerArmor) * 10;
         int playerDamage = 100 + ((strength/2) + (dexterity/2) + weaponDamage) * 2;
 
         int bossMaxHealth = Database.getBossHealth(bossID);

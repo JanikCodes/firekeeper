@@ -1,9 +1,6 @@
 package de.coaster;
 
-import de.commands.user.achievements;
-import de.commands.user.fightBoss;
-import de.commands.user.getProfil;
-import de.commands.user.inventory;
+import de.commands.user.*;
 import de.utilities.canUpgrade;
 import de.utilities.createEmbed;
 import de.utilities.rewardUser;
@@ -101,7 +98,7 @@ public class CommandListener extends ListenerAdapter {
                     message.editMessage(createEmbed.methode(emb.getTitle(),emb.getDescription(),Color.green,"This duel was accepted",null,null).build()).complete();
 
                     String membID = Database.getOtherPlayer(event.getMessageId());
-                    //GuildMessageReceived.fightPlayer(memberID,membID, event,currchat);
+                    duel.methode(memberID,membID,event,currchat);
                     Database.deletePvpRelation(event.getMessageId());
                 }else if(Database.findSellingMessageID(event.getMessageId(),memberID)){
                     //It's a selling message
