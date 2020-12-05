@@ -42,8 +42,8 @@ public class inventory {
 
         Message msg = currchat.sendMessage(ms.build()).complete();
         Database.createInventoryRelation(member.getId(), msg.getId());
-        msg.addReaction("⬅").queue();
-        msg.addReaction("➡").queue();
+        msg.addReaction("◀️").queue();
+        msg.addReaction("▶️").queue();
     }
 
     public static EmbedBuilder editInventoryPage(Member member, int page, String messageID, String dir) {

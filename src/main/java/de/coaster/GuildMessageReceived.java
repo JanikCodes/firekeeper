@@ -406,7 +406,6 @@ public class GuildMessageReceived extends ListenerAdapter {
                 }
             }
 
-            /*
             if (args[0].equalsIgnoreCase(prefix + "duel")) {
                 if (checkChannel.methode(event, currchat, allowedChannel)) {
                     if (args.length == 2) {
@@ -430,9 +429,6 @@ public class GuildMessageReceived extends ListenerAdapter {
                     }
                 }
             }
-
-            */
-
 
         } catch (InsufficientPermissionException exception) {
 

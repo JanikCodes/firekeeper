@@ -140,7 +140,7 @@ public class CommandListener extends ListenerAdapter {
                 }
 
 
-            } else if(event.getReactionEmote().getName().equals("➡") && (!event.getUser().isBot())){
+            } else if(event.getReactionEmote().getName().equals("▶️") && (!event.getUser().isBot())){
                 String memberID = event.getMember().getId();
                 if(Database.findAchievementMessageID(event.getMessageId(),memberID)){
                     //It's a achievement message
@@ -151,7 +151,7 @@ public class CommandListener extends ListenerAdapter {
                     message.editMessage(inventory.editInventoryPage(event.getMember(),Database.getInventoryPage(memberID,message.getId()) + 1 ,message.getId(),"forward").build()).complete();
                     event.getReaction().removeReaction(event.getUser()).queue();
                 }
-            } else if(event.getReactionEmote().getName().equals("⬅") && (!event.getUser().isBot())){
+            } else if(event.getReactionEmote().getName().equals("◀️") && (!event.getUser().isBot())){
                 String memberID = event.getMember().getId();
                 if(Database.findAchievementMessageID(event.getMessageId(),memberID)){
                     //It's a achievement message

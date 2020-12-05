@@ -56,8 +56,8 @@ public class achievements {
 
         Message msg = currchat.sendMessage(ms.build()).complete();
         Database.createAchievementRelation(member.getId(), msg.getId());
-        msg.addReaction("⬅").queue();
-        msg.addReaction("➡").queue();
+        msg.addReaction("◀️").queue();
+        msg.addReaction("▶️").queue();
     }
 
     public static EmbedBuilder editAchievementPage(Member member, int page, String messageID, String dir) {
