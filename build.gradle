@@ -12,6 +12,7 @@ sourceCompatibility = 1.8
 
 repositories {
     jcenter()
+    maven { url 'https://jitpack.io' }
 }
 
 
@@ -22,6 +23,7 @@ dependencies {
     //https://mvnrepository.com/artifact/mysql/mysql-connector-java
     //compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.13'
     compile 'mysql:mysql-connector-java:5.1.44'
+    compile 'org.discordbots:DBL-Java-Library:2.0.1'
 }
 
 compileJava.options.encoding = 'UTF-8'
