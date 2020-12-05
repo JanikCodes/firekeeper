@@ -1,0 +1,28 @@
+plugins {
+    id'java'
+    id'application'
+    id'com.github.johnrengelman.shadow' version '4.0.4'
+}
+
+mainClassName = 'de.coaster.Main'
+
+version '1.0'
+
+sourceCompatibility = 1.8
+
+repositories {
+    jcenter()
+}
+
+
+
+dependencies {
+    compile 'net.dv8tion:JDA:4.2.0_183'
+
+    //https://mvnrepository.com/artifact/mysql/mysql-connector-java
+    //compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.13'
+    compile 'mysql:mysql-connector-java:5.1.44'
+}
+
+compileJava.options.encoding = 'UTF-8'
+
