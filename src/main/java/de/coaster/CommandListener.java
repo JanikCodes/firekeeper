@@ -70,7 +70,7 @@ public class CommandListener extends ListenerAdapter {
 
                                 if(event.getGuild().getSelfMember().hasPermission(Permission.MESSAGE_WRITE,Permission.MESSAGE_MENTION_EVERYONE)){
                                     currchat.sendMessage(event.getMember().getAsMention()).queue();
-                                    EmbedBuilder msg = createEmbed.methode(event.getMember().getEffectiveName(), "You've gained **1 Level**! <:lv:761544969546629170> \n you are now level " + (currLevel + 1) + ".\n and you've recieved **" + (currLevel * 1100) + " souls!**", Color.orange, "Admins can disable this notification by typing " + prefix + "levelNotification false", null,null);
+                                    EmbedBuilder msg = createEmbed.methode(event.getMember().getEffectiveName(), "You've gained **1 Level**! <:lv:761544969546629170> \n you are now level " + (currLevel + 1) + ".\n and you've received **" + (currLevel * 1100) + " souls!**", Color.orange, "Admins can disable this notification by typing " + prefix + "levelNotification false", null,null);
                                     currchat.sendMessage(msg.build()).queue();
                                 }
                             }
@@ -91,15 +91,24 @@ public class CommandListener extends ListenerAdapter {
             if (event.getReactionEmote().getName().equals("✅") && (!event.getUser().isBot())) {
                 String memberID = event.getMember().getId();
 
-                if(Database.findMessageID(event.getMessageId(),memberID)){
+                if(Database.findDuelMessageID(event.getMessageId())){
                     //It's a pvp duel
-                    List<MessageEmbed> lmess = message.getEmbeds();
-                    MessageEmbed emb = lmess.get(0);
-                    message.editMessage(createEmbed.methode(emb.getTitle(),emb.getDescription(),Color.green,"This duel was accepted",null,null).build()).complete();
+                    String membID = Database.getOtherPlayer(message.getId());
+                    if(!Database.getPlayerInDuel(memberID,membID)) {
+                        if(Database.isAllowedToAcceptDuel(memberID)) {
+                            List<MessageEmbed> lmess = message.getEmbeds();
+                            MessageEmbed emb = lmess.get(0);
+                            message.editMessage(createEmbed.methode(emb.getTitle(), emb.getDescription(), Color.green, "This duel was accepted", null, null).build()).complete();
+                            duel.methode(memberID, membID, event, currchat);
+                            Database.deletePvpRelation(event.getMessageId());
+                        }
+                    }else{
+                        List<MessageEmbed> lmess = message.getEmbeds();
+                        MessageEmbed emb = lmess.get(0);
+                        message.editMessage(createEmbed.methode(emb.getTitle(), emb.getDescription(), Color.red, "A player is already in a duel!", null, null).build()).complete();
+                        Database.deletePvpRelation(event.getMessageId());
+                    }
 
-                    String membID = Database.getOtherPlayer(event.getMessageId());
-                    duel.methode(memberID,membID,event,currchat);
-                    Database.deletePvpRelation(event.getMessageId());
                 }else if(Database.findSellingMessageID(event.getMessageId(),memberID)){
                     //It's a selling message
                     List<MessageEmbed> lmess = message.getEmbeds();
@@ -117,11 +126,14 @@ public class CommandListener extends ListenerAdapter {
             } else if (event.getReactionEmote().getName().equals("❌") && (!event.getUser().isBot())) {
                 String memberID = event.getMember().getId();
 
-                if(Database.findMessageID(event.getMessageId(),memberID)){
-                    List<MessageEmbed> lmess = message.getEmbeds();
-                    MessageEmbed emb = lmess.get(0);
-                    message.editMessage(createEmbed.methode(emb.getTitle(),emb.getDescription(),Color.red,"This duel was declined",null,null).build()).complete();
-                    Database.deletePvpRelation(event.getMessageId());
+                if(Database.findDuelMessageID(event.getMessageId())){
+                    //It's a duel message
+                    if(Database.isAllowedToAcceptDuel(memberID)) {
+                        List<MessageEmbed> lmess = message.getEmbeds();
+                        MessageEmbed emb = lmess.get(0);
+                        message.editMessage(createEmbed.methode(emb.getTitle(), emb.getDescription(), Color.red, "This duel was declined", null, null).build()).complete();
+                        Database.deletePvpRelation(event.getMessageId());
+                    }
                 }else if(Database.findSellingMessageID(event.getMessageId(),memberID)){
                     //It's a selling message
                     List<MessageEmbed> lmess = message.getEmbeds();
@@ -168,11 +180,23 @@ public class CommandListener extends ListenerAdapter {
                         //It's a boss fight damage func
                         event.getReaction().removeReaction(event.getUser()).queue();
                         message.editMessage(fightBoss.editBossMessage(memberID, message.getId(), "damage", event).build()).queue();
-
                     }
                 }
             }
 
+            if(Database.getDuelRelation(message.getId())) {
+                if (event.getReactionEmote().getName().equals("⚔️") && (!event.getUser().isBot())) {
+                    String memberID = event.getMember().getId();
+                    int turn = Database.getDuelTurn(message.getId());
+                    //Is player allowed to do an action
+
+                    if(Database.getDuelPlayerTurn(message.getId(),turn).equals(memberID)){
+                        String memberID2 = Database.getOtherPlayerInDuel(message.getId());
+                        message.editMessage(duel.editDuelMessage(message.getId(),"damage",event).build()).queue();
+                        event.getReaction().removeReaction(event.getUser()).queue();
+                    }
+                }
+            }
 
             if(event.getReactionEmote().isEmote() && (!event.getUser().isBot())) {
                 String memberID = event.getMember().getId();

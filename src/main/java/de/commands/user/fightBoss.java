@@ -23,7 +23,6 @@ public class fightBoss {
         if ((time / 1000) - lastclear > getTime.getBossTime(time, event)) {
             String memberID = event.getMember().getId();
             int bossID = Database.getPlayerBoss(memberID);
-            System.out.println(bossID);
             String bossName = Database.getBossName(bossID);
             String bossURL = Database.getBossImage(bossID);
 
@@ -147,12 +146,12 @@ public class fightBoss {
                 playerTextHealth = "** -" + (last_attack_value - playerArmor)+ "**";
 
             }else if(last_attack_type.equals("block")){
-                if(((bossCurrentHealth - playerDamage ) - last_attack_value) <= 0){
+                if(((bossCurrentHealth - (playerDamage / 2))) <= 0){
                     bossCurrentHealth = 0;
                 }else{
-                    bossCurrentHealth = bossCurrentHealth - (playerDamage - last_attack_value);
+                    bossCurrentHealth = bossCurrentHealth - (playerDamage / 2);
                 }
-                bossTextHealth = "** -" + (playerDamage - last_attack_value) + "**, blocked **" + last_attack_value + "** damage!";
+                bossTextHealth = "** -" + (playerDamage / 2) + "**, blocked **" + (playerDamage / 2) + "** damage!";
                 playerTextHealth = "";
 
             }else if(last_attack_type.equals("free")){
@@ -168,6 +167,16 @@ public class fightBoss {
             }else if(last_attack_type.equals("cant")){
                 bossTextHealth = "";
                 playerTextHealth = " **missed!**";
+
+            }else if(last_attack_type.equals("weakness")){
+                if((bossCurrentHealth - (playerDamage - last_attack_value)) <= 0){
+                    bossCurrentHealth = 0;
+                }else{
+                    bossCurrentHealth = bossCurrentHealth - (playerDamage - last_attack_value);
+                }
+
+                bossTextHealth = "** -" + (playerDamage + last_attack_value) + " ❗️**";
+                playerTextHealth = "";
             }
 
             //PLAYER CHOOSE TO BLOCK
@@ -194,6 +203,9 @@ public class fightBoss {
                 bossTextHealth = "";
                 playerTextHealth = "";
 
+            }else if(last_attack_type.equals("weakness")){
+                bossTextHealth = "";
+                playerTextHealth = "";
             }
 
             //PLAYER CHOOSE TO HEAL
@@ -286,6 +298,24 @@ public class fightBoss {
                     playerTextHealth = " no more healing left!";
                 }
 
+            }else if(last_attack_type.equals("weakness")){
+                int healAmount = (faith * 10) + 250;
+                //check if overhealed
+                if((Database.getEstusCount(messageid,memberID)) >= 1) {
+                    if (healAmount + playerCurrentHealth > playerMaxHealth) {
+                        healAmount = playerMaxHealth - playerCurrentHealth;
+                    }
+
+                    Database.removeEstusFromBossFight(messageid, memberID);
+
+                    playerCurrentHealth = playerCurrentHealth +  healAmount;
+
+                    bossTextHealth = "";
+                    playerTextHealth = "** +" + healAmount + "** health";
+                }else{
+                    bossTextHealth = "";
+                    playerTextHealth = " no more healing left!";
+                }
             }
 
             //PLAYER CHOOSE TO DODGE
@@ -322,6 +352,9 @@ public class fightBoss {
                 bossTextHealth = "";
                 playerTextHealth = "";
 
+            }else if(last_attack_type.equals("weakness")){
+                bossTextHealth = "";
+                playerTextHealth = "";
             }
         }
 
