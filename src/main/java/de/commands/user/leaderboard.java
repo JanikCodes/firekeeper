@@ -55,6 +55,29 @@ public class leaderboard {
                 }
             }
             currchat.sendMessage(createEmbed.methode("Leaderboard", BigString, Color.red, "Your position in the leaderboard is at #" + globalPos, null, null).build()).queue();
+        }else if (arg1.equalsIgnoreCase("kills")){
+            ArrayList<String> leaderboard = Database.showKillsLeaderboard();
+            ArrayList<Integer> kills = new ArrayList<>();
+            ArrayList<String> username = new ArrayList<>();
+            ArrayList<String> title = new ArrayList<>();
+
+
+            int globalPos = Database.getGlobalKillsPosition(event.getMember().getId());
+            String BigString = "Displaying the top **15** players with the most kills! \n";
+
+            for (int i = 0; i < leaderboard.size(); i++) {
+                kills.add(Database.showKillsLeaderboardOrderBy(leaderboard.get(i)));
+                username.add(Database.showUsernameLeaderboardKills(leaderboard.get(i)));
+                title.add(Database.showTitleLeaderboardKills(leaderboard.get(i)));
+                if (event.getGuild().getMemberById(leaderboard.get(i)) != null) {
+                    BigString = BigString + "**" + (i + 1) + "**. " + event.getGuild().getMemberById(leaderboard.get(i)).getAsMention() + " " + title.get(i) + " - Kills " + kills.get(i) + "\n";
+                } else {
+                    BigString = BigString + "**" + (i + 1) + "**. **" + username.get(i) + "** " + title.get(i) + " - Kills " + kills.get(i) + "\n";
+                }
+            }
+            currchat.sendMessage(createEmbed.methode("Leaderboard", BigString, Color.red, "Your position in the leaderboard is at #" + globalPos, null, null).build()).queue();
+
         }
+
     }
 }

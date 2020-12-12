@@ -49,7 +49,7 @@ public class OnReadyListener extends ListenerAdapter {
                             status++;
                             break;
                         } case 1: {
-                            a = Activity.of(Activity.ActivityType.WATCHING, "!help");
+                            a = Activity.of(Activity.ActivityType.WATCHING, "Update test");
                             status = 0;
                             break;
                         }

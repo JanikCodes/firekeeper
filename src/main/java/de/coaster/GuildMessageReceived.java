@@ -341,7 +341,7 @@ public class GuildMessageReceived extends ListenerAdapter {
                 }
             }
 
-            if (args[0].equalsIgnoreCase(prefix + "displayTime")) {
+            if (args[0].equalsIgnoreCase(prefix + "displayCD")) {
                 if (args.length == 1) {
                     if(checkChannel.methode(event,currchat,allowedChannel)){
                         displaytime.methode(currchat,event);
@@ -399,7 +399,7 @@ public class GuildMessageReceived extends ListenerAdapter {
             if (args[0].equalsIgnoreCase(prefix + "leaderboard")) {
                 if (checkChannel.methode(event, currchat, allowedChannel)) {
                     if (args.length == 1) {
-                        currchat.sendMessage(createEmbed.methode("**ERROR**", "Wrong Syntax! Type `" + prefix + "leaderboard ranks` or `" + prefix + "leaderboard souls`", Color.red, null, null, null).build()).complete();
+                        currchat.sendMessage(createEmbed.methode("**ERROR**", "Wrong Syntax! Type `" + prefix + "leaderboard ranks` or `" + prefix + "leaderboard souls` or \n`" + prefix + "leaderboard kills`", Color.red, null, null, null).build()).complete();
                     } else if (args.length > 1 && args.length <= 2) {
                         leaderboard.methode(args[1],event,currchat);
                     }

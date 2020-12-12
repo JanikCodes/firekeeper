@@ -22,11 +22,11 @@ public class Main {
     public static int voteClearTime = clearTime / 2;
     public static int voteBossTime = bossTime / 2;
 
-    public static int bossTimeWon = 21600;
-    public static int voteBossTimeWon = 10800;
+    public static int bossTimeWon = 86400;
+    public static int voteBossTimeWon = 43200;
 
     public static int patreonTime = 1800;
-    public static int patreonTimeBossWon = 7200;
+    public static int patreonTimeBossWon = 14400;
     public static double tier1SoulMulti = 1.5;
     public static int tier2SoulMulti = 2;
 
@@ -36,7 +36,9 @@ public class Main {
 
     public static JDA jda;
 
-    public static boolean test = true;
+    public static boolean test = false;
+    public static boolean DEVELOPER_SERVER_MODE = false;
+
 
     private static String realVersion = "NzYwOTkzMjcwMTMzNTU1MjMx.X3UINg.s8k6-zhT13HDBRFpCFSc4EFPTvc";
     private static String testVersion = "NzYzNDQ1ODk3NDc1MzkxNDk4.X330Zg.mwrGhbZipvaBF-X2XOmQoS5JIww";

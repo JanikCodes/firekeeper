@@ -4,6 +4,7 @@ import de.coaster.Database;
 import de.utilities.createEmbed;
 import de.utilities.getRandomNumberInRange;
 import de.utilities.initHealthBars;
+import de.utilities.rewardUser;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
@@ -33,8 +34,8 @@ public class duel {
         int playerArmor1 = Database.getArmorBonus(idMember1);
         int playerArmor2 = Database.getArmorBonus(idMember2);
 
-        int playerMaxHealth1 = 250 + (playerHealth1 + playerRes1 + playerArmor1) * 10;
-        int playerMaxHealth2 = 250 + (playerHealth2 + playerRes2 + playerArmor2) * 10;
+        int playerMaxHealth1 = 150 + (playerHealth1 + playerRes1) * 8;
+        int playerMaxHealth2 = 150 + (playerHealth2 + playerRes2) * 8;
 
         Message msg = currchat.sendMessage(createEmbed.methode("Duel", player2.getAsMention() + " please choose an action!\n" + initHealthBars.initDescriptionPvp(idMember1,idMember2, playerMaxHealth1, playerMaxHealth1, playerMaxHealth2, playerMaxHealth2, "", "",event) + "\n\n**" + player1.getEffectiveName() + "'s** Estus Flakon: **" + playerEstus1 + "**x \n**" + player2.getEffectiveName() + "'s** Estus Flakon: **" + playerEstus2 + "**x \n\n**React below** to choose your next **action**! \n \n ⚔ - attack <:sh:784184343416537141> - block \n <:hea:784185738681516053> - heal <:ddg:784349634163507240> - dodge", Color.black, null, null, null).build()).complete();
         msg.addReaction("⚔️").queue();
@@ -48,7 +49,9 @@ public class duel {
     private static int getEstus(Integer faith){
         int amt = 0;
 
-        if (faith == 100) {
+        if(Integer.toString(faith).length() == 1){
+            amt = 0;
+        }else if (faith == 100) {
             amt = 10;
         } else {
             amt = Integer.parseInt(Integer.toString(faith).substring(0, 1));
@@ -88,8 +91,8 @@ public class duel {
         int playerWeapon1 = Database.getWeaponDamage(idMember1);
         int playerWeapon2 = Database.getWeaponDamage(idMember2);
 
-        int playerMaxHealth1 = 250 + (playerHealth1 + playerRes1 + playerArmor1) * 10;
-        int playerMaxHealth2 = 250 + (playerHealth2 + playerRes2 + playerArmor2) * 10;
+        int playerMaxHealth1 = 150 + (playerHealth1 + playerRes1) * 8;
+        int playerMaxHealth2 = 150 + (playerHealth2 + playerRes2) * 8;
 
         int playerCurrentHealth1 = Database.getDuelPlayerHeal(messageid,1);
         int playerCurrentHealth2 = Database.getDuelPlayerHeal(messageid,2);
@@ -98,6 +101,9 @@ public class duel {
         int playerDamage2 = 100 + ((playerStrength2/2) + (playerDexterity2/2) + playerWeapon2) * 2;
 
         int healAmount = 550;
+
+        int dodgeCounter1 = 0;
+        int dodgeCounter2 = 0;
 
         Member nextPlayerTurnMember = null;
         Member lastPlayerTurnMember = null;
@@ -257,9 +263,8 @@ public class duel {
             }else if(last_attack.equals("dodge")){
                 if (curr_turn == 1) {
                     int dodgechance = Database.getStatistic("intelligence",idMember2);
-                    System.out.println("dodging player has " + dodgechance +" int");
                     int randomNum = getRandomNumberInRange.methode(1, 100);
-
+                    dodgeCounter2++;
                     //CAN HE DODGE
                     if ((dodgechance / 2) >= randomNum) {
                         player1HealthText = "** dodged!**";
@@ -276,9 +281,8 @@ public class duel {
 
                 }else{
                     int dodgechance = Database.getStatistic("intelligence",idMember1);
-                    System.out.println("dodging player has " + dodgechance +" int");
                     int randomNum = getRandomNumberInRange.methode(1, 100);
-
+                    dodgeCounter1++;
                     //CAN HE DODGE
                     if ((dodgechance / 2) >= randomNum) {
                         player2HealthText = "** dodged!**";
@@ -362,9 +366,11 @@ public class duel {
                 }
             }else if(last_attack.equals("dodge")){
                 if (curr_turn == 1) {
+                    dodgeCounter2++;
                     player1HealthText = " dodged for nothing";
                     player2HealthText = " blocked nothing";
                 }else{
+                    dodgeCounter1++;
                     player1HealthText = " blocked nothing";
                     player2HealthText = " dodged for nothing";
                 }
@@ -376,9 +382,8 @@ public class duel {
             if(last_attack.equals("damage")){
                 if (curr_turn == 1) {
                     int dodgechance = Database.getStatistic("intelligence",idMember2);
-                    System.out.println("dodging player has " + dodgechance +" int");
                     int randomNum = getRandomNumberInRange.methode(1, 100);
-
+                    dodgeCounter2++;
                     //CAN HE DODGE
                     if ((dodgechance / 2) >= randomNum) {
                         player2HealthText = "** dodged!**";
@@ -395,9 +400,8 @@ public class duel {
 
                 }else{
                     int dodgechance = Database.getStatistic("intelligence",idMember1);
-                    System.out.println("dodging player has " + dodgechance +" int");
                     int randomNum = getRandomNumberInRange.methode(1, 100);
-
+                    dodgeCounter1++;
                     //CAN HE DODGE
                     if ((dodgechance / 2) >= randomNum) {
                         player1HealthText = "** dodged!**";
@@ -414,9 +418,11 @@ public class duel {
                 }
             }else if(last_attack.equals("block")){
                 if (curr_turn == 1) {
+                    dodgeCounter2++;
                     player1HealthText = " blocked nothing";
                     player2HealthText = " dodged for nothing";
                 }else{
+                    dodgeCounter1++;
                     player1HealthText = " dodged for nothing";
                     player2HealthText = " blocked nothing";
                 }
@@ -438,6 +444,7 @@ public class duel {
                         player1HealthText = " no healing left!";
                         player2HealthText = " dodged for nothing";
                     }
+                    dodgeCounter2++;
                 }else{
                     if((Database.getDuelEstusCount(messageid,1)) >= 1) {
                         if (healAmount + playerCurrentHealth1 > playerMaxHealth1) {
@@ -453,12 +460,15 @@ public class duel {
                         player2HealthText = " no healing left!";
                         player1HealthText = " dodged for nothing";
                     }
+                    dodgeCounter1++;
                 }
             }else if(last_attack.equals("dodge")){
                 if (curr_turn == 1) {
+                    dodgeCounter2++;
                     player1HealthText = " dodged for nothing";
                     player2HealthText = " dodged for nothing";
                 }else{
+                    dodgeCounter1++;
                     player1HealthText = " dodged for nothing";
                     player2HealthText = " dodged for nothing";
                 }
@@ -583,8 +593,6 @@ public class duel {
                         player2HealthText = " no healing left!";
                     }
             }else if(last_attack.equals("dodge")) {
-                System.out.println("Yes last");
-
                 if (curr_turn == 1) {
                     if ((Database.getDuelEstusCount(messageid, 2)) >= 1) {
                         if (healAmount + playerCurrentHealth1 > playerMaxHealth1) {
@@ -596,9 +604,11 @@ public class duel {
 
                         player2HealthText = " healed " + healAmount + " health!";
                         player1HealthText = " dodged for nothing";
+                        dodgeCounter2++;
                     } else {
                         player2HealthText = " no healing left!";
                         player1HealthText = " dodged for nothing";
+                        dodgeCounter1++;
                     }
                 } else {
                     if ((Database.getDuelEstusCount(messageid, 1)) >= 1) {
@@ -611,9 +621,11 @@ public class duel {
 
                         player1HealthText = " healed " + healAmount + " health!";
                         player2HealthText = " dodged for nothing";
+                        dodgeCounter2++;
                     } else {
                         player1HealthText = " no healing left!";
                         player2HealthText = " dodged for nothing";
+                        dodgeCounter1++;
                     }
                 }
             }
@@ -642,20 +654,33 @@ public class duel {
 
         //loop for the states
         if(extra_turn == 4){
-            System.out.println("extra_turn is at 1 now");
             Database.updateDuelExtraTurn(messageid,"-");
         }else {
             Database.updateDuelExtraTurn(messageid, "+");
         }
 
+
+
         EmbedBuilder mb = null;
         if(playerCurrentHealth2 <= 0 && playerCurrentHealth1 <= 0) {
+            killedDeveloper(idMember1,idMember2);
+            killedDeveloper(idMember2,idMember1);
+            killedPlayer(idMember1);
+            killedPlayer(idMember2);
             mb = createEmbed.methode("Duel",initHealthBars.initDescriptionPvp(idMember1,idMember2, playerCurrentHealth1, playerMaxHealth1, playerCurrentHealth2, playerMaxHealth2, player1HealthText, player2HealthText,event) + "\n\n It was a draw! Nobody won! \n\n\n**React below** to choose your next **action**!\n ⚔ - attack <:sh:784184343416537141> - block \n <:hea:784185738681516053> - heal <:ddg:784349634163507240> - dodge", Color.black, null, null, null);
             Database.deleteDuelRelation(messageid);
         }else if(playerCurrentHealth1 <= 0){
+            killedDeveloper(idMember2,idMember1);
+            Database.giveKill(idMember2);
+            killedPlayer(idMember2);
+            HealthAchievement(playerMaxHealth2,playerCurrentHealth2,idMember2);
             mb = createEmbed.methode("Duel",initHealthBars.initDescriptionPvp(idMember1,idMember2, playerCurrentHealth1, playerMaxHealth1, playerCurrentHealth2, playerMaxHealth2, player1HealthText, player2HealthText,event) + "\n\n "+ player2.getAsMention() +" won the duel! \n\n\n**React below** to choose your next **action**!\n ⚔ - attack <:sh:784184343416537141> - block \n <:hea:784185738681516053> - heal <:ddg:784349634163507240> - dodge", Color.black, null, null, null);
             Database.deleteDuelRelation(messageid);
         }else if(playerCurrentHealth2 <= 0){
+            killedDeveloper(idMember1,idMember2);
+            Database.giveKill(idMember1);
+            killedPlayer(idMember1);
+            HealthAchievement(playerMaxHealth1,playerCurrentHealth1,idMember1);
             mb = createEmbed.methode("Duel",initHealthBars.initDescriptionPvp(idMember1,idMember2, playerCurrentHealth1, playerMaxHealth1, playerCurrentHealth2, playerMaxHealth2, player1HealthText, player2HealthText,event) + "\n\n "+ player1.getAsMention() +" won the duel! \n\n\n**React below** to choose your next **action**!\n ⚔ - attack <:sh:784184343416537141> - block \n <:hea:784185738681516053> - heal <:ddg:784349634163507240> - dodge", Color.black, null, null, null);
             Database.deleteDuelRelation(messageid);
         }else {
@@ -666,7 +691,40 @@ public class duel {
 
             mb = createEmbed.methode("Duel",playerReactString + "\n" + initHealthBars.initDescriptionPvp(idMember1,idMember2, playerCurrentHealth1, playerMaxHealth1, playerCurrentHealth2, playerMaxHealth2, player1HealthText, player2HealthText,event) + "\n\n "+ actionString +" \n\n**" + player1.getEffectiveName() + "'s** Estus Flakon: **" + playerEstus1 + "**x \n**" + player2.getEffectiveName() + "'s** Estus Flakon: **" + playerEstus2 + "**x \n\n**React below** to choose your next **action**!\n ⚔ - attack <:sh:784184343416537141> - block \n <:hea:784185738681516053> - heal <:ddg:784349634163507240> - dodge", Color.black, null, null, null);
         }
-
+        dodgeAchievement(idMember1,dodgeCounter1);
+        dodgeAchievement(idMember2,dodgeCounter2);
         return mb;
+    }
+
+    private static void HealthAchievement(int playerMaxHealth, int playerCurrentHealth,String idMember){
+        int healthleft = (int) (10 * playerMaxHealth) / 100;
+
+        if (playerCurrentHealth <= healthleft) {
+            if (Database.completeAchievement(idMember, 18)) {
+                rewardUser.methode(idMember, "title", 9);
+            }
+        }
+    }
+
+    private static void killedDeveloper(String idMember, String idMember2){
+        if (idMember.equals("321649314382348288")) {
+            if (Database.completeAchievement(idMember2, 10)) {
+                rewardUser.methode(idMember2, "item", 23);
+            }
+        }
+    }
+
+    public static void killedPlayer(String idMember){
+        if (Database.completeAchievement(idMember, 6)) {
+            rewardUser.methode(idMember, "title", 2);
+        }
+    }
+
+    public static void dodgeAchievement(String memberID, int dodgeCounter){
+        if(dodgeCounter >= 7){
+            if (Database.completeAchievement(memberID, 6)) {
+                rewardUser.methode(memberID, "title", 1);
+            }
+        }
     }
 }

@@ -1,4 +1,5 @@
 package de.coaster;
+import de.utilities.rewardUser;
 import net.dv8tion.jda.api.entities.Member;
 
 import java.sql.*;
@@ -166,9 +167,9 @@ public class Database {
                 prepStmntPersonInsert.setInt(9, 1);
                 prepStmntPersonInsert.setInt(10, 1);
                 prepStmntPersonInsert.setInt(11, 1);
-                prepStmntPersonInsert.setString(12, username);
+                prepStmntPersonInsert.setInt(12, 0);
                 prepStmntPersonInsert.setInt(13, 0);
-                prepStmntPersonInsert.setInt(14, 0);
+                prepStmntPersonInsert.setString(14, username);
                 prepStmntPersonInsert.setInt(15, 0);
                 prepStmntPersonInsert.setInt(16, 0);
                 prepStmntPersonInsert.setInt(17, 0);
@@ -1049,6 +1050,27 @@ public class Database {
             java.sql.PreparedStatement prepStmntPersonInsert;
             myCon = DriverManager.getConnection(url, user, pwd);
             prepStmntPersonInsert = myCon.prepareStatement("select username from users where idusers = ? ORDER BY level DESC;");
+            prepStmntPersonInsert.setString(1, memberID);
+
+            myRS = prepStmntPersonInsert.executeQuery();
+            if(myRS.next()){
+                name = myRS.getString(1);
+            }
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }finally{
+            doFinally();
+        }
+        return name;
+    }
+
+    public static String showUsernameLeaderboardKills(String memberID) {
+        String name = "unknown";
+        try {
+            java.sql.PreparedStatement prepStmntPersonInsert;
+            myCon = DriverManager.getConnection(url, user, pwd);
+            prepStmntPersonInsert = myCon.prepareStatement("select username from users where idusers = ? ORDER BY kills DESC;");
             prepStmntPersonInsert.setString(1, memberID);
 
             myRS = prepStmntPersonInsert.executeQuery();
@@ -2901,6 +2923,9 @@ public class Database {
                 prepStmntPersonInsert.setString(2, memberID);
                 prepStmntPersonInsert.executeUpdate();
             }else{
+                if (completeAchievement(memberID, 2)) {
+                    rewardUser.methode(memberID, "title", 17);
+                }
                 myCon = DriverManager.getConnection(url, user, pwd);
                 prepStmntPersonInsert = myCon.prepareStatement("update users set current_boss = 1 where idUsers = ?;");
                 prepStmntPersonInsert.setString(1, memberID);
@@ -3404,5 +3429,95 @@ public class Database {
         }finally{
             doFinally();
         }
+    }
+
+    public static ArrayList<String> showKillsLeaderboard() {
+        int count = 0;
+        ArrayList<String> values = new ArrayList<String>();
+        try {
+
+            java.sql.PreparedStatement prepStmntPersonInsert;
+            myCon = DriverManager.getConnection(url, user, pwd);
+            prepStmntPersonInsert = myCon.prepareStatement("SELECT idUsers FROM users ORDER BY kills DESC;");
+
+            myRS = prepStmntPersonInsert.executeQuery();
+            while(myRS.next() && count <= 14){
+                count++;
+                values.add(myRS.getString(1));
+            }
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }finally{
+            doFinally();
+        }
+        return values;
+    }
+
+    public static int getGlobalKillsPosition(String id) {
+        int pos = 0;
+
+        try {
+            java.sql.PreparedStatement prepStmntPersonInsert;
+
+            myCon = DriverManager.getConnection(url, user, pwd);
+            prepStmntPersonInsert = myCon.prepareStatement("select rowNR from (select ROW_NUMBER() OVER (ORDER BY kills DESC) AS rowNR,idUsers FROM users) sub WHERE sub.idUsers = ?");
+            prepStmntPersonInsert.setString(1, id);
+
+            myRS = prepStmntPersonInsert.executeQuery();
+            if(myRS.next()){
+                pos = myRS.getInt(1);
+            }
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }finally {
+            doFinally();
+        }
+        return pos;
+    }
+
+    public static Integer showKillsLeaderboardOrderBy(String memID) {
+        int cunt = 0;
+        try {
+
+            java.sql.PreparedStatement prepStmntPersonInsert;
+            myCon = DriverManager.getConnection(url, user, pwd);
+            prepStmntPersonInsert = myCon.prepareStatement("select kills from users where idusers = ? ORDER BY kills DESC;");
+            prepStmntPersonInsert.setString(1, memID);
+
+            myRS = prepStmntPersonInsert.executeQuery();
+            if(myRS.next()){
+
+                cunt = myRS.getInt(1);
+            }
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }finally{
+            doFinally();
+        }
+        return cunt;
+    }
+
+    public static String showTitleLeaderboardKills(String memberID) {
+        String name = "";
+        try {
+            java.sql.PreparedStatement prepStmntPersonInsert;
+            myCon = DriverManager.getConnection(url, user, pwd);
+            prepStmntPersonInsert = myCon.prepareStatement("select name from titles t, users u where u.e_title = t.tID and u.idUsers = ? ORDER BY kills DESC;");
+            prepStmntPersonInsert.setString(1, memberID);
+
+            myRS = prepStmntPersonInsert.executeQuery();
+            if(myRS.next()){
+                name = "*" + myRS.getString(1) + "*";
+            }
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }finally{
+            doFinally();
+        }
+        return name;
     }
 }

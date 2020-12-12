@@ -42,7 +42,7 @@ public class fightBoss {
                 estus_amount = Integer.parseInt(Integer.toString(faith).substring(0, 1));
             }
 
-            int playerMaxHealth = 250 + (vitality + resistance + playerArmor) * 10;
+            int playerMaxHealth = 150 + (vitality + resistance + playerArmor) * 8;
             int bossMaxHealth = Database.getBossHealth(bossID);
             ArrayList<String> bossAttacks = Database.getBossAttacks(bossID,1,0);
             int randomAttack = getRandomNumberInRange.methode(0,bossAttacks.size() - 1);
@@ -86,7 +86,7 @@ public class fightBoss {
         int weaponDamage = Database.getWeaponDamage(memberID);
         int playerArmor = Database.getArmorBonus(memberID);
 
-        int playerMaxHealth = 250 + (vitality + resistance + playerArmor) * 10;
+        int playerMaxHealth = 150 + (vitality + resistance + playerArmor) * 8;
         int playerDamage = 100 + ((strength/2) + (dexterity/2) + weaponDamage) * 2;
 
         int bossMaxHealth = Database.getBossHealth(bossID);
@@ -103,6 +103,9 @@ public class fightBoss {
         }else if(phase_type.equals("half")){
             if(bossCurrentHealth <= (bossMaxHealth / 2)) {
                 bossAttacks = Database.getBossAttacks(bossID, 2,0);
+                if (Database.completeAchievement(memberID, 1)) {
+                    rewardUser.methode(memberID, "souls", 5000);
+                }
             }else{
                 bossAttacks = Database.getBossAttacks(bossID,1,0);
             }
@@ -169,10 +172,10 @@ public class fightBoss {
                 playerTextHealth = " **missed!**";
 
             }else if(last_attack_type.equals("weakness")){
-                if((bossCurrentHealth - (playerDamage - last_attack_value)) <= 0){
+                if((bossCurrentHealth - (playerDamage + last_attack_value)) <= 0){
                     bossCurrentHealth = 0;
                 }else{
-                    bossCurrentHealth = bossCurrentHealth - (playerDamage - last_attack_value);
+                    bossCurrentHealth = bossCurrentHealth - (playerDamage + last_attack_value);
                 }
 
                 bossTextHealth = "** -" + (playerDamage + last_attack_value) + " ❗️**";
@@ -212,7 +215,7 @@ public class fightBoss {
         }else if(player_choice.equals("heal")){
 
             if(last_attack_type.equals("damage")){
-                int healAmount = (faith * 10) + 250;
+                int healAmount = 550;
                 //check if overhealed
                 if((Database.getEstusCount(messageid,memberID)) >= 1) {
                     if (healAmount + playerCurrentHealth > playerMaxHealth) {
@@ -241,7 +244,7 @@ public class fightBoss {
 
 
             }else if(last_attack_type.equals("block")){
-                int healAmount = (faith * 10) + 250;
+                int healAmount = 550;
                 //check if overhealed
                 if((Database.getEstusCount(messageid,memberID)) >= 1) {
                     if (healAmount + playerCurrentHealth > playerMaxHealth) {
@@ -261,7 +264,7 @@ public class fightBoss {
 
 
             }else if(last_attack_type.equals("free")){
-                int healAmount = (faith * 10) + 250;
+                int healAmount = 550;
                 //check if overhealed
                 if((Database.getEstusCount(messageid,memberID)) >= 1) {
                     if (healAmount + playerCurrentHealth > playerMaxHealth) {
@@ -280,7 +283,7 @@ public class fightBoss {
                 }
 
             }else if(last_attack_type.equals("cant")){
-                int healAmount = (faith * 10) + 250;
+                int healAmount = 550;
                 //check if overhealed
                 if((Database.getEstusCount(messageid,memberID)) >= 1) {
                     if (healAmount + playerCurrentHealth > playerMaxHealth) {
@@ -299,7 +302,7 @@ public class fightBoss {
                 }
 
             }else if(last_attack_type.equals("weakness")){
-                int healAmount = (faith * 10) + 250;
+                int healAmount = 550;
                 //check if overhealed
                 if((Database.getEstusCount(messageid,memberID)) >= 1) {
                     if (healAmount + playerCurrentHealth > playerMaxHealth) {
@@ -368,6 +371,9 @@ public class fightBoss {
             //Player won
             if(phase_type.equals("full") && Database.getCurrentPhase(messageid,memberID) == 1){
                 //Makes boss full life again
+                if (Database.completeAchievement(memberID, 1)) {
+                    rewardUser.methode(memberID, "souls", 5000);
+                }
                 Database.updateBossPhase(messageid,memberID,2);
                 bossCurrentHealth = bossMaxHealth;
                 Database.updateBossFightHealth("playerHealth",playerCurrentHealth,messageid,memberID);

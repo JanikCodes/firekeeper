@@ -27,7 +27,7 @@ public class clearArea {
             int randomNum = getRandomNumberInRange.methode(0, 100);
             int randomIntelligenceNum = getRandomNumberInRange.methode(0, 100);
             int monsterSize = Database.getMonsterSize();
-            int randomEncounterNum = getRandomNumberInRange.methode(0, monsterSize - 1);
+            int randomEncounterNum = getRandomNumberInRange.methode(1, monsterSize - 1);
             String encounterName = Database.getMonsterName(randomEncounterNum);
             String encounterDescrition = Database.getMonsterDescription(randomEncounterNum);
             int soulAmount = stageProgess * 40 + randomNum;
