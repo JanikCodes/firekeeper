@@ -191,7 +191,6 @@ public class CommandListener extends ListenerAdapter {
                     //Is player allowed to do an action
 
                     if(Database.getDuelPlayerTurn(message.getId(),turn).equals(memberID)){
-                        String memberID2 = Database.getOtherPlayerInDuel(message.getId());
                         message.editMessage(duel.editDuelMessage(message.getId(),"damage",event).build()).queue();
                         event.getReaction().removeReaction(event.getUser()).queue();
                     }
@@ -239,6 +238,37 @@ public class CommandListener extends ListenerAdapter {
                             //It's a boss fight block func
                             event.getReaction().removeReaction(event.getUser()).queue();
                             message.editMessage(fightBoss.editBossMessage(memberID, message.getId(), "dodge", event).build()).queue();
+                        }
+                    }
+                }
+
+                if(Database.getDuelRelation(message.getId())) {
+                    if (event.getReactionEmote().getId().equals("784184343416537141") && (!event.getUser().isBot())) {
+                        int turn = Database.getDuelTurn(message.getId());
+                        //Is player allowed to do an action
+
+                        if(Database.getDuelPlayerTurn(message.getId(),turn).equals(memberID)){
+                            message.editMessage(duel.editDuelMessage(message.getId(),"block",event).build()).queue();
+                            event.getReaction().removeReaction(event.getUser()).queue();
+                        }
+                    }
+
+                    if (event.getReactionEmote().getId().equals("784185738681516053") && (!event.getUser().isBot())) {
+                        int turn = Database.getDuelTurn(message.getId());
+                        //Is player allowed to do an action
+
+                        if(Database.getDuelPlayerTurn(message.getId(),turn).equals(memberID)){
+                            message.editMessage(duel.editDuelMessage(message.getId(),"heal",event).build()).queue();
+                            event.getReaction().removeReaction(event.getUser()).queue();
+                        }
+                    }
+                    if (event.getReactionEmote().getId().equals("784349634163507240") && (!event.getUser().isBot())) {
+                        int turn = Database.getDuelTurn(message.getId());
+                        //Is player allowed to do an action
+
+                        if(Database.getDuelPlayerTurn(message.getId(),turn).equals(memberID)){
+                            message.editMessage(duel.editDuelMessage(message.getId(),"dodge",event).build()).queue();
+                            event.getReaction().removeReaction(event.getUser()).queue();
                         }
                     }
                 }

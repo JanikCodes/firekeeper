@@ -1105,6 +1105,23 @@ public class Database {
         }
     }
 
+    public static void deleteDuelRelation(String messageId) {
+        try {
+            java.sql.PreparedStatement prepStmntPersonInsert;
+
+            myCon = DriverManager.getConnection(url, user, pwd);
+            prepStmntPersonInsert = myCon.prepareStatement("DELETE FROM duel WHERE idMessage = ?");
+            prepStmntPersonInsert.setString(1, messageId);
+            prepStmntPersonInsert.executeUpdate();
+
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }finally{
+            doFinally();
+        }
+    }
+
     public static boolean completeAchievement(String memberID, Integer aID){
         boolean ret = false;
         try {
@@ -3077,7 +3094,7 @@ public class Database {
         try {
             java.sql.PreparedStatement prepStmntPersonInsert;
             myCon = DriverManager.getConnection(url, user, pwd);
-            prepStmntPersonInsert = myCon.prepareStatement("INSERT INTO duel VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?);");
+            prepStmntPersonInsert = myCon.prepareStatement("INSERT INTO duel VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
             prepStmntPersonInsert.setString(1, messageid);
             prepStmntPersonInsert.setString(2, idMember1);
             prepStmntPersonInsert.setString(3, idmember2);
@@ -3087,6 +3104,7 @@ public class Database {
             prepStmntPersonInsert.setInt(7, playerEstus2);
             prepStmntPersonInsert.setString(8, "none");
             prepStmntPersonInsert.setInt(9, turn);
+            prepStmntPersonInsert.setInt(10, 1);
             prepStmntPersonInsert.executeUpdate();
         }catch(SQLException e){
             e.printStackTrace();
@@ -3282,6 +3300,102 @@ public class Database {
                 prepStmntPersonInsert = myCon.prepareStatement("update duel set playerCurrentHealth" + who + " = ? where idMessage = ?;");
                 prepStmntPersonInsert.setInt(1, playerCurrentHealth2);
                 prepStmntPersonInsert.setString(2, messageid);
+                prepStmntPersonInsert.executeUpdate();
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally{
+            doFinally();
+        }
+    }
+
+
+    public static int getDuelExtraTurn(String messageid) {
+        int t = 0;
+        try {
+            java.sql.PreparedStatement prepStmntPersonInsert;
+            myCon = DriverManager.getConnection(url, user, pwd);
+            prepStmntPersonInsert = myCon.prepareStatement("SELECT extra_turn FROM duel where idMessage = ?");
+            prepStmntPersonInsert.setString(1, messageid);
+            myRS = prepStmntPersonInsert.executeQuery();
+
+            if (myRS.next()) {
+                t = myRS.getInt(1);
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }finally {
+            doFinally();
+        }
+
+        return t;
+    }
+
+    public static void updateDuelExtraTurn(String messageid, String turn) {
+        try {
+            java.sql.PreparedStatement prepStmntPersonInsert;
+
+            myCon = DriverManager.getConnection(url, user, pwd);
+            prepStmntPersonInsert = myCon.prepareStatement("SELECT idmessage FROM duel WHERE idMessage = ?");
+            prepStmntPersonInsert.setString(1, messageid);
+            myRS = prepStmntPersonInsert.executeQuery();
+
+            if (myRS.next()) {
+                if(turn.equals("+")) {
+                    myCon = DriverManager.getConnection(url, user, pwd);
+                    prepStmntPersonInsert = myCon.prepareStatement("update duel set extra_turn = extra_turn + 1 where idMessage = ?;");
+                    prepStmntPersonInsert.setString(1, messageid);
+                    prepStmntPersonInsert.executeUpdate();
+                }else if(turn.equals("-")){
+                    myCon = DriverManager.getConnection(url, user, pwd);
+                    prepStmntPersonInsert = myCon.prepareStatement("update duel set extra_turn = 1 where idMessage = ?;");
+                    prepStmntPersonInsert.setString(1, messageid);
+                    prepStmntPersonInsert.executeUpdate();
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally{
+            doFinally();
+        }
+    }
+
+    public static int getDuelEstusCount(String messageid, int numb) {
+        int amt = 0;
+        try {
+            java.sql.PreparedStatement prepStmntPersonInsert;
+            myCon = DriverManager.getConnection(url, user, pwd);
+            prepStmntPersonInsert = myCon.prepareStatement("SELECT playerEstus" + numb + " FROM duel where idMessage = ?;");
+            prepStmntPersonInsert.setString(1, messageid);
+            myRS = prepStmntPersonInsert.executeQuery();
+
+            if (myRS.next()) {
+                amt = myRS.getInt(1);
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }finally {
+            doFinally();
+        }
+
+        return amt;
+    }
+
+    public static void removeEstusFromDuel(String messageid, int numb) {
+        try {
+            java.sql.PreparedStatement prepStmntPersonInsert;
+
+            myCon = DriverManager.getConnection(url, user, pwd);
+            prepStmntPersonInsert = myCon.prepareStatement("SELECT idmessage FROM duel WHERE idMessage = ?");
+            prepStmntPersonInsert.setString(1, messageid);
+            myRS = prepStmntPersonInsert.executeQuery();
+
+            if (myRS.next()) {
+                myCon = DriverManager.getConnection(url, user, pwd);
+                prepStmntPersonInsert = myCon.prepareStatement("update duel set playerEstus" + numb + " = playerEstus" + numb + " - 1 where idMessage = ?;");
+                prepStmntPersonInsert.setString(1, messageid);
                 prepStmntPersonInsert.executeUpdate();
             }
 

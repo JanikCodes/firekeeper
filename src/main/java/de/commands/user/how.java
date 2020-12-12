@@ -15,7 +15,7 @@ public class how {
                         ":white_small_square: **Vitality** increases your health.\n" +
                         ":white_small_square: **Intelligence** increases your **dodge** chance against bosses + you have a higher chance of winning the **special encounters**. \n" +
                         ":white_small_square: **Resistance** reduces incoming damage + increases your maximum health. \n" +
-                        ":white_small_square: **Faith** gives your **extra souls** while clearing areas \n **+** Depending on how high your faith skill is you'll have a different amount of **Estus Flakon** to use in Boss fights.\n 100 Faith = 10 Estus Flakon, 30 Faith = 3 Estus Flakon \n" +
+                        ":white_small_square: **Faith** gives your **extra souls** while clearing areas \n **+** Depending on how high your faith skill is you'll have a different amount of **Estus Flakon** to use in Boss fights and duels.\n 100 Faith = 10 Estus Flakon, 30 Faith = 3 Estus Flakon \n" +
                         ":white_small_square: **All stats** increases your total **soul gain**. All stats are universal and the same on every server with this bot on! \n"
                 , Color.red, null, null, null).build()).complete();
     }
