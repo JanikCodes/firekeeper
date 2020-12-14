@@ -54,10 +54,15 @@ public class achievements {
         ms.setDescription("Completed Achievements: **" + completed + "/" + achievements.size() + "**");
         ms.setFooter("page 1/" + maxpages);
 
-        Message msg = currchat.sendMessage(ms.build()).complete();
-        Database.createAchievementRelation(member.getId(), msg.getId());
-        msg.addReaction("◀️").queue();
-        msg.addReaction("▶️").queue();
+        final String[] messageID = {null};
+
+        currchat.sendMessage(ms.build()).queue(message -> {
+            message.addReaction("◀️").queue();
+            message.addReaction("▶️").queue();
+            messageID[0] = message.getId();
+            Database.createAchievementRelation(member.getId(), messageID[0]);
+        });
+
     }
 
     public static EmbedBuilder editAchievementPage(Member member, int page, String messageID, String dir) {

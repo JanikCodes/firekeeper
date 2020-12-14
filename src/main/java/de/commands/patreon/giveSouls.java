@@ -1,6 +1,7 @@
 package de.commands.patreon;
 
 import de.coaster.Database;
+import de.coaster.GuildMessageReceived;
 import de.utilities.createEmbed;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
@@ -18,6 +19,7 @@ public class giveSouls {
 
                     if (soulAway < soulAvailable) {
                         //Enough to donate
+                        GuildMessageReceived.doesUserExist(event.getMessage().getMentionedMembers().get(0));
                         Database.reduceSouls(event.getMember().getId(), soulAway);
                         Database.giveSouls(event.getMessage().getMentionedMembers().get(0).getId(), soulAway);
                         currchat.sendMessage(createEmbed.methode("Information", "Successfully donated " + soulAway + " souls to " + event.getMessage().getMentionedMembers().get(0).getAsMention() + "!", Color.green, null, null, null).build()).queue();

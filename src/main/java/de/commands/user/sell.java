@@ -12,10 +12,12 @@ public class sell {
 
     public static void methode(GuildMessageReceivedEvent event, String prefix, TextChannel currchat) {
         Integer itemvalue = Database.getTotalItemValue(event.getMember().getId());
-        Message thismess = currchat.sendMessage(createEmbed.methode("**Lonesome Gavlan**", "Hello " + event.getMember().getAsMention() + "! \n Do you want to **sell** all your items in your **inventory**? \n You would get **" + itemvalue + "** souls! \n Are you willing to sell?", Color.red, "Accept or decline with the reactions below", null, "https://cdn.discordapp.com/attachments/773175900178743297/781193058095857704/gavlanframe.jpg").build()).complete();
-        Database.createSellRelation(thismess.getId(), event.getMember().getId());
-        thismess.addReaction("✅").queue();
-        thismess.addReaction("❌").queue();
+        currchat.sendMessage(createEmbed.methode("**Lonesome Gavlan**", "Hello " + event.getMember().getAsMention() + "! \n Do you want to **sell** all your items in your **inventory**? \n You would get **" + itemvalue + "** souls! \n Are you willing to sell?", Color.red, "Accept or decline with the reactions below", null, "https://cdn.discordapp.com/attachments/773175900178743297/781193058095857704/gavlanframe.jpg").build()).queue(message -> {
+            message.addReaction("✅").queue();
+            message.addReaction("❌").queue();
+            Database.createSellRelation(message.getId(), event.getMember().getId());
+        });
+
     }
 
 }

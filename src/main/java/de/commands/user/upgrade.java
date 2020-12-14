@@ -19,10 +19,11 @@ public class upgrade {
                     Integer itemStats = Database.getItemBonus(Integer.parseInt(arg2), event.getMember().getId());
                     Integer itemLevel = Database.getItemLevel(Integer.parseInt(arg2), event.getMember().getId());
                     Integer itemCost = 25000 + (30000 * itemLevel);
-                    Message msg = currchat.sendMessage(createEmbed.methode("Forge", "Do you want to upgrade the weapon?\n Weapon: **" + itemName + " +" + itemLevel + "** \n Current damage: **" + itemStats + "** \n After upgrade: **" + (itemStats + 5) + "** \n Upgrade cost: **" + itemCost + " souls**", Color.green, "React with the reactions below to upgrade!", null, null).build()).complete();
-                    msg.addReaction("✅").queue();
-                    msg.addReaction("❌").queue();
-                    Database.createItemUpgradeRelation(Integer.parseInt(arg2), event.getMember().getId(), msg.getId(), arg1);
+                    currchat.sendMessage(createEmbed.methode("Forge", "Do you want to upgrade the weapon?\n Weapon: **" + itemName + " +" + itemLevel + "** \n Current damage: **" + itemStats + "** \n After upgrade: **" + (itemStats + 5) + "** \n Upgrade cost: **" + itemCost + " souls**", Color.green, "React with the reactions below to upgrade!", null, null).build()).queue(message -> {
+                        message.addReaction("✅").queue();
+                        message.addReaction("❌").queue();
+                        Database.createItemUpgradeRelation(Integer.parseInt(arg2), event.getMember().getId(), message.getId(), arg1);
+                    });
 
                 } else {
                     //Error finding items
@@ -39,10 +40,11 @@ public class upgrade {
                     Integer itemStats = Database.getItemBonus(Integer.parseInt(arg2), event.getMember().getId());
                     Integer itemLevel = Database.getItemLevel(Integer.parseInt(arg2), event.getMember().getId());
                     Integer itemCost = 25000 + (30000 * itemLevel);
-                    Message msg = currchat.sendMessage(createEmbed.methode("Forge", "Do you want to upgrade the armor?\n Armor: **" + itemName + " +" + itemLevel + "** \n Current resistance: **" + itemStats + "** \n After upgrade: **" + (itemStats + 5) + "** \n Upgrade cost: **" + itemCost + " souls**", Color.green, "React with the reactions below to upgrade!", null, null).build()).complete();
-                    msg.addReaction("✅").queue();
-                    msg.addReaction("❌").queue();
-                    Database.createItemUpgradeRelation(Integer.parseInt(arg2), event.getMember().getId(), msg.getId(), arg1);
+                    currchat.sendMessage(createEmbed.methode("Forge", "Do you want to upgrade the armor?\n Armor: **" + itemName + " +" + itemLevel + "** \n Current resistance: **" + itemStats + "** \n After upgrade: **" + (itemStats + 5) + "** \n Upgrade cost: **" + itemCost + " souls**", Color.green, "React with the reactions below to upgrade!", null, null).build()).queue(message -> {
+                        message.addReaction("✅").queue();
+                        message.addReaction("❌").queue();
+                        Database.createItemUpgradeRelation(Integer.parseInt(arg2), event.getMember().getId(), message.getId(), arg1);
+                    });
                 } else {
                     //Error finding items
                     currchat.sendMessage(createEmbed.methode("**ERROR**", "Could not find the Item you were looking for.", Color.red, null, null, null).build()).complete();

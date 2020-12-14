@@ -757,7 +757,7 @@ public class Database {
         return value;
     }
 
-    public static int getAreaProgress(String serverID) {
+    public static int getAreaProgress(String memberID) {
         int value = 0;
 
         try {
@@ -765,7 +765,7 @@ public class Database {
 
             myCon = DriverManager.getConnection(url, user, pwd);
             prepStmntPersonInsert = myCon.prepareStatement("select sum(strength + dexterity + vitality + resistance) from users where idUsers = ?;");
-            prepStmntPersonInsert.setString(1, serverID);
+            prepStmntPersonInsert.setString(1, memberID);
             myRS = prepStmntPersonInsert.executeQuery();
             if(myRS.next()){
                 value = myRS.getInt(1);
@@ -960,7 +960,7 @@ public class Database {
         try {
             java.sql.PreparedStatement prepStmntPersonInsert;
             myCon = DriverManager.getConnection(url, user, pwd);
-            prepStmntPersonInsert = myCon.prepareStatement("select " + field + " from items i, item_user_relation r where i.idItem = r.idItem AND idUser = ? and type = '" + item_type + "'");
+            prepStmntPersonInsert = myCon.prepareStatement("select " + field + " from items i, item_user_relation r where i.idItem = r.idItem AND idUser = ? and type = '" + item_type + "' ORDER BY i.bonus + (5 * r.level) DESC;");
             prepStmntPersonInsert.setString(1, memberid);
 
             myRS = prepStmntPersonInsert.executeQuery();

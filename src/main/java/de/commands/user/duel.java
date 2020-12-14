@@ -37,13 +37,18 @@ public class duel {
         int playerMaxHealth1 = 150 + (playerHealth1 + playerRes1) * 8;
         int playerMaxHealth2 = 150 + (playerHealth2 + playerRes2) * 8;
 
-        Message msg = currchat.sendMessage(createEmbed.methode("Duel", player2.getAsMention() + " please choose an action!\n" + initHealthBars.initDescriptionPvp(idMember1,idMember2, playerMaxHealth1, playerMaxHealth1, playerMaxHealth2, playerMaxHealth2, "", "",event) + "\n\n**" + player1.getEffectiveName() + "'s** Estus Flakon: **" + playerEstus1 + "**x \n**" + player2.getEffectiveName() + "'s** Estus Flakon: **" + playerEstus2 + "**x \n\n**React below** to choose your next **action**! \n \n ⚔ - attack <:sh:784184343416537141> - block \n <:hea:784185738681516053> - heal <:ddg:784349634163507240> - dodge", Color.black, null, null, null).build()).complete();
-        msg.addReaction("⚔️").queue();
-        msg.addReaction("sh:784184343416537141").queue();
-        msg.addReaction("hea:784185738681516053").queue();
-        msg.addReaction("ddg:784349634163507240").queue();
+        final String[] messageID = {null};
 
-        Database.createDuelRelation(msg.getId(),player1.getId(),player2.getId(),playerMaxHealth1,playerMaxHealth2,playerEstus1,playerEstus2,2);
+        currchat.sendMessage(createEmbed.methode("Duel", player2.getAsMention() + " please choose an action!\n" + initHealthBars.initDescriptionPvp(idMember1,idMember2, playerMaxHealth1, playerMaxHealth1, playerMaxHealth2, playerMaxHealth2, "", "",event) + "\n\n**" + player1.getEffectiveName() + "'s** Estus Flakon: **" + playerEstus1 + "**x \n**" + player2.getEffectiveName() + "'s** Estus Flakon: **" + playerEstus2 + "**x \n\n**React below** to choose your next **action**! \n \n ⚔ - attack <:sh:784184343416537141> - block \n <:hea:784185738681516053> - heal <:ddg:784349634163507240> - dodge", Color.black, null, null, null).build()).queue(message -> {
+            message.addReaction("⚔️").queue();
+            message.addReaction("sh:784184343416537141").queue();
+            message.addReaction("hea:784185738681516053").queue();
+            message.addReaction("ddg:784349634163507240").queue();
+            messageID[0] = message.getId();
+            Database.createDuelRelation(messageID[0],player1.getId(),player2.getId(),playerMaxHealth1,playerMaxHealth2,playerEstus1,playerEstus2,2);
+
+        });
+
     }
 
     private static int getEstus(Integer faith){

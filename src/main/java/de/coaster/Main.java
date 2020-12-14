@@ -17,16 +17,16 @@ public class Main {
 
     public static String defaultprefix = "!";
     public static String botAddLink = "https://discord.com/api/oauth2/authorize?client_id=760993270133555231&permissions=134556736&scope=bot";
-    public static int bossTime = 7200;
-    public static int clearTime = 7200;
-    public static int voteClearTime = clearTime / 2;
-    public static int voteBossTime = bossTime / 2;
+    public static int bossTime = 3600;
+    public static int clearTime = 5400;
+    public static int voteClearTime = 3600;
+    public static int voteBossTime = 2700;
 
-    public static int bossTimeWon = 86400;
-    public static int voteBossTimeWon = 43200;
+    public static int bossTimeWon = 5400;
+    public static int voteBossTimeWon = 3600;
 
     public static int patreonTime = 1800;
-    public static int patreonTimeBossWon = 14400;
+    public static int patreonTimeBossWon = 1800;
     public static double tier1SoulMulti = 1.5;
     public static int tier2SoulMulti = 2;
 
@@ -62,7 +62,6 @@ public class Main {
                     .setStatus(OnlineStatus.ONLINE)
                     .addEventListeners(new CommandListener())
                     .addEventListeners(new GuildMessageReceived())
-                    .addEventListeners(new GuildMemberJoin())
                     .addEventListeners(new GuildsListener())
                     .addEventListeners(new OnReadyListener())
                     .build();

@@ -49,13 +49,18 @@ public class fightBoss {
             String attackName = bossAttacks.get(randomAttack);
             int attackID = Database.getBossAttackID(attackName);
 
-            Message msg = currchat.sendMessage(createEmbed.methode(bossName, "As you leave the fog you see **" + bossName + "**! \n" + initHealthBars.methode(event.getMember(), playerMaxHealth, playerMaxHealth, bossMaxHealth, bossMaxHealth, "", "") + "\n \n " + attackName + "\n \n**React below** to choose your next **action**! \n \n ⚔ - attack <:sh:784184343416537141> - block \n <:hea:784185738681516053> - heal <:ddg:784349634163507240> - dodge", Color.black, null, null, bossURL).build()).complete();
-            msg.addReaction("⚔️").queue();
-            msg.addReaction("sh:784184343416537141").queue();
-            msg.addReaction("hea:784185738681516053").queue();
-            msg.addReaction("ddg:784349634163507240").queue();
+            final String[] messageID = {null};
 
-            Database.createBossRelation(msg.getId(),memberID,bossID,attackID,playerMaxHealth,bossMaxHealth,estus_amount);
+            int finalEstus_amount = estus_amount;
+            currchat.sendMessage(createEmbed.methode(bossName, "As you leave the fog you see **" + bossName + "**! \n" + initHealthBars.methode(event.getMember(), playerMaxHealth, playerMaxHealth, bossMaxHealth, bossMaxHealth, "", "") + "\n \n " + attackName + "\n \n**React below** to choose your next **action**! \n \n ⚔ - attack <:sh:784184343416537141> - block \n <:hea:784185738681516053> - heal <:ddg:784349634163507240> - dodge", Color.black, null, null, bossURL).build()).queue(message -> {
+                message.addReaction("⚔️").queue();
+                message.addReaction("sh:784184343416537141").queue();
+                message.addReaction("hea:784185738681516053").queue();
+                message.addReaction("ddg:784349634163507240").queue();
+                messageID[0] = message.getId();
+                Database.createBossRelation(messageID[0],memberID,bossID,attackID,playerMaxHealth,bossMaxHealth, finalEstus_amount);
+            });
+
 
         } else {
             //Can't do boss
@@ -385,7 +390,7 @@ public class fightBoss {
                 }
 
                 //Give user reward for killing it
-                double soulAmount = Database.getBossReward(bossID);
+                double soulAmount = Database.getBossReward(bossID) ;
 
                 if (findRole.methode(event.getMember(), Main.tier1) != null) {
                     soulAmount = soulAmount * Main.tier1SoulMulti;
@@ -394,7 +399,7 @@ public class fightBoss {
                     soulAmount = soulAmount * Main.tier2SoulMulti;
                 }
 
-                int IntSoulAmount = (int) soulAmount;
+                int IntSoulAmount = (int) soulAmount + (Database.getAreaProgress(memberID) * 50);
                 Database.updateBossWon(memberID,1);
                 Database.giveSouls(memberID, IntSoulAmount);
                 Database.giveBossCount(event.getGuild().getId(), 1);
