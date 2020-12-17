@@ -17,7 +17,7 @@ public class Main {
 
     public static String defaultprefix = "!";
     public static String botAddLink = "https://discord.com/api/oauth2/authorize?client_id=760993270133555231&permissions=134556736&scope=bot";
-    public static int bossTime = 3600;
+    public static int bossTime = 1800;
     public static int clearTime = 5400;
     public static int voteClearTime = 3600;
     public static int voteBossTime = 2700;
@@ -36,7 +36,7 @@ public class Main {
 
     public static JDA jda;
 
-    public static boolean test = false;
+    public static boolean test = true;
     public static boolean DEVELOPER_SERVER_MODE = false;
 
 
@@ -72,7 +72,7 @@ public class Main {
             e.printStackTrace();
         }
 
-        HttpServer server = HttpServer.create(new InetSocketAddress(8000), 0); // create a Httpserver listening on port 8000
+        HttpServer server = HttpServer.create(new InetSocketAddress(8001), 0); // create a Httpserver listening on port 8000
         server.createContext("/dblwebhook", new Reciever());  // creates a handler for when a requests comes into https://yourserverip.com/dblwebhook
         server.setExecutor(null); // creates a default executor
         server.start(); // Starts your httpserver

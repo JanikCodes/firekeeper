@@ -15,8 +15,6 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import java.awt.*;
 import java.util.List;
 import java.util.Random;
-import java.util.function.Consumer;
-
 
 public class CommandListener extends ListenerAdapter {
 
@@ -52,25 +50,25 @@ public class CommandListener extends ListenerAdapter {
                         double xpToNextLevel = (currLevel * (currLevel * 15) + 100);
                         if (currXP >= xpToNextLevel) {
                             Database.giveXP(memberID, -(currLevel * (currLevel * 15)) - 100);
-                            Database.giveLevel(memberID);
-                            Database.giveSouls(memberID, currLevel * 1100);
+                                    Database.giveLevel(memberID);
+                                    Database.giveSouls(memberID, currLevel * 1100);
 
-                            if (Database.getNotificationState(serverID) == 1) {
-                                String channelID = Database.getNotificationChannel(serverID);
+                                    if (Database.getNotificationState(serverID) == 1) {
+                                        String channelID = Database.getNotificationChannel(serverID);
 
-                                if (!channelID.equals("empty")) {
-                                    if (event.getGuild().getTextChannelById(channelID) == null) {
-                                        currchat = event.getTextChannel();
-                                    } else {
-                                        currchat = event.getGuild().getTextChannelById(channelID);
-                                    }
-                                } else {
-                                    currchat = event.getTextChannel();
-                                }
+                                        if (!channelID.equals("empty")) {
+                                            if (event.getGuild().getTextChannelById(channelID) == null) {
+                                                currchat = event.getTextChannel();
+                                            } else {
+                                                currchat = event.getGuild().getTextChannelById(channelID);
+                                            }
+                                        } else {
+                                            currchat = event.getTextChannel();
+                                        }
 
-                                if(event.getGuild().getSelfMember().hasPermission(Permission.MESSAGE_WRITE,Permission.MESSAGE_MENTION_EVERYONE)){
-                                    currchat.sendMessage(event.getMember().getAsMention()).queue();
-                                    EmbedBuilder msg = createEmbed.methode(event.getMember().getEffectiveName(), "You've gained **1 Level**! <:lv:761544969546629170> \n you are now level " + (currLevel + 1) + ".\n and you've received **" + (currLevel * 1100) + " souls!**", Color.orange, "Admins can disable this notification by typing " + prefix + "levelNotification false", null,null);
+                                        if(event.getGuild().getSelfMember().hasPermission(Permission.MESSAGE_WRITE,Permission.MESSAGE_MENTION_EVERYONE)){
+                                            currchat.sendMessage(event.getMember().getAsMention()).queue();
+                                            EmbedBuilder msg = createEmbed.methode(event.getMember().getEffectiveName(), "You've gained **1 Level**! <:lv:761544969546629170> \n you are now level " + (currLevel + 1) + ".\n and you've received **" + (currLevel * 1100) + " souls!**", Color.orange, "Admins can disable this notification by typing " + prefix + "levelNotification false", null,null);
                                     currchat.sendMessage(msg.build()).queue();
                                 }
                             }
@@ -96,11 +94,13 @@ public class CommandListener extends ListenerAdapter {
                     String membID = Database.getOtherPlayer(message.getId());
                     if(!Database.getPlayerInDuel(memberID,membID)) {
                         if(Database.isAllowedToAcceptDuel(memberID)) {
-                            List<MessageEmbed> lmess = message.getEmbeds();
-                            MessageEmbed emb = lmess.get(0);
-                            message.editMessage(createEmbed.methode(emb.getTitle(), emb.getDescription(), Color.green, "This duel was accepted", null, null).build()).complete();
-                            duel.methode(memberID, membID, event, currchat);
-                            Database.deletePvpRelation(event.getMessageId());
+                            if(Database.duelCheckFix(event.getMember().getId())) {
+                                List<MessageEmbed> lmess = message.getEmbeds();
+                                MessageEmbed emb = lmess.get(0);
+                                message.editMessage(createEmbed.methode(emb.getTitle(), emb.getDescription(), Color.green, "This duel was accepted", null, null).build()).complete();
+                                duel.methode(memberID, membID, event, currchat);
+                                Database.deletePvpRelation(event.getMessageId());
+                            }
                         }
                     }else{
                         List<MessageEmbed> lmess = message.getEmbeds();

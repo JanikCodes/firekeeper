@@ -5,8 +5,6 @@ import de.utilities.createEmbed;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
-
-import javax.xml.soap.Text;
 import java.awt.*;
 import java.util.List;
 

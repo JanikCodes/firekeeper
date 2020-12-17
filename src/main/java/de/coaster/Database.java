@@ -3520,4 +3520,24 @@ public class Database {
         }
         return name;
     }
+
+    public static boolean duelCheckFix(String memberID) {
+        try {
+            java.sql.PreparedStatement prepStmntPersonInsert;
+            myCon = DriverManager.getConnection(url, user, pwd);
+            prepStmntPersonInsert = myCon.prepareStatement("SELECT playerID1 FROM duel_message where playerID1 = ?");
+            prepStmntPersonInsert.setString(1, memberID);
+            myRS = prepStmntPersonInsert.executeQuery();
+
+            if (myRS.next()) {
+                return false;
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }finally {
+            doFinally();
+        }
+
+        return true;
+    }
 }
