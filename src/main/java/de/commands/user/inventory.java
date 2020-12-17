@@ -40,10 +40,15 @@ public class inventory {
         ms.setDescription("Items collected: **" + itemOwned + "/" + itemSize + "** \n **Items** \n " + itemString);
         ms.setFooter("page 1/5");
 
-        Message msg = currchat.sendMessage(ms.build()).complete();
-        Database.createInventoryRelation(member.getId(), msg.getId());
-        msg.addReaction("◀️").queue();
-        msg.addReaction("▶️").queue();
+        final String[] messageID = {null};
+
+        currchat.sendMessage(ms.build()).queue(message -> {
+            message.addReaction("◀️").queue();
+            message.addReaction("▶️").queue();
+            messageID[0] = message.getId();
+            Database.createInventoryRelation(member.getId(), messageID[0]);
+        });
+
     }
 
     public static EmbedBuilder editInventoryPage(Member member, int page, String messageID, String dir) {

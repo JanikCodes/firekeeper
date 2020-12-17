@@ -23,7 +23,6 @@ public class fightBoss {
         if ((time / 1000) - lastclear > getTime.getBossTime(time, event)) {
             String memberID = event.getMember().getId();
             int bossID = Database.getPlayerBoss(memberID);
-            System.out.println(bossID);
             String bossName = Database.getBossName(bossID);
             String bossURL = Database.getBossImage(bossID);
 
@@ -43,20 +42,25 @@ public class fightBoss {
                 estus_amount = Integer.parseInt(Integer.toString(faith).substring(0, 1));
             }
 
-            int playerMaxHealth = 250 + (vitality + resistance + playerArmor) * 10;
+            int playerMaxHealth = 150 + (vitality + resistance + playerArmor) * 8;
             int bossMaxHealth = Database.getBossHealth(bossID);
             ArrayList<String> bossAttacks = Database.getBossAttacks(bossID,1,0);
             int randomAttack = getRandomNumberInRange.methode(0,bossAttacks.size() - 1);
             String attackName = bossAttacks.get(randomAttack);
             int attackID = Database.getBossAttackID(attackName);
 
-            Message msg = currchat.sendMessage(createEmbed.methode(bossName, "As you leave the fog you see **" + bossName + "**! \n" + initHealthBars.methode(event.getMember(), playerMaxHealth, playerMaxHealth, bossMaxHealth, bossMaxHealth, "", "") + "\n \n " + attackName + "\n \n**React below** to choose your next **action**! \n \n ⚔ - attack <:sh:784184343416537141> - block \n <:hea:784185738681516053> - heal <:ddg:784349634163507240> - dodge", Color.black, null, null, bossURL).build()).complete();
-            msg.addReaction("⚔️").queue();
-            msg.addReaction("sh:784184343416537141").queue();
-            msg.addReaction("hea:784185738681516053").queue();
-            msg.addReaction("ddg:784349634163507240").queue();
+            final String[] messageID = {null};
 
-            Database.createBossRelation(msg.getId(),memberID,bossID,attackID,playerMaxHealth,bossMaxHealth,estus_amount);
+            int finalEstus_amount = estus_amount;
+            currchat.sendMessage(createEmbed.methode(bossName, "As you leave the fog you see **" + bossName + "**! \n" + initHealthBars.methode(event.getMember(), playerMaxHealth, playerMaxHealth, bossMaxHealth, bossMaxHealth, "", "") + "\n \n " + attackName + "\n \n**React below** to choose your next **action**! \n \n ⚔ - attack <:sh:784184343416537141> - block \n <:hea:784185738681516053> - heal <:ddg:784349634163507240> - dodge", Color.black, null, null, bossURL).build()).queue(message -> {
+                message.addReaction("⚔️").queue();
+                message.addReaction("sh:784184343416537141").queue();
+                message.addReaction("hea:784185738681516053").queue();
+                message.addReaction("ddg:784349634163507240").queue();
+                messageID[0] = message.getId();
+                Database.createBossRelation(messageID[0],memberID,bossID,attackID,playerMaxHealth,bossMaxHealth, finalEstus_amount);
+            });
+
 
         } else {
             //Can't do boss
@@ -87,7 +91,7 @@ public class fightBoss {
         int weaponDamage = Database.getWeaponDamage(memberID);
         int playerArmor = Database.getArmorBonus(memberID);
 
-        int playerMaxHealth = 250 + (vitality + resistance + playerArmor) * 10;
+        int playerMaxHealth = 150 + (vitality + resistance + playerArmor) * 8;
         int playerDamage = 100 + ((strength/2) + (dexterity/2) + weaponDamage) * 2;
 
         int bossMaxHealth = Database.getBossHealth(bossID);
@@ -104,6 +108,9 @@ public class fightBoss {
         }else if(phase_type.equals("half")){
             if(bossCurrentHealth <= (bossMaxHealth / 2)) {
                 bossAttacks = Database.getBossAttacks(bossID, 2,0);
+                if (Database.completeAchievement(memberID, 1)) {
+                    rewardUser.methode(memberID, "souls", 5000);
+                }
             }else{
                 bossAttacks = Database.getBossAttacks(bossID,1,0);
             }
@@ -147,12 +154,12 @@ public class fightBoss {
                 playerTextHealth = "** -" + (last_attack_value - playerArmor)+ "**";
 
             }else if(last_attack_type.equals("block")){
-                if(((bossCurrentHealth - playerDamage ) - last_attack_value) <= 0){
+                if(((bossCurrentHealth - (playerDamage / 2))) <= 0){
                     bossCurrentHealth = 0;
                 }else{
-                    bossCurrentHealth = bossCurrentHealth - (playerDamage - last_attack_value);
+                    bossCurrentHealth = bossCurrentHealth - (playerDamage / 2);
                 }
-                bossTextHealth = "** -" + (playerDamage - last_attack_value) + "**, blocked **" + last_attack_value + "** damage!";
+                bossTextHealth = "** -" + (playerDamage / 2) + "**, blocked **" + (playerDamage / 2) + "** damage!";
                 playerTextHealth = "";
 
             }else if(last_attack_type.equals("free")){
@@ -168,6 +175,16 @@ public class fightBoss {
             }else if(last_attack_type.equals("cant")){
                 bossTextHealth = "";
                 playerTextHealth = " **missed!**";
+
+            }else if(last_attack_type.equals("weakness")){
+                if((bossCurrentHealth - (playerDamage + last_attack_value)) <= 0){
+                    bossCurrentHealth = 0;
+                }else{
+                    bossCurrentHealth = bossCurrentHealth - (playerDamage + last_attack_value);
+                }
+
+                bossTextHealth = "** -" + (playerDamage + last_attack_value) + " ❗️**";
+                playerTextHealth = "";
             }
 
             //PLAYER CHOOSE TO BLOCK
@@ -194,13 +211,16 @@ public class fightBoss {
                 bossTextHealth = "";
                 playerTextHealth = "";
 
+            }else if(last_attack_type.equals("weakness")){
+                bossTextHealth = "";
+                playerTextHealth = "";
             }
 
             //PLAYER CHOOSE TO HEAL
         }else if(player_choice.equals("heal")){
 
             if(last_attack_type.equals("damage")){
-                int healAmount = (faith * 10) + 250;
+                int healAmount = 550;
                 //check if overhealed
                 if((Database.getEstusCount(messageid,memberID)) >= 1) {
                     if (healAmount + playerCurrentHealth > playerMaxHealth) {
@@ -229,7 +249,7 @@ public class fightBoss {
 
 
             }else if(last_attack_type.equals("block")){
-                int healAmount = (faith * 10) + 250;
+                int healAmount = 550;
                 //check if overhealed
                 if((Database.getEstusCount(messageid,memberID)) >= 1) {
                     if (healAmount + playerCurrentHealth > playerMaxHealth) {
@@ -249,7 +269,7 @@ public class fightBoss {
 
 
             }else if(last_attack_type.equals("free")){
-                int healAmount = (faith * 10) + 250;
+                int healAmount = 550;
                 //check if overhealed
                 if((Database.getEstusCount(messageid,memberID)) >= 1) {
                     if (healAmount + playerCurrentHealth > playerMaxHealth) {
@@ -268,7 +288,7 @@ public class fightBoss {
                 }
 
             }else if(last_attack_type.equals("cant")){
-                int healAmount = (faith * 10) + 250;
+                int healAmount = 550;
                 //check if overhealed
                 if((Database.getEstusCount(messageid,memberID)) >= 1) {
                     if (healAmount + playerCurrentHealth > playerMaxHealth) {
@@ -286,6 +306,24 @@ public class fightBoss {
                     playerTextHealth = " no more healing left!";
                 }
 
+            }else if(last_attack_type.equals("weakness")){
+                int healAmount = 550;
+                //check if overhealed
+                if((Database.getEstusCount(messageid,memberID)) >= 1) {
+                    if (healAmount + playerCurrentHealth > playerMaxHealth) {
+                        healAmount = playerMaxHealth - playerCurrentHealth;
+                    }
+
+                    Database.removeEstusFromBossFight(messageid, memberID);
+
+                    playerCurrentHealth = playerCurrentHealth +  healAmount;
+
+                    bossTextHealth = "";
+                    playerTextHealth = "** +" + healAmount + "** health";
+                }else{
+                    bossTextHealth = "";
+                    playerTextHealth = " no more healing left!";
+                }
             }
 
             //PLAYER CHOOSE TO DODGE
@@ -322,6 +360,9 @@ public class fightBoss {
                 bossTextHealth = "";
                 playerTextHealth = "";
 
+            }else if(last_attack_type.equals("weakness")){
+                bossTextHealth = "";
+                playerTextHealth = "";
             }
         }
 
@@ -335,6 +376,9 @@ public class fightBoss {
             //Player won
             if(phase_type.equals("full") && Database.getCurrentPhase(messageid,memberID) == 1){
                 //Makes boss full life again
+                if (Database.completeAchievement(memberID, 1)) {
+                    rewardUser.methode(memberID, "souls", 5000);
+                }
                 Database.updateBossPhase(messageid,memberID,2);
                 bossCurrentHealth = bossMaxHealth;
                 Database.updateBossFightHealth("playerHealth",playerCurrentHealth,messageid,memberID);
@@ -346,7 +390,7 @@ public class fightBoss {
                 }
 
                 //Give user reward for killing it
-                double soulAmount = Database.getBossReward(bossID);
+                double soulAmount = Database.getBossReward(bossID) ;
 
                 if (findRole.methode(event.getMember(), Main.tier1) != null) {
                     soulAmount = soulAmount * Main.tier1SoulMulti;
@@ -355,7 +399,7 @@ public class fightBoss {
                     soulAmount = soulAmount * Main.tier2SoulMulti;
                 }
 
-                int IntSoulAmount = (int) soulAmount;
+                int IntSoulAmount = (int) soulAmount + (Database.getAreaProgress(memberID) * 50);
                 Database.updateBossWon(memberID,1);
                 Database.giveSouls(memberID, IntSoulAmount);
                 Database.giveBossCount(event.getGuild().getId(), 1);

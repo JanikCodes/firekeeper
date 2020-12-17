@@ -1,5 +1,4 @@
 package de.coaster;
-import de.objects.Clan;
 import net.dv8tion.jda.api.entities.Member;
 
 import java.sql.*;
@@ -167,9 +166,9 @@ public class Database {
                 prepStmntPersonInsert.setInt(9, 1);
                 prepStmntPersonInsert.setInt(10, 1);
                 prepStmntPersonInsert.setInt(11, 1);
-                prepStmntPersonInsert.setString(12, username);
+                prepStmntPersonInsert.setInt(12, 0);
                 prepStmntPersonInsert.setInt(13, 0);
-                prepStmntPersonInsert.setInt(14, 0);
+                prepStmntPersonInsert.setString(14, username);
                 prepStmntPersonInsert.setInt(15, 0);
                 prepStmntPersonInsert.setInt(16, 0);
                 prepStmntPersonInsert.setInt(17, 0);
@@ -757,7 +756,7 @@ public class Database {
         return value;
     }
 
-    public static int getAreaProgress(String serverID) {
+    public static int getAreaProgress(String memberID) {
         int value = 0;
 
         try {
@@ -765,7 +764,7 @@ public class Database {
 
             myCon = DriverManager.getConnection(url, user, pwd);
             prepStmntPersonInsert = myCon.prepareStatement("select sum(strength + dexterity + vitality + resistance) from users where idUsers = ?;");
-            prepStmntPersonInsert.setString(1, serverID);
+            prepStmntPersonInsert.setString(1, memberID);
             myRS = prepStmntPersonInsert.executeQuery();
             if(myRS.next()){
                 value = myRS.getInt(1);
@@ -960,7 +959,7 @@ public class Database {
         try {
             java.sql.PreparedStatement prepStmntPersonInsert;
             myCon = DriverManager.getConnection(url, user, pwd);
-            prepStmntPersonInsert = myCon.prepareStatement("select " + field + " from items i, item_user_relation r where i.idItem = r.idItem AND idUser = ? and type = '" + item_type + "'");
+            prepStmntPersonInsert = myCon.prepareStatement("select " + field + " from items i, item_user_relation r where i.idItem = r.idItem AND idUser = ? and type = '" + item_type + "' ORDER BY i.bonus + (5 * r.level) DESC;");
             prepStmntPersonInsert.setString(1, memberid);
 
             myRS = prepStmntPersonInsert.executeQuery();
@@ -1065,6 +1064,27 @@ public class Database {
         return name;
     }
 
+    public static String showUsernameLeaderboardKills(String memberID) {
+        String name = "unknown";
+        try {
+            java.sql.PreparedStatement prepStmntPersonInsert;
+            myCon = DriverManager.getConnection(url, user, pwd);
+            prepStmntPersonInsert = myCon.prepareStatement("select username from users where idusers = ? ORDER BY kills DESC;");
+            prepStmntPersonInsert.setString(1, memberID);
+
+            myRS = prepStmntPersonInsert.executeQuery();
+            if(myRS.next()){
+                name = myRS.getString(1);
+            }
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }finally{
+            doFinally();
+        }
+        return name;
+    }
+
 
     public static int showLevelLeaderboardOrderBy(String memID){
         int cunt = 0;
@@ -1089,61 +1109,12 @@ public class Database {
         return cunt;
     }
 
-    public static boolean findMessageID(String messageId, String memberID) {
-        boolean value = false;
-
-        try {
-            java.sql.PreparedStatement prepStmntPersonInsert;
-
-            myCon = DriverManager.getConnection(url, user, pwd);
-            prepStmntPersonInsert = myCon.prepareStatement("select idMessage from pvp where idMessage = ? AND idMember2 = ?");
-            prepStmntPersonInsert.setString(1, messageId);
-            prepStmntPersonInsert.setString(2, memberID);
-
-            myRS = prepStmntPersonInsert.executeQuery();
-            if(myRS.next()){
-                value = true;
-            }
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }finally {
-            doFinally();
-        }
-        return value;
-    }
-
-    public static void createPvpRelation(String id, String id1, String id2) {
-        try {
-            java.sql.PreparedStatement prepStmntPersonInsert;
-
-            myCon = DriverManager.getConnection(url, user, pwd);
-            prepStmntPersonInsert = myCon.prepareStatement("SELECT idMessage FROM pvp WHERE idMessage = ?");
-            prepStmntPersonInsert.setString(1, id);
-
-            myRS = prepStmntPersonInsert.executeQuery();
-            if (!myRS.next()) {
-                prepStmntPersonInsert = myCon.prepareStatement("INSERT INTO pvp (idMessage, idMember1, idMember2) VALUES( ?, ?, ?)");
-                prepStmntPersonInsert.setString(1, id);
-                prepStmntPersonInsert.setString(2, id1);
-                prepStmntPersonInsert.setString(3, id2);
-                prepStmntPersonInsert.executeUpdate();
-            }
-
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }finally{
-            doFinally();
-        }
-    }
-
     public static void deletePvpRelation(String messageId) {
         try {
             java.sql.PreparedStatement prepStmntPersonInsert;
 
             myCon = DriverManager.getConnection(url, user, pwd);
-            prepStmntPersonInsert = myCon.prepareStatement("DELETE FROM pvp WHERE idMessage = ?");
+            prepStmntPersonInsert = myCon.prepareStatement("DELETE FROM duel_message WHERE idMessage = ?");
             prepStmntPersonInsert.setString(1, messageId);
             prepStmntPersonInsert.executeUpdate();
 
@@ -1155,19 +1126,14 @@ public class Database {
         }
     }
 
-    public static String getOtherPlayer(String messageId) {
-        String memID = null;
+    public static void deleteDuelRelation(String messageId) {
         try {
             java.sql.PreparedStatement prepStmntPersonInsert;
 
             myCon = DriverManager.getConnection(url, user, pwd);
-            prepStmntPersonInsert = myCon.prepareStatement("SELECT idMember1 FROM pvp WHERE idMessage = ?");
+            prepStmntPersonInsert = myCon.prepareStatement("DELETE FROM duel WHERE idMessage = ?");
             prepStmntPersonInsert.setString(1, messageId);
-
-            myRS = prepStmntPersonInsert.executeQuery();
-            if (myRS.next()) {
-               memID = myRS.getString(1);
-            }
+            prepStmntPersonInsert.executeUpdate();
 
         } catch (SQLException e) {
             // TODO Auto-generated catch block
@@ -1175,7 +1141,6 @@ public class Database {
         }finally{
             doFinally();
         }
-        return memID;
     }
 
     public static boolean completeAchievement(String memberID, Integer aID){
@@ -2951,14 +2916,15 @@ public class Database {
             myRS = prepStmntPersonInsert.executeQuery();
 
             if (myRS.next()) {
-                System.out.println("Found");
                 myCon = DriverManager.getConnection(url, user, pwd);
                 prepStmntPersonInsert = myCon.prepareStatement("update users set current_boss  = ? where idUsers = ?;");
                 prepStmntPersonInsert.setInt(1, bossID + 1);
                 prepStmntPersonInsert.setString(2, memberID);
                 prepStmntPersonInsert.executeUpdate();
             }else{
-                System.out.println("Didnt found");
+                if (completeAchievement(memberID, 2)) {
+                    rewardUser.methode(memberID, "title", 17);
+                }
                 myCon = DriverManager.getConnection(url, user, pwd);
                 prepStmntPersonInsert = myCon.prepareStatement("update users set current_boss = 1 where idUsers = ?;");
                 prepStmntPersonInsert.setString(1, memberID);
@@ -3010,6 +2976,568 @@ public class Database {
         }
 
         return boss;
+    }
+
+    public static boolean getDuelRelation(String messageId) {
+        boolean ret = false;
+
+        try {
+            java.sql.PreparedStatement prepStmntPersonInsert;
+            myCon = DriverManager.getConnection(url, user, pwd);
+            prepStmntPersonInsert = myCon.prepareStatement("SELECT idMessage FROM duel where idMessage = ?;");
+            prepStmntPersonInsert.setString(1, messageId);
+            myRS = prepStmntPersonInsert.executeQuery();
+
+            if (myRS.next()) {
+                ret = true;
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }finally {
+            doFinally();
+        }
+
+        return ret;
+    }
+
+    public static void createPvpRelation(String messageid, String memberID1, String memberID2) {
+        try {
+            java.sql.PreparedStatement prepStmntPersonInsert;
+
+            myCon = DriverManager.getConnection(url, user, pwd);
+            prepStmntPersonInsert = myCon.prepareStatement("SELECT idMessage FROM duel_message WHERE idMessage = ?");
+            prepStmntPersonInsert.setString(1, messageid);
+
+            myRS = prepStmntPersonInsert.executeQuery();
+            if (!myRS.next()) {
+                prepStmntPersonInsert = myCon.prepareStatement("INSERT INTO duel_message VALUES(?, ?, ?);");
+                prepStmntPersonInsert.setString(1, messageid);
+                prepStmntPersonInsert.setString(2, memberID1);
+                prepStmntPersonInsert.setString(3, memberID2);
+                prepStmntPersonInsert.executeUpdate();
+            }
+
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }finally{
+            doFinally();
+        }
+    }
+
+    public static boolean findDuelMessageID(String messageId) {
+        try {
+            java.sql.PreparedStatement prepStmntPersonInsert;
+            myCon = DriverManager.getConnection(url, user, pwd);
+            prepStmntPersonInsert = myCon.prepareStatement("SELECT idMessage FROM duel_message where idMessage = ?;");
+            prepStmntPersonInsert.setString(1, messageId);
+            myRS = prepStmntPersonInsert.executeQuery();
+
+            if (myRS.next()) {
+                return true;
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }finally {
+            doFinally();
+        }
+
+        return false;
+    }
+
+    public static String getOtherPlayer(String messageId) {
+        String memberID = null;
+        try {
+            java.sql.PreparedStatement prepStmntPersonInsert;
+            myCon = DriverManager.getConnection(url, user, pwd);
+            prepStmntPersonInsert = myCon.prepareStatement("SELECT playerID1 FROM duel_message where idMessage = ?;");
+            prepStmntPersonInsert.setString(1, messageId);
+            myRS = prepStmntPersonInsert.executeQuery();
+
+            if (myRS.next()) {
+                memberID = myRS.getString(1);
+            }else{
+                System.out.println("Not found");
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }finally {
+            doFinally();
+        }
+
+        return memberID;
+    }
+
+    public static String getOtherPlayerInDuel(String messageId) {
+        String memberID = null;
+        try {
+            java.sql.PreparedStatement prepStmntPersonInsert;
+            myCon = DriverManager.getConnection(url, user, pwd);
+            prepStmntPersonInsert = myCon.prepareStatement("SELECT playerID1 FROM duel where idMessage = ?;");
+            prepStmntPersonInsert.setString(1, messageId);
+            myRS = prepStmntPersonInsert.executeQuery();
+
+            if (myRS.next()) {
+                memberID = myRS.getString(1);
+            }else{
+                System.out.println("Not found");
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }finally {
+            doFinally();
+        }
+
+        return memberID;
+    }
+
+    public static boolean getPlayerInDuel(String memberID1, String memberID2) {
+        try {
+            java.sql.PreparedStatement prepStmntPersonInsert;
+            myCon = DriverManager.getConnection(url, user, pwd);
+            prepStmntPersonInsert = myCon.prepareStatement("SELECT idMessage FROM duel where playerID1 = ? or playerID2 = ? or playerID1 = ? or playerID2 = ?;");
+            prepStmntPersonInsert.setString(1, memberID1);
+            prepStmntPersonInsert.setString(2, memberID1);
+            prepStmntPersonInsert.setString(3, memberID2);
+            prepStmntPersonInsert.setString(4, memberID2);
+            myRS = prepStmntPersonInsert.executeQuery();
+
+            if (myRS.next()) {
+                return true;
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }finally {
+            doFinally();
+        }
+
+        return false;
+    }
+
+    public static void createDuelRelation(String messageid, String idMember1, String idmember2, int playerMaxHealth1, int playerMaxHealth2, int playerEstus1, int playerEstus2, int turn) {
+        try {
+            java.sql.PreparedStatement prepStmntPersonInsert;
+            myCon = DriverManager.getConnection(url, user, pwd);
+            prepStmntPersonInsert = myCon.prepareStatement("INSERT INTO duel VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
+            prepStmntPersonInsert.setString(1, messageid);
+            prepStmntPersonInsert.setString(2, idMember1);
+            prepStmntPersonInsert.setString(3, idmember2);
+            prepStmntPersonInsert.setInt(4, playerMaxHealth1);
+            prepStmntPersonInsert.setInt(5, playerMaxHealth2);
+            prepStmntPersonInsert.setInt(6, playerEstus1);
+            prepStmntPersonInsert.setInt(7, playerEstus2);
+            prepStmntPersonInsert.setString(8, "none");
+            prepStmntPersonInsert.setInt(9, turn);
+            prepStmntPersonInsert.setInt(10, 1);
+            prepStmntPersonInsert.executeUpdate();
+        }catch(SQLException e){
+            e.printStackTrace();
+        }finally {
+            doFinally();
+        }
+    }
+
+    public static Integer getDuelTurn(String messageId) {
+        int new_turn = 0;
+        try {
+            java.sql.PreparedStatement prepStmntPersonInsert;
+            myCon = DriverManager.getConnection(url, user, pwd);
+            prepStmntPersonInsert = myCon.prepareStatement("SELECT turn FROM duel where idMessage = ?;");
+            prepStmntPersonInsert.setString(1, messageId);
+            myRS = prepStmntPersonInsert.executeQuery();
+
+            if (myRS.next()) {
+                new_turn = myRS.getInt(1);
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }finally {
+            doFinally();
+        }
+
+        return new_turn;
+    }
+
+    public static boolean isAllowedToAcceptDuel(String memberID) {
+        try {
+            java.sql.PreparedStatement prepStmntPersonInsert;
+            myCon = DriverManager.getConnection(url, user, pwd);
+            prepStmntPersonInsert = myCon.prepareStatement("SELECT idMessage FROM duel_message where playerID2 = ?");
+            prepStmntPersonInsert.setString(1, memberID);
+            myRS = prepStmntPersonInsert.executeQuery();
+
+            if (myRS.next()) {
+                return true;
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }finally {
+            doFinally();
+        }
+
+        return false;
+    }
+
+    public static void updateDuelLastAttack(String messageid, String attack_type) {
+        try {
+            java.sql.PreparedStatement prepStmntPersonInsert;
+
+            myCon = DriverManager.getConnection(url, user, pwd);
+            prepStmntPersonInsert = myCon.prepareStatement("SELECT idmessage FROM duel WHERE idMessage = ?");
+            prepStmntPersonInsert.setString(1, messageid);
+            myRS = prepStmntPersonInsert.executeQuery();
+
+            if (myRS.next()) {
+                myCon = DriverManager.getConnection(url, user, pwd);
+                prepStmntPersonInsert = myCon.prepareStatement("update duel set last_attack = ? where idMessage = ?;");
+                prepStmntPersonInsert.setString(1, attack_type);
+                prepStmntPersonInsert.setString(2, messageid);
+                prepStmntPersonInsert.executeUpdate();
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally{
+            doFinally();
+        }
+    }
+
+    public static void updateDuelTurn(String messageid, int turn) {
+        try {
+            java.sql.PreparedStatement prepStmntPersonInsert;
+
+            myCon = DriverManager.getConnection(url, user, pwd);
+            prepStmntPersonInsert = myCon.prepareStatement("SELECT idmessage FROM duel WHERE idMessage = ?");
+            prepStmntPersonInsert.setString(1, messageid);
+            myRS = prepStmntPersonInsert.executeQuery();
+
+            if (myRS.next()) {
+                myCon = DriverManager.getConnection(url, user, pwd);
+                prepStmntPersonInsert = myCon.prepareStatement("update duel set turn = ? where idMessage = ?;");
+                prepStmntPersonInsert.setInt(1, turn);
+                prepStmntPersonInsert.setString(2, messageid);
+                prepStmntPersonInsert.executeUpdate();
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally{
+            doFinally();
+        }
+    }
+
+    public static String getDuelPlayerTurn(String messageid, int turn) {
+        String memberID = null;
+        try {
+            java.sql.PreparedStatement prepStmntPersonInsert;
+            myCon = DriverManager.getConnection(url, user, pwd);
+            prepStmntPersonInsert = myCon.prepareStatement("SELECT playerID" + turn + " FROM duel where idMessage = ?");
+            prepStmntPersonInsert.setString(1, messageid);
+            myRS = prepStmntPersonInsert.executeQuery();
+
+            if (myRS.next()) {
+                memberID = myRS.getString(1);
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }finally {
+            doFinally();
+        }
+
+        return memberID;
+    }
+
+    public static String getDuelPlayerID(String messageid, int who) {
+        String memberID = null;
+        try {
+            java.sql.PreparedStatement prepStmntPersonInsert;
+            myCon = DriverManager.getConnection(url, user, pwd);
+            prepStmntPersonInsert = myCon.prepareStatement("SELECT playerID" + who + " FROM duel where idMessage = ?");
+            prepStmntPersonInsert.setString(1, messageid);
+            myRS = prepStmntPersonInsert.executeQuery();
+
+            if (myRS.next()) {
+                memberID = myRS.getString(1);
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }finally {
+            doFinally();
+        }
+
+        return memberID;
+    }
+
+    public static int getDuelPlayerHeal(String messageID,Integer numb) {
+        int health = 0;
+        try {
+            java.sql.PreparedStatement prepStmntPersonInsert;
+            myCon = DriverManager.getConnection(url, user, pwd);
+            prepStmntPersonInsert = myCon.prepareStatement("SELECT playerCurrentHealth" + numb + " FROM duel where idMessage = ?;");
+            prepStmntPersonInsert.setString(1, messageID);
+            myRS = prepStmntPersonInsert.executeQuery();
+
+            if (myRS.next()) {
+                health = myRS.getInt(1);
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }finally {
+            doFinally();
+        }
+
+        return health;
+    }
+
+    public static String getDuelLastAttack(String messageid) {
+        String attack = null;
+        try {
+            java.sql.PreparedStatement prepStmntPersonInsert;
+            myCon = DriverManager.getConnection(url, user, pwd);
+            prepStmntPersonInsert = myCon.prepareStatement("SELECT last_attack FROM duel where idMessage = ?");
+            prepStmntPersonInsert.setString(1, messageid);
+            myRS = prepStmntPersonInsert.executeQuery();
+
+            if (myRS.next()) {
+                attack = myRS.getString(1);
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }finally {
+            doFinally();
+        }
+
+        return attack;
+    }
+
+    public static void updateDuelHealth(String messageid, int playerCurrentHealth2, int who) {
+        try {
+            java.sql.PreparedStatement prepStmntPersonInsert;
+
+            myCon = DriverManager.getConnection(url, user, pwd);
+            prepStmntPersonInsert = myCon.prepareStatement("SELECT idmessage FROM duel WHERE idMessage = ?");
+            prepStmntPersonInsert.setString(1, messageid);
+            myRS = prepStmntPersonInsert.executeQuery();
+
+            if (myRS.next()) {
+                myCon = DriverManager.getConnection(url, user, pwd);
+                prepStmntPersonInsert = myCon.prepareStatement("update duel set playerCurrentHealth" + who + " = ? where idMessage = ?;");
+                prepStmntPersonInsert.setInt(1, playerCurrentHealth2);
+                prepStmntPersonInsert.setString(2, messageid);
+                prepStmntPersonInsert.executeUpdate();
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally{
+            doFinally();
+        }
+    }
+
+
+    public static int getDuelExtraTurn(String messageid) {
+        int t = 0;
+        try {
+            java.sql.PreparedStatement prepStmntPersonInsert;
+            myCon = DriverManager.getConnection(url, user, pwd);
+            prepStmntPersonInsert = myCon.prepareStatement("SELECT extra_turn FROM duel where idMessage = ?");
+            prepStmntPersonInsert.setString(1, messageid);
+            myRS = prepStmntPersonInsert.executeQuery();
+
+            if (myRS.next()) {
+                t = myRS.getInt(1);
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }finally {
+            doFinally();
+        }
+
+        return t;
+    }
+
+    public static void updateDuelExtraTurn(String messageid, String turn) {
+        try {
+            java.sql.PreparedStatement prepStmntPersonInsert;
+
+            myCon = DriverManager.getConnection(url, user, pwd);
+            prepStmntPersonInsert = myCon.prepareStatement("SELECT idmessage FROM duel WHERE idMessage = ?");
+            prepStmntPersonInsert.setString(1, messageid);
+            myRS = prepStmntPersonInsert.executeQuery();
+
+            if (myRS.next()) {
+                if(turn.equals("+")) {
+                    myCon = DriverManager.getConnection(url, user, pwd);
+                    prepStmntPersonInsert = myCon.prepareStatement("update duel set extra_turn = extra_turn + 1 where idMessage = ?;");
+                    prepStmntPersonInsert.setString(1, messageid);
+                    prepStmntPersonInsert.executeUpdate();
+                }else if(turn.equals("-")){
+                    myCon = DriverManager.getConnection(url, user, pwd);
+                    prepStmntPersonInsert = myCon.prepareStatement("update duel set extra_turn = 1 where idMessage = ?;");
+                    prepStmntPersonInsert.setString(1, messageid);
+                    prepStmntPersonInsert.executeUpdate();
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally{
+            doFinally();
+        }
+    }
+
+    public static int getDuelEstusCount(String messageid, int numb) {
+        int amt = 0;
+        try {
+            java.sql.PreparedStatement prepStmntPersonInsert;
+            myCon = DriverManager.getConnection(url, user, pwd);
+            prepStmntPersonInsert = myCon.prepareStatement("SELECT playerEstus" + numb + " FROM duel where idMessage = ?;");
+            prepStmntPersonInsert.setString(1, messageid);
+            myRS = prepStmntPersonInsert.executeQuery();
+
+            if (myRS.next()) {
+                amt = myRS.getInt(1);
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }finally {
+            doFinally();
+        }
+
+        return amt;
+    }
+
+    public static void removeEstusFromDuel(String messageid, int numb) {
+        try {
+            java.sql.PreparedStatement prepStmntPersonInsert;
+
+            myCon = DriverManager.getConnection(url, user, pwd);
+            prepStmntPersonInsert = myCon.prepareStatement("SELECT idmessage FROM duel WHERE idMessage = ?");
+            prepStmntPersonInsert.setString(1, messageid);
+            myRS = prepStmntPersonInsert.executeQuery();
+
+            if (myRS.next()) {
+                myCon = DriverManager.getConnection(url, user, pwd);
+                prepStmntPersonInsert = myCon.prepareStatement("update duel set playerEstus" + numb + " = playerEstus" + numb + " - 1 where idMessage = ?;");
+                prepStmntPersonInsert.setString(1, messageid);
+                prepStmntPersonInsert.executeUpdate();
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally{
+            doFinally();
+        }
+    }
+
+    public static ArrayList<String> showKillsLeaderboard() {
+        int count = 0;
+        ArrayList<String> values = new ArrayList<String>();
+        try {
+
+            java.sql.PreparedStatement prepStmntPersonInsert;
+            myCon = DriverManager.getConnection(url, user, pwd);
+            prepStmntPersonInsert = myCon.prepareStatement("SELECT idUsers FROM users ORDER BY kills DESC;");
+
+            myRS = prepStmntPersonInsert.executeQuery();
+            while(myRS.next() && count <= 14){
+                count++;
+                values.add(myRS.getString(1));
+            }
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }finally{
+            doFinally();
+        }
+        return values;
+    }
+
+    public static int getGlobalKillsPosition(String id) {
+        int pos = 0;
+
+        try {
+            java.sql.PreparedStatement prepStmntPersonInsert;
+
+            myCon = DriverManager.getConnection(url, user, pwd);
+            prepStmntPersonInsert = myCon.prepareStatement("select rowNR from (select ROW_NUMBER() OVER (ORDER BY kills DESC) AS rowNR,idUsers FROM users) sub WHERE sub.idUsers = ?");
+            prepStmntPersonInsert.setString(1, id);
+
+            myRS = prepStmntPersonInsert.executeQuery();
+            if(myRS.next()){
+                pos = myRS.getInt(1);
+            }
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }finally {
+            doFinally();
+        }
+        return pos;
+    }
+
+    public static Integer showKillsLeaderboardOrderBy(String memID) {
+        int cunt = 0;
+        try {
+
+            java.sql.PreparedStatement prepStmntPersonInsert;
+            myCon = DriverManager.getConnection(url, user, pwd);
+            prepStmntPersonInsert = myCon.prepareStatement("select kills from users where idusers = ? ORDER BY kills DESC;");
+            prepStmntPersonInsert.setString(1, memID);
+
+            myRS = prepStmntPersonInsert.executeQuery();
+            if(myRS.next()){
+
+                cunt = myRS.getInt(1);
+            }
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }finally{
+            doFinally();
+        }
+        return cunt;
+    }
+
+    public static String showTitleLeaderboardKills(String memberID) {
+        String name = "";
+        try {
+            java.sql.PreparedStatement prepStmntPersonInsert;
+            myCon = DriverManager.getConnection(url, user, pwd);
+            prepStmntPersonInsert = myCon.prepareStatement("select name from titles t, users u where u.e_title = t.tID and u.idUsers = ? ORDER BY kills DESC;");
+            prepStmntPersonInsert.setString(1, memberID);
+
+            myRS = prepStmntPersonInsert.executeQuery();
+            if(myRS.next()){
+                name = "*" + myRS.getString(1) + "*";
+            }
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }finally{
+            doFinally();
+        }
+        return name;
+    }
+
+    public static boolean duelCheckFix(String memberID) {
+        try {
+            java.sql.PreparedStatement prepStmntPersonInsert;
+            myCon = DriverManager.getConnection(url, user, pwd);
+            prepStmntPersonInsert = myCon.prepareStatement("SELECT playerID1 FROM duel_message where playerID1 = ?");
+            prepStmntPersonInsert.setString(1, memberID);
+            myRS = prepStmntPersonInsert.executeQuery();
+
+            if (myRS.next()) {
+                return false;
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }finally {
+            doFinally();
+        }
+
+        return true;
     }
 
     public static boolean doesClanTagExist(String clanTag) {

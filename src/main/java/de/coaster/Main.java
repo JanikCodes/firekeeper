@@ -17,16 +17,16 @@ public class Main {
 
     public static String defaultprefix = "!";
     public static String botAddLink = "https://discord.com/api/oauth2/authorize?client_id=760993270133555231&permissions=134556736&scope=bot";
-    public static int bossTime = 7200;
-    public static int clearTime = 7200;
-    public static int voteClearTime = clearTime / 2;
-    public static int voteBossTime = bossTime / 2;
+    public static int bossTime = 1800;
+    public static int clearTime = 5400;
+    public static int voteClearTime = 3600;
+    public static int voteBossTime = 2700;
 
-    public static int bossTimeWon = 21600;
-    public static int voteBossTimeWon = 10800;
+    public static int bossTimeWon = 5400;
+    public static int voteBossTimeWon = 3600;
 
     public static int patreonTime = 1800;
-    public static int patreonTimeBossWon = 7200;
+    public static int patreonTimeBossWon = 1800;
     public static double tier1SoulMulti = 1.5;
     public static int tier2SoulMulti = 2;
 
@@ -37,6 +37,8 @@ public class Main {
     public static JDA jda;
 
     public static boolean test = true;
+    public static boolean DEVELOPER_SERVER_MODE = false;
+
 
     private static String realVersion = "NzYwOTkzMjcwMTMzNTU1MjMx.X3UINg.s8k6-zhT13HDBRFpCFSc4EFPTvc";
     private static String testVersion = "NzYzNDQ1ODk3NDc1MzkxNDk4.X330Zg.mwrGhbZipvaBF-X2XOmQoS5JIww";
@@ -60,7 +62,6 @@ public class Main {
                     .setStatus(OnlineStatus.ONLINE)
                     .addEventListeners(new CommandListener())
                     .addEventListeners(new GuildMessageReceived())
-                    .addEventListeners(new GuildMemberJoin())
                     .addEventListeners(new GuildsListener())
                     .addEventListeners(new OnReadyListener())
                     .build();
@@ -71,7 +72,7 @@ public class Main {
             e.printStackTrace();
         }
 
-        HttpServer server = HttpServer.create(new InetSocketAddress(8000), 0); // create a Httpserver listening on port 8000
+        HttpServer server = HttpServer.create(new InetSocketAddress(8001), 0); // create a Httpserver listening on port 8000
         server.createContext("/dblwebhook", new Reciever());  // creates a handler for when a requests comes into https://yourserverip.com/dblwebhook
         server.setExecutor(null); // creates a default executor
         server.start(); // Starts your httpserver

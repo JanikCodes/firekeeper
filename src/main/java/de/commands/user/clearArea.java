@@ -27,10 +27,10 @@ public class clearArea {
             int randomNum = getRandomNumberInRange.methode(0, 100);
             int randomIntelligenceNum = getRandomNumberInRange.methode(0, 100);
             int monsterSize = Database.getMonsterSize();
-            int randomEncounterNum = getRandomNumberInRange.methode(0, monsterSize - 1);
+            int randomEncounterNum = getRandomNumberInRange.methode(1, monsterSize - 1);
             String encounterName = Database.getMonsterName(randomEncounterNum);
             String encounterDescrition = Database.getMonsterDescription(randomEncounterNum);
-            int soulAmount = stageProgess * 40 + randomNum;
+            int soulAmount = stageProgess * 40 + randomNum + 500;
             int extraSouls = ((faithChance / 2) * stageProgess) + randomNum;
             if (extraSouls >= 12500) {
                 extraSouls = 12500;
@@ -73,7 +73,7 @@ public class clearArea {
                 if (intelligenceSouls >= 15000) {
                     intelligenceSouls = 15000;
                 }
-                encounterString = " Because of your **Intelligence** level, you won the encounter against the **" + encounterName + "** and collected another **" + intelligenceSouls + "** souls!";
+                encounterString = " Because of your **Intelligence** level, you won the encounter against the **" + encounterName + "** and collected another **" + intelligenceSouls / 2 + "** souls!";
 
                 if (encounterName.equals("Ringed Knight")) {
                     Database.completeAchievement(memberID, 11);
@@ -92,12 +92,12 @@ public class clearArea {
             if (findRole.methode(event.getMember(), Main.tier2) != null) {
                 allSouls = allSouls * Main.tier2SoulMulti;
             }
-            int intAllSouls = (int) allSouls;
+            int intAllSouls = (int) (allSouls / 2);
 
             Database.giveSouls(memberID, intAllSouls);
 
-            currchat.sendMessage(createEmbed.methode("\uD83E\uDDFE Area Progress \uD83E\uDDFE", "\uD83D\uDCCD Due to your **strength, dexterity, resistance** and **vitality** you've collected **" + soulAmount + "** souls! \n\n" +
-                            "\uD83D\uDCCD You also gained an extra **" + extraSouls + "** souls due to your **faith level**. \n\n" +
+            currchat.sendMessage(createEmbed.methode("\uD83E\uDDFE Area Progress \uD83E\uDDFE", "\uD83D\uDCCD Due to your **strength, dexterity, resistance** and **vitality** you've collected **" + soulAmount/2 + "** souls! \n\n" +
+                            "\uD83D\uDCCD You also gained an extra **" + extraSouls/2 + "** souls due to your **faith level**. \n\n" +
                             "\uD83C\uDFC6 **Special encounter:** " + encounterString + "\n\n" +
                             "<:repairpowder:779816424952037427> You've collected **" + itemnames + "** \n\n" +
                             "\uD83D\uDCCD **Collected a total of** **" + intAllSouls + "** souls!"
@@ -105,7 +105,7 @@ public class clearArea {
 
             Database.updateClearTime(memberID, newtime);
             Database.giveAreaClear(event.getGuild().getId());
-            if ((intAllSouls) >= 40000) {
+            if ((intAllSouls) >= 20000) {
                 if (Database.completeAchievement(memberID, 4)) {
                     rewardUser.methode(memberID, "item", 10);
                     rewardUser.methode(memberID, "item", 10);

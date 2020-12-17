@@ -24,21 +24,23 @@ public class getProfil {
         int souls = Database.getStatistic("souls", memmber.getId());
         int rank = Database.getStatistic("level", memmber.getId());
 
+        final String[] messageID = {null};
+
         TextChannel currchat = event.getChannel();
-        Message msg = currchat.sendMessage(createProfilEmbed(strength, dexterity, vitality, intelligence, resistance, faith, rank, memmber, "React below to upgrade your skills", Color.black, souls).build()).complete();
-        if (myself) {
-            try {
-                msg.addReaction("str:761547258205437982").queue();
-                msg.addReaction("dex:761546853279203328").queue();
-                msg.addReaction("vt:761544992648855564").queue();
-                msg.addReaction("in:761546824703410207").queue();
-                msg.addReaction("res:761546973115056128").queue();
-                msg.addReaction("ft:761546791891894282").queue();
-                msg.addReaction("lv:761544969546629170").queue();
-            } catch (ErrorResponseException e) {
+        currchat.sendMessage(createProfilEmbed(strength, dexterity, vitality, intelligence, resistance, faith, rank, memmber, "React below to upgrade your skills", Color.black, souls).build()).queue(message -> {
+            if (myself) {
+                message.addReaction("str:761547258205437982").queue();
+                message.addReaction("dex:761546853279203328").queue();
+                message.addReaction("vt:761544992648855564").queue();
+                message.addReaction("in:761546824703410207").queue();
+                message.addReaction("res:761546973115056128").queue();
+                message.addReaction("ft:761546791891894282").queue();
+                message.addReaction("lv:761544969546629170").queue();
+                messageID[0] = message.getId();
+                Database.createUpgradeRelation(messageID[0], memmber.getId());
             }
-            Database.createUpgradeRelation(msg.getId(), memmber.getId());
-        }
+        });
+
 
     }
 
