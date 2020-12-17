@@ -30,8 +30,8 @@ public class initHealthBars {
         String plrHealthDisplay1 = calcXPBar.methode(plrProc1, "boss");
         String plrHealthDisplay2 = calcXPBar.methode(plrProc2, "boss");
 
-        Member player1 = event.getMember().getGuild().getMemberById(player1ID);
-        Member player2 = event.getMember().getGuild().getMemberById(player2ID);
+        Member player1 = event.getGuild().retrieveMemberById(player1ID).complete();
+        Member player2 = event.getGuild().retrieveMemberById(player2ID).complete();
 
         desc = player1.getEffectiveName() + "'s health: **" + plrHealth1 + "/" + maxPlrHealth1 + "** \n" + plrHealthDisplay1 + playerDamage2 + "\n" + player2.getEffectiveName() + "'s health: **" + plrHealth2 + "/" + maxPlrHealth2 + "**\n " + plrHealthDisplay2 + playerDamage1;
 

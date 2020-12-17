@@ -18,8 +18,8 @@ import java.awt.*;
 public class duel {
 
     public static void methode(String idMember2, String idMember1, GuildMessageReactionAddEvent event, TextChannel currchat){
-        Member player1 = event.getGuild().getMemberById(idMember1);
-        Member player2 = event.getGuild().getMemberById(idMember2);
+        Member player1 = event.getGuild().retrieveMemberById(idMember1).complete();
+        Member player2 = event.getGuild().retrieveMemberById(idMember2).complete();
 
         int playerHealth1 = Database.getStatistic("vitality",idMember1);
         int playerHealth2 = Database.getStatistic("vitality",idMember2);
@@ -71,8 +71,8 @@ public class duel {
         String idMember1 = Database.getDuelPlayerID(messageid,1);
         String idMember2 = Database.getDuelPlayerID(messageid,2);
 
-        Member player1 = event.getGuild().getMemberById(idMember1);
-        Member player2 = event.getGuild().getMemberById(idMember2);
+        Member player1 = event.getGuild().retrieveMemberById(idMember1).complete();
+        Member player2 = event.getGuild().retrieveMemberById(idMember2).complete();
 
         int playerHealth1 = Database.getStatistic("vitality",idMember1);
         int playerHealth2 = Database.getStatistic("vitality",idMember2);

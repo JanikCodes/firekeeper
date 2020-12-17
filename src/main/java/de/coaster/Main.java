@@ -56,10 +56,6 @@ public class Main {
 
         try {
             jda = JDABuilder.createDefault(version)
-                    //.setChunkingFilter(ChunkingFilter.ALL) // enable member chunking for all guilds
-                    //.setMemberCachePolicy(MemberCachePolicy.ALL) // ignored if chunking enabled
-                    //.enableIntents(GatewayIntent.GUILD_MEMBERS,GatewayIntent.GUILD_EMOJIS, GatewayIntent.GUILD_MESSAGE_REACTIONS,
-                    //        GatewayIntent.GUILD_MESSAGES)
                     .setActivity(Activity.of(Activity.ActivityType.WATCHING,"the servers"))
                     .setStatus(OnlineStatus.ONLINE)
                     .addEventListeners(new CommandListener())
