@@ -43,8 +43,6 @@ public class OnReadyListener extends ListenerAdapter {
                 int time = Math.toIntExact((System.currentTimeMillis() / 1000));
                 Database.duelCheckTime(time);
 
-
-
                 try {
                     Activity a = null;
 

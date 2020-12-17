@@ -128,7 +128,7 @@ public class CommandListener extends ListenerAdapter {
 
                 if(Database.findDuelMessageID(event.getMessageId())){
                     //It's a duel message
-                    if(Database.isAllowedToAcceptDuel(memberID, memberID)) {
+                    if(Database.isAllowedToAcceptDuel(memberID, event.getMessageId())) {
                         List<MessageEmbed> lmess = message.getEmbeds();
                         MessageEmbed emb = lmess.get(0);
                         message.editMessage(createEmbed.methode(emb.getTitle(), emb.getDescription(), Color.red, "This duel was declined", null, null).build()).complete();

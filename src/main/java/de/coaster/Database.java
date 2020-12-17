@@ -3121,7 +3121,7 @@ public class Database {
         try {
             java.sql.PreparedStatement prepStmntPersonInsert;
             myCon = DriverManager.getConnection(url, user, pwd);
-            prepStmntPersonInsert = myCon.prepareStatement("INSERT INTO duel VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
+            prepStmntPersonInsert = myCon.prepareStatement("INSERT INTO duel VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
             prepStmntPersonInsert.setString(1, messageid);
             prepStmntPersonInsert.setString(2, idMember1);
             prepStmntPersonInsert.setString(3, idmember2);
@@ -3163,12 +3163,14 @@ public class Database {
         return new_turn;
     }
 
-    public static boolean isAllowedToAcceptDuel(String memberID) {
+    public static boolean isAllowedToAcceptDuel(String memberID, String messageID) {
         try {
             java.sql.PreparedStatement prepStmntPersonInsert;
             myCon = DriverManager.getConnection(url, user, pwd);
-            prepStmntPersonInsert = myCon.prepareStatement("SELECT idMessage FROM duel_message where playerID2 = ?");
+            prepStmntPersonInsert = myCon.prepareStatement("SELECT idMessage FROM duel_message where playerID2 = ? and IdMessage = ?");
             prepStmntPersonInsert.setString(1, memberID);
+            prepStmntPersonInsert.setString(2, messageID);
+
             myRS = prepStmntPersonInsert.executeQuery();
 
             if (myRS.next()) {
@@ -3889,5 +3891,49 @@ public class Database {
             doFinally(con, pStmnt, rs);
         }
         return ret;
+    }
+
+    public static int getActiveGlobalPlayers() {
+        int cunt = 0;
+        try {
+
+            java.sql.PreparedStatement prepStmntPersonInsert;
+            myCon = DriverManager.getConnection(url, user, pwd);
+            prepStmntPersonInsert = myCon.prepareStatement("select count(*) from users where souls > 20000;");
+
+            myRS = prepStmntPersonInsert.executeQuery();
+            if(myRS.next()){
+
+                cunt = myRS.getInt(1);
+            }
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }finally{
+            doFinally();
+        }
+        return cunt;
+    }
+
+    public static int getTotalServers() {
+        int cunt = 0;
+        try {
+
+            java.sql.PreparedStatement prepStmntPersonInsert;
+            myCon = DriverManager.getConnection(url, user, pwd);
+            prepStmntPersonInsert = myCon.prepareStatement("select count(*) from server where clearedAreas > 0;");
+
+            myRS = prepStmntPersonInsert.executeQuery();
+            if(myRS.next()){
+
+                cunt = myRS.getInt(1);
+            }
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }finally{
+            doFinally();
+        }
+        return cunt;
     }
 }
