@@ -960,7 +960,11 @@ public class Database {
         try {
             java.sql.PreparedStatement prepStmntPersonInsert;
             myCon = DriverManager.getConnection(url, user, pwd);
-            prepStmntPersonInsert = myCon.prepareStatement("select " + field + " from items i, item_user_relation r where i.idItem = r.idItem AND idUser = ? and type = '" + item_type + "' ORDER BY i.bonus + (5 * r.level) DESC;");
+            if(item_type.equals("item")) {
+                prepStmntPersonInsert = myCon.prepareStatement("select " + field + " from items i, item_user_relation r where i.idItem = r.idItem AND idUser = ? and type = '" + item_type + "';");
+            }else{
+                prepStmntPersonInsert = myCon.prepareStatement("select " + field + " from items i, item_user_relation r where i.idItem = r.idItem AND idUser = ? and type = '" + item_type + "' ORDER BY i.bonus + (5 * r.level) DESC;");
+            }
             prepStmntPersonInsert.setString(1, memberid);
 
             myRS = prepStmntPersonInsert.executeQuery();
@@ -3159,12 +3163,15 @@ public class Database {
         return new_turn;
     }
 
-    public static boolean isAllowedToAcceptDuel(String memberID) {
+    public static boolean isAllowedToAcceptDuel(String memberID,String messageid) {
         try {
+            System.out.println(messageid);
+            System.out.println(memberID);
             java.sql.PreparedStatement prepStmntPersonInsert;
             myCon = DriverManager.getConnection(url, user, pwd);
-            prepStmntPersonInsert = myCon.prepareStatement("SELECT idMessage FROM duel_message where playerID2 = ?");
+            prepStmntPersonInsert = myCon.prepareStatement("SELECT idMessage FROM duel_message where playerID2 = ? and idMessage = ?");
             prepStmntPersonInsert.setString(1, memberID);
+            prepStmntPersonInsert.setString(2, messageid);
             myRS = prepStmntPersonInsert.executeQuery();
 
             if (myRS.next()) {
@@ -3540,4 +3547,49 @@ public class Database {
 
         return true;
     }
+
+    public static Integer getActiveGlobalPlayers() {
+        int cunt = 0;
+        try {
+
+            java.sql.PreparedStatement prepStmntPersonInsert;
+            myCon = DriverManager.getConnection(url, user, pwd);
+            prepStmntPersonInsert = myCon.prepareStatement("select count(*) from users where souls > 20000;");
+
+            myRS = prepStmntPersonInsert.executeQuery();
+            if(myRS.next()){
+
+                cunt = myRS.getInt(1);
+            }
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }finally{
+            doFinally();
+        }
+        return cunt;
+    }
+
+    public static int getTotalServers() {
+        int cunt = 0;
+        try {
+
+            java.sql.PreparedStatement prepStmntPersonInsert;
+            myCon = DriverManager.getConnection(url, user, pwd);
+            prepStmntPersonInsert = myCon.prepareStatement("select count(*) from server where clearedAreas > 0;");
+
+            myRS = prepStmntPersonInsert.executeQuery();
+            if(myRS.next()){
+
+                cunt = myRS.getInt(1);
+            }
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }finally{
+            doFinally();
+        }
+        return cunt;
+    }
+
 }

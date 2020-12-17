@@ -19,7 +19,6 @@ public class inventory {
         String itemString = "";
         ArrayList<String> ownedItemName = Database.getOwnedItems(member.getId(), "item", "name");
         ArrayList<String> ownedItemEmoji = Database.getOwnedItems(member.getId(), "item", "emojiID");
-        ArrayList<String> ownedItemBonus = Database.getOwnedItems(member.getId(), "item", "(select bonus + (5 * level))");
         ArrayList<String> ownedItemCount = Database.getOwnedItems(member.getId(), "item", "count");
 
         ms.setTitle("Inventory");
@@ -30,7 +29,6 @@ public class inventory {
 
         for (int i = 0; i < ownedItemName.size() - 1; i = i + 2) {
             itemString = itemString + ownedItemEmoji.get(i) + " " + ownedItemName.get(i) + " **x" + ownedItemCount.get(i) + "** , **" + ownedItemEmoji.get(i + 1) + "** " + ownedItemName.get(i + 1) + " **x" + ownedItemCount.get(i + 1) + "** \n";
-            //ms.addField(ownedItemEmoji.get(i) + " " + ownedItemName.get(i) + " x" + ownedItemCount.get(i),ownedItemBonus.get(i),true);
         }
 
         if (itemString.isEmpty()) {
