@@ -3117,11 +3117,11 @@ public class Database {
         return false;
     }
 
-    public static void createDuelRelation(String messageid, String idMember1, String idmember2, int playerMaxHealth1, int playerMaxHealth2, int playerEstus1, int playerEstus2, int turn, int time, String channelID) {
+    public static void createDuelRelation(String messageid, String idMember1, String idmember2, int playerMaxHealth1, int playerMaxHealth2, int playerEstus1, int playerEstus2, int turn) {
         try {
             java.sql.PreparedStatement prepStmntPersonInsert;
             myCon = DriverManager.getConnection(url, user, pwd);
-            prepStmntPersonInsert = myCon.prepareStatement("INSERT INTO duel VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
+            prepStmntPersonInsert = myCon.prepareStatement("INSERT INTO duel VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
             prepStmntPersonInsert.setString(1, messageid);
             prepStmntPersonInsert.setString(2, idMember1);
             prepStmntPersonInsert.setString(3, idmember2);

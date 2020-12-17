@@ -95,14 +95,12 @@ public class CommandListener extends ListenerAdapter {
                     //It's a pvp duel
                     String membID = Database.getOtherPlayer(message.getId());
                     if(!Database.getPlayerInDuel(memberID,membID)) {
-                        if(Database.isAllowedToAcceptDuel(memberID)) {
-                            if(Database.duelCheckFix(event.getMember().getId())) {
-                                List<MessageEmbed> lmess = message.getEmbeds();
-                                MessageEmbed emb = lmess.get(0);
-                                message.editMessage(createEmbed.methode(emb.getTitle(), emb.getDescription(), Color.green, "This duel was accepted", null, null).build()).complete();
-                                duel.methode(memberID, membID, event, currchat);
-                                Database.deletePvpRelation(event.getMessageId());
-                            }
+                        if(Database.isAllowedToAcceptDuel(memberID,event.getMessageId())) {
+                            List<MessageEmbed> lmess = message.getEmbeds();
+                            MessageEmbed emb = lmess.get(0);
+                            message.editMessage(createEmbed.methode(emb.getTitle(), emb.getDescription(), Color.green, "This duel was accepted", null, null).build()).complete();
+                            duel.methode(memberID, membID, event, currchat);
+                            Database.deletePvpRelation(event.getMessageId());
                         }
                     }else{
                         List<MessageEmbed> lmess = message.getEmbeds();
@@ -130,7 +128,7 @@ public class CommandListener extends ListenerAdapter {
 
                 if(Database.findDuelMessageID(event.getMessageId())){
                     //It's a duel message
-                    if(Database.isAllowedToAcceptDuel(memberID)) {
+                    if(Database.isAllowedToAcceptDuel(memberID, memberID)) {
                         List<MessageEmbed> lmess = message.getEmbeds();
                         MessageEmbed emb = lmess.get(0);
                         message.editMessage(createEmbed.methode(emb.getTitle(), emb.getDescription(), Color.red, "This duel was declined", null, null).build()).complete();
