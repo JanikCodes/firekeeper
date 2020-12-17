@@ -406,30 +406,43 @@ public class GuildMessageReceived extends ListenerAdapter {
                 }
             }
 
-            if (args[0].equalsIgnoreCase(prefix + "duel")) {
-                if (checkChannel.methode(event, currchat, allowedChannel)) {
-                    if (args.length == 2) {
-                        if (event.getMessage().getMentions().size() > 0) {
-                            Member member = event.getMessage().getMentionedMembers().get(0);
+//            if (args[0].equalsIgnoreCase(prefix + "duel")) {
+//                if (checkChannel.methode(event, currchat, allowedChannel)) {
+//                    if (args.length == 2) {
+//                        if (event.getMessage().getMentions().size() > 0) {
+//                            Member member = event.getMessage().getMentionedMembers().get(0);
+//
+//                            if (event.getMember() != member) {
+//                                Message finalmessage = currchat.sendMessage(createEmbed.methode("**PVP**", event.getMember().getAsMention() + " is challenging " + member.getAsMention() + " to a duel!", Color.red, "Accept or decline with the reactions below", null, null).build()).complete();
+//                                Database.createPvpRelation(finalmessage.getId(), event.getMember().getId(), member.getId());
+//                                finalmessage.addReaction("✅").queue();
+//                                finalmessage.addReaction("❌").queue();
+//                            } else {
+//                                currchat.sendMessage(createEmbed.methode("**ERROR**", "You cannot duel yourself!", Color.red, null, null, null).build()).complete();
+//                            }
+//                        } else {
+//                            currchat.sendMessage(createEmbed.methode("**ERROR**", "Wrong Syntax! Type `" + prefix + "help` to see all commands.", Color.red, null, null, null).build()).complete();
+//                        }
+//                    } else {
+//                        //Error
+//                        currchat.sendMessage(createEmbed.methode("**ERROR**", "Wrong Syntax! Type `" + prefix + "help` to see all commands.", Color.red, null, null, null).build()).complete();
+//                    }
+//                }
+//            }
 
-                            if (event.getMember() != member) {
-                                Message finalmessage = currchat.sendMessage(createEmbed.methode("**PVP**", event.getMember().getAsMention() + " is challenging " + member.getAsMention() + " to a duel!", Color.red, "Accept or decline with the reactions below", null, null).build()).complete();
-                                Database.createPvpRelation(finalmessage.getId(), event.getMember().getId(), member.getId());
-                                finalmessage.addReaction("✅").queue();
-                                finalmessage.addReaction("❌").queue();
-                            } else {
-                                currchat.sendMessage(createEmbed.methode("**ERROR**", "You cannot duel yourself!", Color.red, null, null, null).build()).complete();
-                            }
-                        } else {
-                            currchat.sendMessage(createEmbed.methode("**ERROR**", "Wrong Syntax! Type `" + prefix + "help` to see all commands.", Color.red, null, null, null).build()).complete();
-                        }
-                    } else {
-                        //Error
-                        currchat.sendMessage(createEmbed.methode("**ERROR**", "Wrong Syntax! Type `" + prefix + "help` to see all commands.", Color.red, null, null, null).build()).complete();
+            if (args[0].equalsIgnoreCase(prefix + "clan")){
+                if (args.length==1){
+                    //TODO send basic clan info message
+                } else if (args[1].equalsIgnoreCase("create")){
+                    if (args.length >= 4){
+                        clanLogic.createClan(event, args);
                     }
+                } else if (args[1].equalsIgnoreCase("leave")){
+                    clanLogic.sendLeaveClan(event);
+                } else if (args[1].equalsIgnoreCase("invite")){
+                    clanLogic.sendClanInviteMessage(event);
                 }
             }
-
         } catch (InsufficientPermissionException exception) { }
     }
 

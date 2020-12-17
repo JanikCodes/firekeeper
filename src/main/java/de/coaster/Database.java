@@ -1,4 +1,5 @@
 package de.coaster;
+import de.objects.Clan;
 import net.dv8tion.jda.api.entities.Member;
 
 import java.sql.*;
@@ -3009,5 +3010,303 @@ public class Database {
         }
 
         return boss;
+    }
+
+    public static boolean doesClanTagExist(String clanTag) {
+        Connection con = null;
+        PreparedStatement pStmnt = null;
+        ResultSet rs = null;
+
+        try {
+            con = DriverManager.getConnection(url, user, pwd);
+            pStmnt = con.prepareStatement("SELECT clanID FROM clan WHERE clanTag = ?");
+            pStmnt.setString(1, clanTag);
+            rs = pStmnt.executeQuery();
+
+            if (rs.next()){
+                return true;
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally {
+            doFinally(con, pStmnt, rs);
+        }
+        return false;
+    }
+
+    private static void doFinally(Connection con, PreparedStatement pStmnt, ResultSet rs) {
+        if (rs != null){
+            try {
+                rs.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        if (pStmnt!= null){
+            try {
+                pStmnt.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        if (con != null){
+            try {
+                con.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+
+    public static boolean insertClanIntoDatabase(String clanname, String clanTag, String clanOwnerID, String clanLogoURL) {
+        Connection con = null;
+        PreparedStatement pStmnt = null;
+        ResultSet rs = null;
+
+        try {
+            con = DriverManager.getConnection(url, user, pwd);
+            pStmnt = con.prepareStatement("INSERT INTO clan VALUES(NULL, ?, ?, 1, 0, ?)", Statement.RETURN_GENERATED_KEYS);
+            pStmnt.setString(1, clanname);
+            pStmnt.setString(2, clanTag);
+            pStmnt.setString(3, clanLogoURL);
+            pStmnt.executeUpdate();
+            rs = pStmnt.getGeneratedKeys();
+
+            if (rs.next()){
+                int clanID = rs.getInt(1);
+
+                insertClanUserRelation(clanID, clanOwnerID);
+                //TODO delete all Invite Clan Messages
+                return true;
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally {
+            doFinally(con, pStmnt, rs);
+        }
+        return false;
+    }
+
+    public static boolean isUserInClan(String clanOwnerID) {
+        Connection con = null;
+        PreparedStatement pStmnt = null;
+        ResultSet rs = null;
+
+        try {
+            con = DriverManager.getConnection(url, user, pwd);
+            pStmnt = con.prepareStatement("SELECT clanID FROM clan_user_relation WHERE userID = ?");
+            pStmnt.setString(1, clanOwnerID);
+            rs = pStmnt.executeQuery();
+
+            if (rs.next()){
+                return true;
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally {
+            doFinally(con, pStmnt, rs);
+        }
+        return false;
+    }
+
+    public static void insertClanUserRelation(int clanID, String clanOwnerID){
+        Connection con = null;
+        PreparedStatement pStmnt = null;
+        ResultSet rs = null;
+
+        try {
+            con = DriverManager.getConnection(url, user, pwd);
+            pStmnt = con.prepareStatement("INSERT INTO clan_user_relation VALUES(?, ?, 'Owner')");
+            pStmnt.setString(1, clanOwnerID);
+            pStmnt.setInt(2, clanID);
+            pStmnt.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally {
+            doFinally(con, pStmnt, rs);
+        }
+    }
+
+    public static String getClanRole(String userID) {
+        Connection con = null;
+        PreparedStatement pStmnt = null;
+        ResultSet rs = null;
+
+        try {
+            con = DriverManager.getConnection(url, user, pwd);
+            pStmnt = con.prepareStatement("SELECT userRole FROM clan_user_relation WHERE userID = ?");
+            pStmnt.setString(1, userID);
+            rs = pStmnt.executeQuery();
+
+            if (rs.next())
+                return rs.getString(1);
+            else
+                return null;
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally {
+            doFinally(con, pStmnt, rs);
+        }
+        return null;
+    }
+
+    public static void insertClanMessage(Clan clan, String userID, String messageID, String messageType) {
+        Connection con = null;
+        PreparedStatement pStmnt = null;
+        ResultSet rs = null;
+
+        try {
+            con = DriverManager.getConnection(url, user, pwd);
+            pStmnt = con.prepareStatement("SELECT idMessage FROM clan_message WHERE userID = ? AND msgType = ? AND clanID = ?");
+            pStmnt.setString(1, userID);
+            pStmnt.setString(2, messageType);
+            pStmnt.setInt(3, clan.getId());
+            rs = pStmnt.executeQuery();
+
+            //If there already exists
+            if (rs.next()){
+                pStmnt = con.prepareStatement("DELETE FROM clan_user_relation WHERE userID = ? AND clanID = ? AND msgType = ?");
+                pStmnt.setString(1, userID);
+                pStmnt.setInt(2, clan.getId());
+                pStmnt.setString(3, messageType);
+                pStmnt.executeUpdate();
+            }
+
+            pStmnt = con.prepareStatement("INSERT INTO clan_message VALUES(?, ?, ?, ?)");
+            pStmnt.setString(1, userID);
+            pStmnt.setInt(2, clan.getId());
+            pStmnt.setString(3, messageType);
+            pStmnt.setString(4, messageID);
+            pStmnt.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally {
+            doFinally(con, pStmnt, rs);
+        }
+    }
+
+    public static boolean findClanMessage(String messageId, String memberID, String messageType) {
+        Connection con = null;
+        PreparedStatement pStmnt = null;
+        ResultSet rs = null;
+
+        try {
+            con = DriverManager.getConnection(url, user, pwd);
+            pStmnt = con.prepareStatement("SELECT userID FROM clan_message WHERE userID = ? AND idMessage = ? AND msgType = ?");
+            pStmnt.setString(1, memberID);
+            pStmnt.setString(2, messageId);
+            pStmnt.setString(3, messageType);
+            rs = pStmnt.executeQuery();
+
+            if (rs.next()){
+                return true;
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally {
+            doFinally(con, pStmnt, rs);
+        }
+        return false;
+    }
+
+    public static void leaveClan(String messageID, String userID) {
+        Connection con = null;
+        PreparedStatement pStmnt = null;
+        ResultSet rs = null;
+
+        try {
+            con = DriverManager.getConnection(url, user, pwd);
+            pStmnt = con.prepareStatement("DELETE FROM clan_user_relation WHERE userID = ?");
+            pStmnt.setString(1, userID);
+            pStmnt.executeUpdate();
+
+            deleteSingleClanMessage(messageID);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally {
+            doFinally(con, pStmnt, rs);
+        }
+    }
+
+    public static void deleteSingleClanMessage(String messageID) {
+        Connection con = null;
+        PreparedStatement pStmnt = null;
+        ResultSet rs = null;
+
+        try {
+            con = DriverManager.getConnection(url, user, pwd);
+            pStmnt = con.prepareStatement("DELETE FROM clan_message WHERE idMessage = ?");
+            pStmnt.setString(1, messageID);
+            pStmnt.executeUpdate();
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally {
+            doFinally(con, pStmnt, rs);
+        }
+    }
+
+    public static void deleteClanMessage(String userID, int clanID, String messageType){
+        Connection con = null;
+        PreparedStatement pStmnt = null;
+        ResultSet rs = null;
+
+        try {
+            con = DriverManager.getConnection(url, user, pwd);
+
+            if (clanID == -1) {
+                pStmnt = con.prepareStatement("DELETE FROM clan_message WHERE userID = ? AND msgType = ?");
+                pStmnt.setString(1, userID);
+                pStmnt.setString(2, messageType);
+                pStmnt.executeUpdate();
+            } else {
+                pStmnt = con.prepareStatement("DELETE FROM clan_message WHERE userID = ? AND msgType = ? AND clanID = ?");
+                pStmnt.setString(1, userID);
+                pStmnt.setString(2, messageType);
+                pStmnt.setInt(3, clanID);
+                pStmnt.executeUpdate();
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally {
+            doFinally(con, pStmnt, rs);
+        }
+    }
+
+    public static Clan getClanOfUser(String userID){
+        Clan ret = new Clan();
+
+        Connection con = null;
+        PreparedStatement pStmnt = null;
+        ResultSet rs = null;
+
+        try {
+            con = DriverManager.getConnection(url, user, pwd);
+            pStmnt = con.prepareStatement("SELECT c.clanID, clanName, clanTag, souls, clanLevel, clanURL FROM clan c, clan_user_relation cu WHERE c.clanID = cu.clanID AND userID = ?");
+            pStmnt.setString(1, userID);
+            rs = pStmnt.executeQuery();
+
+            if (rs.next()){
+                ret.setId(rs.getInt("clanID"));
+                ret.setName(rs.getString("clanName"));
+                ret.setTag(rs.getString("clanTag"));
+                ret.setSouls(rs.getLong("souls"));
+                ret.setLevel(rs.getInt("clanLevel"));
+                ret.setUrl(rs.getString("clanURL"));
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally {
+            doFinally(con, pStmnt, rs);
+        }
+        return ret;
     }
 }

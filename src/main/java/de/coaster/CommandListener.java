@@ -1,6 +1,7 @@
 package de.coaster;
 
 import de.commands.user.*;
+import de.objects.Clan;
 import de.utilities.canUpgrade;
 import de.utilities.createEmbed;
 import de.utilities.rewardUser;
@@ -15,7 +16,6 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import java.awt.*;
 import java.util.List;
 import java.util.Random;
-import java.util.function.Consumer;
 
 
 public class CommandListener extends ListenerAdapter {
@@ -112,6 +112,14 @@ public class CommandListener extends ListenerAdapter {
                     //It's a upgrade item message
                     event.getReaction().removeReaction(event.getUser()).queue();
                     upgradeItem(message,memberID,Database.findUpgradeMessageID(event.getMessageId(),memberID));
+                }else if (Database.findClanMessage(event.getMessageId(), memberID, "Leave")){
+                    //Leave clan message accept
+                    event.getReaction().removeReaction(event.getUser()).queue();
+                    clanLogic.doLeaveClan(event);
+                }else if (Database.findClanMessage(event.getMessageId(), memberID, "Invite")){
+                    //Invite clan message accept
+                    event.getReaction().removeReaction(event.getUser()).queue();
+                    clanLogic.doClanJoin(event);
                 }
 
             } else if (event.getReactionEmote().getName().equals("❌") && (!event.getUser().isBot())) {
@@ -134,6 +142,14 @@ public class CommandListener extends ListenerAdapter {
                     MessageEmbed emb = lmess.get(0);
                     Database.deleteUpgradeItemRelation(message.getId());
                     message.editMessage(createEmbed.methode(emb.getTitle(),emb.getDescription(),Color.red,"Canceled the upgrade process.",null,null).build()).queue();
+                }else if (Database.findClanMessage(event.getMessageId(), memberID, "Leave")){
+                    //Leave clan message deny
+                    event.getReaction().removeReaction(event.getUser()).queue();
+                    Database.deleteSingleClanMessage(event.getMessageId());
+                }else if (Database.findClanMessage(event.getMessageId(), memberID, "Invite")){
+                    //Invite clan message deny
+                    event.getReaction().removeReaction(event.getUser()).queue();;
+                    Database.deleteSingleClanMessage(event.getMessageId());
                 }
 
 
