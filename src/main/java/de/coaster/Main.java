@@ -16,7 +16,7 @@ import java.net.InetSocketAddress;
 public class Main {
 
     public static String defaultprefix = "!";
-    public static String botAddLink = "https://discord.com/api/oauth2/authorize?client_id=760993270133555231&permissions=134556736&scope=bot";
+    public static String botAddLink = "https://discord.com/api/oauth2/authorize?client_id=760993270133555231&permissions=1074097216&scope=bot";
     public static int bossTime = 1800;
     public static int clearTime = 5400;
     public static int voteClearTime = 3600;
@@ -54,10 +54,6 @@ public class Main {
 
         try {
             jda = JDABuilder.createDefault(version)
-                    .setChunkingFilter(ChunkingFilter.ALL) // enable member chunking for all guilds
-                    .setMemberCachePolicy(MemberCachePolicy.ALL) // ignored if chunking enabled
-                    .enableIntents(GatewayIntent.GUILD_MEMBERS,GatewayIntent.GUILD_EMOJIS, GatewayIntent.GUILD_MESSAGE_REACTIONS,
-                            GatewayIntent.GUILD_MESSAGES)
                     .setActivity(Activity.of(Activity.ActivityType.WATCHING,"the servers"))
                     .setStatus(OnlineStatus.ONLINE)
                     .addEventListeners(new CommandListener())
