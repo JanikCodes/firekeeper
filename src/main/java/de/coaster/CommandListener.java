@@ -191,7 +191,8 @@ public class CommandListener extends ListenerAdapter {
                     String memberID = event.getMember().getId();
                     int turn = Database.getDuelTurn(message.getId());
                     //Is player allowed to do an action
-
+                    int time = Math.toIntExact((System.currentTimeMillis() / 1000));
+                    Database.updateDuelTime(event.getUserId(), time);
                     if(Database.getDuelPlayerTurn(message.getId(),turn).equals(memberID)){
                         message.editMessage(duel.editDuelMessage(message.getId(),"damage",event).build()).queue();
                         event.getReaction().removeReaction(event.getUser()).queue();

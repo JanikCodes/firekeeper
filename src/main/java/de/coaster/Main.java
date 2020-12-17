@@ -22,6 +22,8 @@ public class Main {
     public static int voteClearTime = 3600;
     public static int voteBossTime = 2700;
 
+    public static final int duelSurrenderTime = 60;
+
     public static int bossTimeWon = 5400;
     public static int voteBossTimeWon = 3600;
 

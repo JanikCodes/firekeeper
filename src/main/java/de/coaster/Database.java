@@ -1,4 +1,7 @@
 package de.coaster;
+import de.commands.user.duel;
+import de.objects.Clan;
+import de.utilities.rewardUser;
 import net.dv8tion.jda.api.entities.Member;
 
 import java.sql.*;
@@ -3114,11 +3117,11 @@ public class Database {
         return false;
     }
 
-    public static void createDuelRelation(String messageid, String idMember1, String idmember2, int playerMaxHealth1, int playerMaxHealth2, int playerEstus1, int playerEstus2, int turn) {
+    public static void createDuelRelation(String messageid, String idMember1, String idmember2, int playerMaxHealth1, int playerMaxHealth2, int playerEstus1, int playerEstus2, int turn, int time, String channelID) {
         try {
             java.sql.PreparedStatement prepStmntPersonInsert;
             myCon = DriverManager.getConnection(url, user, pwd);
-            prepStmntPersonInsert = myCon.prepareStatement("INSERT INTO duel VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
+            prepStmntPersonInsert = myCon.prepareStatement("INSERT INTO duel VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
             prepStmntPersonInsert.setString(1, messageid);
             prepStmntPersonInsert.setString(2, idMember1);
             prepStmntPersonInsert.setString(3, idmember2);
@@ -3129,6 +3132,8 @@ public class Database {
             prepStmntPersonInsert.setString(8, "none");
             prepStmntPersonInsert.setInt(9, turn);
             prepStmntPersonInsert.setInt(10, 1);
+            prepStmntPersonInsert.setInt(11, time);
+            prepStmntPersonInsert.setString(12, channelID);
             prepStmntPersonInsert.executeUpdate();
         }catch(SQLException e){
             e.printStackTrace();
@@ -3539,6 +3544,54 @@ public class Database {
 
         return true;
     }
+
+    public static void updateDuelTime(String userId, int time) {
+        Connection con = null;
+        PreparedStatement pStmnt = null;
+        ResultSet rs = null;
+
+        try {
+            con = DriverManager.getConnection(url, user, pwd);
+            pStmnt = con.prepareStatement("UPDATE duel set last_reaction = ? WHERE playerID1 = ? OR playerID2 = ?");
+            pStmnt.setInt(1, time);
+            pStmnt.setString(2, userId);
+            pStmnt.setString(3, userId);
+            pStmnt.executeUpdate();
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally {
+            doFinally(con, pStmnt, rs);
+        }
+
+    }
+
+    public static void duelCheckTime(int time) {
+
+        Connection con = null;
+        PreparedStatement pStmnt = null;
+        ResultSet rs = null;
+
+        try {
+            con = DriverManager.getConnection(url, user, pwd);
+            pStmnt = con.prepareStatement("SELECT idMessage, playerID1, playerID2, extra_turn, channelID FROM duel WHERE last_reaction + "+Main.duelSurrenderTime+" < ?");
+            pStmnt.setInt(1, time);
+            rs = pStmnt.executeQuery();
+
+            while(rs.next()){
+                boolean player1Won = rs.getInt("extra_turn") % 2 != 0;
+                String winnderID = rs.getString(player1Won ? 2 : 3);
+                duel.updateDuelMessageTimeout(winnderID, rs.getString("channelID"), rs.getString("idMessage"));
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally {
+            doFinally(con, pStmnt, rs);
+        }
+
+    }
+
 
     public static boolean doesClanTagExist(String clanTag) {
         Connection con = null;

@@ -40,6 +40,11 @@ public class OnReadyListener extends ListenerAdapter {
         ExecutorService esSetStatus = Executors.newSingleThreadExecutor();
         esSetStatus.execute(() -> {
             while (run) {
+                int time = Math.toIntExact((System.currentTimeMillis() / 1000));
+                Database.duelCheckTime(time);
+
+
+
                 try {
                     Activity a = null;
 
