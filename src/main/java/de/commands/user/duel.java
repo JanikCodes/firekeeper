@@ -1,11 +1,13 @@
 package de.commands.user;
 
 import de.coaster.Database;
+import de.coaster.Main;
 import de.utilities.createEmbed;
 import de.utilities.getRandomNumberInRange;
 import de.utilities.initHealthBars;
 import de.utilities.rewardUser;
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.TextChannel;
@@ -45,8 +47,8 @@ public class duel {
             message.addReaction("hea:784185738681516053").queue();
             message.addReaction("ddg:784349634163507240").queue();
             messageID[0] = message.getId();
-            Database.createDuelRelation(messageID[0],player1.getId(),player2.getId(),playerMaxHealth1,playerMaxHealth2,playerEstus1,playerEstus2,2);
-
+            int time = Math.toIntExact((System.currentTimeMillis() / 1000));
+            Database.createDuelRelation(messageID[0],player1.getId(),player2.getId(),playerMaxHealth1,playerMaxHealth2,playerEstus1,playerEstus2,2, time, currchat.getId());
         });
 
     }
@@ -731,5 +733,22 @@ public class duel {
                 rewardUser.methode(memberID, "title", 1);
             }
         }
+    }
+
+    public static void updateDuelMessageTimeout(String userIDWinner, String channelID, String messageid){
+
+        TextChannel channel = Main.jda.getTextChannelById(channelID);
+        Guild guild = channel.getGuild();
+        Member winner = guild.retrieveMemberById(userIDWinner).complete();
+        Message msg = channel.retrieveMessageById(messageid).complete();
+
+        EmbedBuilder eb = new EmbedBuilder();
+        eb.setTitle("Duel");
+        eb.setDescription(winner.getAsMention()+" won due to their opponent not reacting for one minute.");
+        eb.setColor(Color.red);
+        msg.editMessage(eb.build()).queue();
+        msg.clearReactions().queue();
+
+        Database.deleteDuelRelation(messageid);
     }
 }

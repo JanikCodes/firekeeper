@@ -1,6 +1,7 @@
 package de.coaster;
 
 import de.commands.user.*;
+import de.objects.Clan;
 import de.utilities.canUpgrade;
 import de.utilities.createEmbed;
 import de.utilities.rewardUser;
@@ -15,6 +16,7 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import java.awt.*;
 import java.util.List;
 import java.util.Random;
+
 
 public class CommandListener extends ListenerAdapter {
 
@@ -50,25 +52,25 @@ public class CommandListener extends ListenerAdapter {
                         double xpToNextLevel = (currLevel * (currLevel * 15) + 100);
                         if (currXP >= xpToNextLevel) {
                             Database.giveXP(memberID, -(currLevel * (currLevel * 15)) - 100);
-                                    Database.giveLevel(memberID);
-                                    Database.giveSouls(memberID, currLevel * 1100);
+                            Database.giveLevel(memberID);
+                            Database.giveSouls(memberID, currLevel * 1100);
 
-                                    if (Database.getNotificationState(serverID) == 1) {
-                                        String channelID = Database.getNotificationChannel(serverID);
+                            if (Database.getNotificationState(serverID) == 1) {
+                                String channelID = Database.getNotificationChannel(serverID);
 
-                                        if (!channelID.equals("empty")) {
-                                            if (event.getGuild().getTextChannelById(channelID) == null) {
-                                                currchat = event.getTextChannel();
-                                            } else {
-                                                currchat = event.getGuild().getTextChannelById(channelID);
-                                            }
-                                        } else {
-                                            currchat = event.getTextChannel();
-                                        }
+                                if (!channelID.equals("empty")) {
+                                    if (event.getGuild().getTextChannelById(channelID) == null) {
+                                        currchat = event.getTextChannel();
+                                    } else {
+                                        currchat = event.getGuild().getTextChannelById(channelID);
+                                    }
+                                } else {
+                                    currchat = event.getTextChannel();
+                                }
 
-                                        if(event.getGuild().getSelfMember().hasPermission(Permission.MESSAGE_WRITE,Permission.MESSAGE_MENTION_EVERYONE)){
-                                            currchat.sendMessage(event.getMember().getAsMention()).queue();
-                                            EmbedBuilder msg = createEmbed.methode(event.getMember().getEffectiveName(), "You've gained **1 Level**! <:lv:761544969546629170> \n you are now level " + (currLevel + 1) + ".\n and you've received **" + (currLevel * 1100) + " souls!**", Color.orange, "Admins can disable this notification by typing " + prefix + "levelNotification false", null,null);
+                                if(event.getGuild().getSelfMember().hasPermission(Permission.MESSAGE_WRITE,Permission.MESSAGE_MENTION_EVERYONE)){
+                                    currchat.sendMessage(event.getMember().getAsMention()).queue();
+                                    EmbedBuilder msg = createEmbed.methode(event.getMember().getEffectiveName(), "You've gained **1 Level**! <:lv:761544969546629170> \n you are now level " + (currLevel + 1) + ".\n and you've recieved **" + (currLevel * 1100) + " souls!**", Color.orange, "Admins can disable this notification by typing " + prefix + "levelNotification false", null,null);
                                     currchat.sendMessage(msg.build()).queue();
                                 }
                             }
@@ -187,13 +189,15 @@ public class CommandListener extends ListenerAdapter {
                     String memberID = event.getMember().getId();
                     int turn = Database.getDuelTurn(message.getId());
                     //Is player allowed to do an action
-
+                    int time = Math.toIntExact((System.currentTimeMillis() / 1000));
+                    Database.updateDuelTime(event.getUserId(), time);
                     if(Database.getDuelPlayerTurn(message.getId(),turn).equals(memberID)){
                         message.editMessage(duel.editDuelMessage(message.getId(),"damage",event).build()).queue();
                         event.getReaction().removeReaction(event.getUser()).queue();
                     }
                 }
             }
+
 
             if(event.getReactionEmote().isEmote() && (!event.getUser().isBot())) {
                 String memberID = event.getMember().getId();

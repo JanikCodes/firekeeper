@@ -1,5 +1,6 @@
 package de.utilities;
 
+import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionAddEvent;
 
