@@ -22,7 +22,7 @@ public class Main {
     public static int voteClearTime = 900;
     public static int voteBossTime = 900;
 
-    public static final int duelSurrenderTime = 60;
+    public static final int duelSurrenderTime = 10;
 
     public static int bossTimeWon = 3600;
     public static int voteBossTimeWon = 2700;
@@ -38,7 +38,7 @@ public class Main {
 
     public static JDA jda;
 
-    public static boolean test = false;
+    public static boolean test = true;
     public static boolean DEVELOPER_SERVER_MODE = false;
 
 

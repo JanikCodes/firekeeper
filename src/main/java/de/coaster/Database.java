@@ -3576,12 +3576,12 @@ public class Database {
 
         try {
             con = DriverManager.getConnection(url, user, pwd);
-            pStmnt = con.prepareStatement("SELECT idMessage, playerID1, playerID2, extra_turn, channelID FROM duel WHERE last_reaction + "+Main.duelSurrenderTime+" < ?");
+            pStmnt = con.prepareStatement("SELECT idMessage, playerID1, playerID2, turn, channelID FROM duel WHERE last_reaction + "+Main.duelSurrenderTime+" < ?");
             pStmnt.setInt(1, time);
             rs = pStmnt.executeQuery();
 
             while(rs.next()){
-                boolean player1Won = rs.getInt("extra_turn") % 2 != 0;
+                boolean player1Won = rs.getInt("turn") == 2;
                 String winnderID = rs.getString(player1Won ? 2 : 3);
                 duel.updateDuelMessageTimeout(winnderID, rs.getString("channelID"), rs.getString("idMessage"));
             }
