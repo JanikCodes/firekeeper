@@ -18,16 +18,16 @@ public class Main {
     public static String defaultprefix = "!";
     public static String botAddLink = "https://discord.com/api/oauth2/authorize?client_id=760993270133555231&permissions=1074097216&scope=bot";
     public static int bossTime = 1800;
-    public static int clearTime = 5400;
-    public static int voteClearTime = 3600;
-    public static int voteBossTime = 2700;
+    public static int clearTime = 1800;
+    public static int voteClearTime = 900;
+    public static int voteBossTime = 900;
 
     public static final int duelSurrenderTime = 60;
 
-    public static int bossTimeWon = 5400;
-    public static int voteBossTimeWon = 3600;
+    public static int bossTimeWon = 3600;
+    public static int voteBossTimeWon = 2700;
 
-    public static int patreonTime = 1800;
+    public static int patreonTime = 900;
     public static int patreonTimeBossWon = 1800;
     public static double tier1SoulMulti = 1.5;
     public static int tier2SoulMulti = 2;
