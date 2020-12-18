@@ -33,8 +33,8 @@ public class duel {
         int playerRes1 = Database.getStatistic("Resistance", idMember1);
         int playerRes2 = Database.getStatistic("Resistance", idMember2);
 
-        int playerArmor1 = Database.getArmorBonus(idMember1);
-        int playerArmor2 = Database.getArmorBonus(idMember2);
+        //int playerArmor1 = Database.getArmorBonus(idMember1);
+        //int playerArmor2 = Database.getArmorBonus(idMember2);
 
         int playerMaxHealth1 = 150 + (playerHealth1 + playerRes1) * 8;
         int playerMaxHealth2 = 150 + (playerHealth2 + playerRes2) * 8;

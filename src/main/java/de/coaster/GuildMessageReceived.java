@@ -454,7 +454,7 @@ public class GuildMessageReceived extends ListenerAdapter {
                     }
                 }
             }
-
+        /*
             if (args[0].equalsIgnoreCase(prefix + "clan")){
                 if (args.length==1){
                     //TODO send basic clan info message
@@ -468,6 +468,8 @@ public class GuildMessageReceived extends ListenerAdapter {
                     clanLogic.sendClanInviteMessage(event);
                 }
             }
+
+        */
         } catch (InsufficientPermissionException exception) { }
     }
 
