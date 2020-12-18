@@ -15,6 +15,10 @@ import java.net.InetSocketAddress;
 
 public class Main {
 
+
+    public static boolean test = false;
+    public static boolean DEVELOPER_SERVER_MODE = false;
+
     public static String defaultprefix = "!";
     public static String botAddLink = "https://discord.com/api/oauth2/authorize?client_id=760993270133555231&permissions=1074097216&scope=bot";
     public static int bossTime = 1800;
@@ -22,7 +26,7 @@ public class Main {
     public static int voteClearTime = 900;
     public static int voteBossTime = 900;
 
-    public static final int duelSurrenderTime = 10;
+    public static final int duelSurrenderTime = 60;
 
     public static int bossTimeWon = 3600;
     public static int voteBossTimeWon = 2700;
@@ -37,10 +41,6 @@ public class Main {
     public static String patreonlink = "https://www.patreon.com/firekeeperbot";
 
     public static JDA jda;
-
-    public static boolean test = true;
-    public static boolean DEVELOPER_SERVER_MODE = false;
-
 
     private static String realVersion = "NzYwOTkzMjcwMTMzNTU1MjMx.X3UINg.s8k6-zhT13HDBRFpCFSc4EFPTvc";
     private static String testVersion = "NzYzNDQ1ODk3NDc1MzkxNDk4.X330Zg.mwrGhbZipvaBF-X2XOmQoS5JIww";
