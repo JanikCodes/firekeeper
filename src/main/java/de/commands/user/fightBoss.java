@@ -30,14 +30,13 @@ public class fightBoss {
             Database.updateBossWon(memberID,0);
 
             //Get player statistics
-            int playerArmor = Database.getArmorBonus(memberID);
             int vitality = Database.getStatistic("Vitality", memberID);
             int resistance = Database.getStatistic("Resistance", memberID);
             int faith = Database.getStatistic("Faith", memberID);
 
             int estus_amount = duel.getEstus(faith);
 
-            int playerMaxHealth = 150 + (vitality + resistance + playerArmor) * 8;
+            int playerMaxHealth = 150 + (vitality + resistance) * 8;
             int bossMaxHealth = Database.getBossHealth(bossID);
             ArrayList<String> bossAttacks = Database.getBossAttacks(bossID,1,0);
             int randomAttack = getRandomNumberInRange.methode(0,bossAttacks.size() - 1);
@@ -86,7 +85,7 @@ public class fightBoss {
         int weaponDamage = Database.getWeaponDamage(memberID);
         int playerArmor = Database.getArmorBonus(memberID);
 
-        int playerMaxHealth = 150 + (vitality + resistance + playerArmor) * 8;
+        int playerMaxHealth = 150 + (vitality + resistance) * 8;
         int playerDamage = 100 + ((strength/2) + (dexterity/2) + weaponDamage) * 2;
 
         int bossMaxHealth = Database.getBossHealth(bossID);

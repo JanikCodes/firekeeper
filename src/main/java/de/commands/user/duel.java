@@ -104,8 +104,10 @@ public class duel {
         int playerCurrentHealth1 = Database.getDuelPlayerHeal(messageid,1);
         int playerCurrentHealth2 = Database.getDuelPlayerHeal(messageid,2);
 
-        int playerDamage1 = 100 + ((playerStrength1/2) + (playerDexterity1/2) + playerWeapon1) * 2;
-        int playerDamage2 = 100 + ((playerStrength2/2) + (playerDexterity2/2) + playerWeapon2) * 2;
+        int rndDMG1 = getRandomNumberInRange.methode(5,30);
+
+        int playerDamage1 = (100 + ((playerStrength1/2) + (playerDexterity1/2) + playerWeapon1) * 2) + rndDMG1;
+        int playerDamage2 = (100 + ((playerStrength2/2) + (playerDexterity2/2) + playerWeapon2) * 2) + rndDMG1;
 
         int healAmount = 550;
 

@@ -37,7 +37,7 @@ public class clearArea {
             }
 
             ArrayList<Integer> items = Database.getAllitems();
-            double howmanyitems = getRandomNumberInRange.methode(1, 3);
+            double howmanyitems = getRandomNumberInRange.methode(1, 2);
 
             if (findRole.methode(event.getMember(), Main.tier1) != null) {
                 howmanyitems = howmanyitems * Main.tier1SoulMulti;

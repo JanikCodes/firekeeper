@@ -9,7 +9,7 @@ public class how {
 
     public static void methode(TextChannel currchat){
         currchat.sendMessage(createEmbed.methode("**How does this bot work?**", "You get **xp** by typing in the chat and with **xp you'll level up!** \n Level-ups will give you **souls** which then can be used to **upgrade your skills or weapons/armor**! \n \n You'll need" +
-                        " a decent amount of **strength, vitality, dexterity, faith** to have a good chance of beating a boss! *I suggest atleast level 25 in all of them* \n\n" +
+                        " a decent amount of **strength, vitality, dexterity, faith** to have a good chance of beating a boss! *I suggest at least level 25 in all of them* \n\n" +
                         ":white_small_square: **Strength** increases your damage.\n" +
                         ":white_small_square: **Dexterity** increases your damage aswell.\n" +
                         ":white_small_square: **Vitality** increases your health.\n" +
