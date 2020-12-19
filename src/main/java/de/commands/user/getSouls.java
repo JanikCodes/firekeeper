@@ -13,7 +13,7 @@ public class getSouls {
     public static void methode(Member member, GuildMessageReceivedEvent event, String prefix) {
         int souls = Database.getStatistic("souls", member.getId());
         TextChannel currchat = event.getChannel();
-        currchat.sendMessage(createEmbed.methode("Information", "You currently have **" + souls + " souls**! <:sl:761557221590433792>", Color.red, "You can view other peoples souls by typing " + prefix + "souls @person.", null, null).build()).complete();
+        currchat.sendMessage(createEmbed.methode("Information", "You currently have **" + souls + " souls**! <:sl:761557221590433792>", Color.red, "You can view other peoples souls by typing " + prefix + "souls @person.", null, null).build()).queue();
     }
 
 }

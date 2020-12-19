@@ -27,11 +27,11 @@ public class upgrade {
 
                 } else {
                     //Error finding items
-                    currchat.sendMessage(createEmbed.methode("**ERROR**", "Could not find the Item you were looking for.", Color.red, null, null, null).build()).complete();
+                    currchat.sendMessage(createEmbed.methode("**ERROR**", "Could not find the Item you were looking for.", Color.red, null, null, null).build()).queue();
                 }
             } else {
                 //Error no correct number
-                currchat.sendMessage(createEmbed.methode("**ERROR**", "Wrong Syntax! The **item ID** you typed is **wrong**, check the item ID in your inventory!", Color.red, null, null, null).build()).complete();
+                currchat.sendMessage(createEmbed.methode("**ERROR**", "Wrong Syntax! The **item ID** you typed is **wrong**, check the item ID in your inventory!", Color.red, null, null, null).build()).queue();
             }
         } else if (arg1.equals("armor")) {
             if (arg2.matches("[0-9]+")) {
@@ -47,14 +47,14 @@ public class upgrade {
                     });
                 } else {
                     //Error finding items
-                    currchat.sendMessage(createEmbed.methode("**ERROR**", "Could not find the Item you were looking for.", Color.red, null, null, null).build()).complete();
+                    currchat.sendMessage(createEmbed.methode("**ERROR**", "Could not find the Item you were looking for.", Color.red, null, null, null).build()).queue();
                 }
             } else {
                 //Error no correct number
-                currchat.sendMessage(createEmbed.methode("**ERROR**", "Wrong Syntax! The **item ID** you typed is **wrong**, check the item ID in your inventory!", Color.red, null, null, null).build()).complete();
+                currchat.sendMessage(createEmbed.methode("**ERROR**", "Wrong Syntax! The **item ID** you typed is **wrong**, check the item ID in your inventory!", Color.red, null, null, null).build()).queue();
             }
         } else {
-            currchat.sendMessage(createEmbed.methode("**ERROR**", "Wrong Syntax! Type `" + prefix + "help` to see all commands.", Color.red, null, null, null).build()).complete();
+            currchat.sendMessage(createEmbed.methode("**ERROR**", "Wrong Syntax! Type `" + prefix + "help` to see all commands.", Color.red, null, null, null).build()).queue();
         }
     }
 }

@@ -36,7 +36,7 @@ public class fightBoss {
 
             int estus_amount = duel.getEstus(faith);
 
-            int playerMaxHealth = 150 + (vitality + resistance) * 8;
+            int playerMaxHealth = 150 + ((vitality * 2) + resistance) * 8;
             int bossMaxHealth = Database.getBossHealth(bossID);
             ArrayList<String> bossAttacks = Database.getBossAttacks(bossID,1,0);
             int randomAttack = getRandomNumberInRange.methode(0,bossAttacks.size() - 1);
@@ -60,9 +60,9 @@ public class fightBoss {
             //Can't do boss
             String endTime = calculateTime.methode(getTime.getBossTime(time, event) - ((time / 1000) - lastclear));
             if (voted) {
-                currchat.sendMessage(createEmbed.methode("**ERROR**", "You've already fought a boss recently! \n You'll need to wait **" + endTime + "** to fight a new boss!", Color.orange, null, null, null).build()).complete();
+                currchat.sendMessage(createEmbed.methode("**ERROR**", "You've already fought a boss recently! \n You'll need to wait **" + endTime + "** to fight a new boss!", Color.orange, null, null, null).build()).queue();
             } else {
-                currchat.sendMessage(createEmbed.methode("**ERROR**", "You've already fought a boss recently! \n You'll need to wait **" + endTime + "** to fight a new boss! \n ❕*Vote the bot on* [top.gg](https://top.gg/bot/760993270133555231/vote) *for reduced cooldown!*", Color.orange, null, null, null).build()).complete();
+                currchat.sendMessage(createEmbed.methode("**ERROR**", "You've already fought a boss recently! \n You'll need to wait **" + endTime + "** to fight a new boss! \n ❕*Vote the bot on* [top.gg](https://top.gg/bot/760993270133555231/vote) *for reduced cooldown!*", Color.orange, null, null, null).build()).queue();
             }
         }
 
@@ -85,13 +85,14 @@ public class fightBoss {
         int weaponDamage = Database.getWeaponDamage(memberID);
         int playerArmor = Database.getArmorBonus(memberID);
 
-        int playerMaxHealth = 150 + (vitality + resistance) * 8;
+        int playerMaxHealth = 150 + ((vitality * 2) + resistance) * 8;
         int playerDamage = 100 + ((strength/2) + (dexterity/2) + weaponDamage) * 2;
 
         int bossMaxHealth = Database.getBossHealth(bossID);
         String bossName = Database.getBossName(bossID);
         int bossCurrentHealth = Database.getBossCurrentHealth(messageid,memberID);
         int playerCurrentHealth = Database.getPlayerCurrentHealth(messageid,memberID);
+        resistance = resistance / 2;
 
         ArrayList<String> bossAttacks = new ArrayList<>();
 
@@ -184,14 +185,21 @@ public class fightBoss {
             //PLAYER CHOOSE TO BLOCK
         }else if(player_choice.equals("block")){
             if(last_attack_type.equals("damage")){
-                if((playerCurrentHealth - ((last_attack_value / 2) - playerArmor)) <= 0){
+                if((playerCurrentHealth - ((last_attack_value / 2) - playerArmor - resistance)) <= 0){
                     playerCurrentHealth = 0;
-                }else {
-                    playerCurrentHealth = playerCurrentHealth - ((last_attack_value / 2) - playerArmor);
-                }
 
+                    playerTextHealth = "** -" + (( last_attack_value / 2 ) - playerArmor - resistance) + "**, blocked **" +  last_attack_value / 2 + "** damage!";
+                }else if(( (last_attack_value / 2) - playerArmor - resistance) <= 0){
+                    //would do below 0 damage
+                    playerCurrentHealth = playerCurrentHealth - 25;
+
+                    playerTextHealth = "** -25**, blocked **" +  last_attack_value / 2 + "** damage!";
+                }else {
+                    playerCurrentHealth = playerCurrentHealth - ((last_attack_value / 2) - playerArmor - resistance);
+
+                    playerTextHealth = "** -" + (( last_attack_value / 2 ) - playerArmor - resistance) + "**, blocked **" +  last_attack_value / 2 + "** damage!";
+                }
                 bossTextHealth = "";
-                playerTextHealth = "** -" + (( last_attack_value / 2 ) - playerArmor ) + "**, blocked **" +  last_attack_value / 2 + "** damage!";
 
             }else if(last_attack_type.equals("block")){
                 bossTextHealth = "";
@@ -324,9 +332,8 @@ public class fightBoss {
         }else if(player_choice.equals("dodge")){
 
             if(last_attack_type.equals("damage")){
-                int dodgechance = Database.getStatistic("intelligence",memberID);
+                int dodgechance = 25 + (Database.getStatistic("intelligence",memberID) / 2);
                 int randomNum = getRandomNumberInRange.methode(1,100);
-
                 //CAN HE DODGE
                 if(dodgechance >= randomNum) {
                     playerTextHealth = " **dodged!**";
@@ -344,19 +351,21 @@ public class fightBoss {
 
             }else if(last_attack_type.equals("block")){
                 bossTextHealth = "";
-                playerTextHealth = "";
+                playerTextHealth = " nothing to dodge";
 
             }else if(last_attack_type.equals("free")){
                 bossTextHealth = "";
-                playerTextHealth = "";
+                playerTextHealth = " nothing to dodge";
 
             }else if(last_attack_type.equals("cant")){
                 bossTextHealth = "";
-                playerTextHealth = "";
+                playerTextHealth = " nothing to dodge";
 
             }else if(last_attack_type.equals("weakness")){
                 bossTextHealth = "";
-                playerTextHealth = "";
+                playerTextHealth = " nothing to dodge";
+            }else if(last_attack_type.equals("none")){
+                System.out.println("LOL");
             }
         }
 

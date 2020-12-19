@@ -80,12 +80,15 @@ public class CommandListener extends ListenerAdapter {
                 }
             }
         } catch (InsufficientPermissionException exception) {
+        }catch(NullPointerException p){
+            
         }
     }
 
     public void onGuildMessageReactionAdd(GuildMessageReactionAddEvent event) {
         try{
             Message message = event.getChannel().retrieveMessageById(event.getMessageId()).complete();
+
             TextChannel currchat = event.getChannel();
 
             if (event.getReactionEmote().getName().equals("✅") && (!event.getUser().isBot())) {
@@ -98,14 +101,14 @@ public class CommandListener extends ListenerAdapter {
                         if(Database.isAllowedToAcceptDuel(memberID,event.getMessageId())) {
                             List<MessageEmbed> lmess = message.getEmbeds();
                             MessageEmbed emb = lmess.get(0);
-                            message.editMessage(createEmbed.methode(emb.getTitle(), emb.getDescription(), Color.green, "This duel was accepted", null, null).build()).complete();
+                            message.editMessage(createEmbed.methode(emb.getTitle(), emb.getDescription(), Color.green, "This duel was accepted", null, null).build()).queue();
                             duel.methode(memberID, membID, event, currchat);
                             Database.deletePvpRelation(event.getMessageId());
                         }
                     }else{
                         List<MessageEmbed> lmess = message.getEmbeds();
                         MessageEmbed emb = lmess.get(0);
-                        message.editMessage(createEmbed.methode(emb.getTitle(), emb.getDescription(), Color.red, "A player is already in a duel!", null, null).build()).complete();
+                        message.editMessage(createEmbed.methode(emb.getTitle(), emb.getDescription(), Color.red, "A player is already in a duel!", null, null).build()).queue();
                         Database.deletePvpRelation(event.getMessageId());
                     }
 
@@ -113,7 +116,7 @@ public class CommandListener extends ListenerAdapter {
                     //It's a selling message
                     List<MessageEmbed> lmess = message.getEmbeds();
                     MessageEmbed emb = lmess.get(0);
-                    message.editMessage(createEmbed.methode(emb.getTitle(),"Many deal…many thanks! Gah hah! \n You? Go home? \n Umm… Thanks!",Color.green,"You've sold your items for " + Database.getTotalItemValue(memberID) + " souls!",null,"https://cdn.discordapp.com/attachments/773175900178743297/781193058095857704/gavlanframe.jpg").build()).complete();
+                    message.editMessage(createEmbed.methode(emb.getTitle(),"Many deal…many thanks! Gah hah! \n You? Go home? \n Umm… Thanks!",Color.green,"You've sold your items for " + Database.getTotalItemValue(memberID) + " souls!",null,"https://cdn.discordapp.com/attachments/773175900178743297/781193058095857704/gavlanframe.jpg").build()).queue();
                     Database.giveSouls(memberID,Database.getTotalItemValue(memberID));
                     Database.clearInventory(memberID);
                     Database.deleteSellingRelation(event.getMessageId());
@@ -131,14 +134,14 @@ public class CommandListener extends ListenerAdapter {
                     if(Database.isAllowedToAcceptDuel(memberID, event.getMessageId())) {
                         List<MessageEmbed> lmess = message.getEmbeds();
                         MessageEmbed emb = lmess.get(0);
-                        message.editMessage(createEmbed.methode(emb.getTitle(), emb.getDescription(), Color.red, "This duel was declined", null, null).build()).complete();
+                        message.editMessage(createEmbed.methode(emb.getTitle(), emb.getDescription(), Color.red, "This duel was declined", null, null).build()).queue();
                         Database.deletePvpRelation(event.getMessageId());
                     }
                 }else if(Database.findSellingMessageID(event.getMessageId(),memberID)){
                     //It's a selling message
                     List<MessageEmbed> lmess = message.getEmbeds();
                     MessageEmbed emb = lmess.get(0);
-                    message.editMessage(createEmbed.methode(emb.getTitle(),"Umm… \n You? Go home? \n . . .",Color.green,"You have left",null,null).build()).complete();
+                    message.editMessage(createEmbed.methode(emb.getTitle(),"Umm… \n You? Go home? \n . . .",Color.green,"You have left",null,null).build()).queue();
                     Database.deleteSellingRelation(event.getMessageId());
                 }else if(!Database.findUpgradeMessageID(event.getMessageId(),event.getMember().getId()).equals("error")){
                     //It's a upgrade item message
@@ -153,22 +156,22 @@ public class CommandListener extends ListenerAdapter {
                 String memberID = event.getMember().getId();
                 if(Database.findAchievementMessageID(event.getMessageId(),memberID)){
                     //It's a achievement message
-                    message.editMessage(achievements.editAchievementPage(event.getMember(),Database.getAchievementPage(memberID,message.getId()) + 1,message.getId(),"forward").build()).complete();
+                    message.editMessage(achievements.editAchievementPage(event.getMember(),Database.getAchievementPage(memberID,message.getId()) + 1,message.getId(),"forward").build()).queue();
                     event.getReaction().removeReaction(event.getUser()).queue();
                 }else if(Database.findInventoryMessageID(event.getMessageId(),memberID)){
                     //It's a Inventory message
-                    message.editMessage(inventory.editInventoryPage(event.getMember(),Database.getInventoryPage(memberID,message.getId()) + 1 ,message.getId(),"forward").build()).complete();
+                    message.editMessage(inventory.editInventoryPage(event.getMember(),Database.getInventoryPage(memberID,message.getId()) + 1 ,message.getId(),"forward").build()).queue();
                     event.getReaction().removeReaction(event.getUser()).queue();
                 }
             } else if(event.getReactionEmote().getName().equals("◀️") && (!event.getUser().isBot())){
                 String memberID = event.getMember().getId();
                 if(Database.findAchievementMessageID(event.getMessageId(),memberID)){
                     //It's a achievement message
-                    message.editMessage(achievements.editAchievementPage(event.getMember(),Database.getAchievementPage(memberID,message.getId()) - 1,message.getId(),"backwards").build()).complete();
+                    message.editMessage(achievements.editAchievementPage(event.getMember(),Database.getAchievementPage(memberID,message.getId()) - 1,message.getId(),"backwards").build()).queue();
                     event.getReaction().removeReaction(event.getUser()).queue();
                 }else if(Database.findInventoryMessageID(event.getMessageId(),memberID)){
                     //It's a Inventory message
-                    message.editMessage(inventory.editInventoryPage(event.getMember(), Database.getInventoryPage(memberID, message.getId()) - 1, message.getId(), "backwards").build()).complete();
+                    message.editMessage(inventory.editInventoryPage(event.getMember(), Database.getInventoryPage(memberID, message.getId()) - 1, message.getId(), "backwards").build()).queue();
                     event.getReaction().removeReaction(event.getUser()).queue();
                 }
             }
@@ -277,7 +280,8 @@ public class CommandListener extends ListenerAdapter {
             }
         } catch (InsufficientPermissionException exception) {
         }catch(ErrorResponseException er){
-            System.out.println("Message was deleted EXCEPTION");
+        }catch(NullPointerException p){
+
         }
     }
 
@@ -300,29 +304,31 @@ public class CommandListener extends ListenerAdapter {
             }
 
             if(itemLevel >= 10){
-                message.editMessage(createEmbed.methode("Forge", emb.getDescription(), Color.red, "Item cannot be upgraded anymore!", null, null).build()).complete();
+                message.editMessage(createEmbed.methode("Forge", emb.getDescription(), Color.red, "Item cannot be upgraded anymore!", null, null).build()).queue();
                 Database.deleteUpgradeItemRelation(message.getId());
             }else{
                 if(soulamount >= itemCost){
                     //Upgraded
-                    message.editMessage(createEmbed.methode("Forge","Do you want to upgrade the " + type + "? \n Weapon: **" + itemName + " +" + (itemLevel + 1) +"** \n Current damage: **" + itemStats + "** \n After upgrade: **" + (itemStats + 5) + "** \n Upgrade cost: **" + displayitemCost + " souls**" ,Color.green,"successfully upgraded!",null,null).build()).complete();
+                    message.editMessage(createEmbed.methode("Forge","Do you want to upgrade the " + type + "? \n Weapon: **" + itemName + " +" + (itemLevel + 1) +"** \n Current damage: **" + itemStats + "** \n After upgrade: **" + (itemStats + 5) + "** \n Upgrade cost: **" + displayitemCost + " souls**" ,Color.green,"successfully upgraded!",null,null).build()).queue();
                     Database.upgradeItem(itemID,memberID);
                     Database.reduceSouls(memberID, itemCost);
                 }else{
                     //Not enough
-                    message.editMessage(createEmbed.methode("Forge",emb.getDescription() ,Color.red,"Not enough souls!",null,null).build()).complete();
+                    message.editMessage(createEmbed.methode("Forge",emb.getDescription() ,Color.red,"Not enough souls!",null,null).build()).queue();
                 }
             }
 
 
         }catch (InsufficientPermissionException exception) {
+        }catch(NullPointerException p){
+
         }
     }
 
     private static void upgradeSkill(String skillname, Message message, GuildMessageReactionAddEvent event){
         String memberID = event.getMember().getId();
         try{
-            event.getReaction().removeReaction(event.getUser()).complete();
+            event.getReaction().removeReaction(event.getUser()).queue();
             List<MessageEmbed> lmess = message.getEmbeds();
             MessageEmbed emb = lmess.get(0);
             Integer soulamount = Database.getStatistic("souls", memberID);
@@ -347,7 +353,7 @@ public class CommandListener extends ListenerAdapter {
 
             if(value == 100 && !skillname.equals("level")){
                 //Is max level
-                message.editMessage(getProfil.createProfilEmbed(strength, dexterity, vitality, intelligence, resistance, faith,rank, event.getMember(), "You're already max level with the " + skillname + " skill.", Color.red,soulamount).build()).complete();
+                message.editMessage(getProfil.createProfilEmbed(strength, dexterity, vitality, intelligence, resistance, faith,rank, event.getMember(), "You're already max level with the " + skillname + " skill.", Color.red,soulamount).build()).queue();
             }else {
                 if (canUpgrade.methode(endprice, soulamount)) {
                     //has enough souls to upgrade!
@@ -371,12 +377,14 @@ public class CommandListener extends ListenerAdapter {
                         rank = Database.getStatistic("level", memberID);
                     }
 
-                    message.editMessage(getProfil.createProfilEmbed(strength, dexterity, vitality, intelligence, resistance, faith,rank, event.getMember(), "Sucessfully upgraded your " + skillname + " skill!", Color.green,soulamount).build()).complete();
+                    message.editMessage(getProfil.createProfilEmbed(strength, dexterity, vitality, intelligence, resistance, faith,rank, event.getMember(), "Sucessfully upgraded your " + skillname + " skill!", Color.green,soulamount).build()).queue();
                 } else {
-                    message.editMessage(getProfil.createProfilEmbed(strength, dexterity, vitality, intelligence, resistance, faith,rank, event.getMember(), "You don't have enough souls! You need " + (endprice - soulamount) + " more souls!", Color.red,soulamount).build()).complete();
+                    message.editMessage(getProfil.createProfilEmbed(strength, dexterity, vitality, intelligence, resistance, faith,rank, event.getMember(), "You don't have enough souls! You need " + (endprice - soulamount) + " more souls!", Color.red,soulamount).build()).queue();
                 }
             }
         } catch (InsufficientPermissionException exception) {
+        }catch(NullPointerException p){
+
         }
     }
 }

@@ -12,7 +12,10 @@ import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionAddEvent;
+import net.dv8tion.jda.api.exceptions.InsufficientPermissionException;
+import net.dv8tion.jda.api.exceptions.PermissionException;
 
+import javax.xml.crypto.Data;
 import java.awt.*;
 
 public class duel {
@@ -36,8 +39,8 @@ public class duel {
         //int playerArmor1 = Database.getArmorBonus(idMember1);
         //int playerArmor2 = Database.getArmorBonus(idMember2);
 
-        int playerMaxHealth1 = 150 + (playerHealth1 + playerRes1) * 8;
-        int playerMaxHealth2 = 150 + (playerHealth2 + playerRes2) * 8;
+        int playerMaxHealth1 = 150 + ((playerHealth1 * 2)+ playerRes1) * 8;
+        int playerMaxHealth2 = 150 + ((playerHealth2 * 2)+ playerRes2) * 8;
 
         final String[] messageID = {null};
 
@@ -98,8 +101,12 @@ public class duel {
         int playerWeapon1 = Database.getWeaponDamage(idMember1);
         int playerWeapon2 = Database.getWeaponDamage(idMember2);
 
-        int playerMaxHealth1 = 150 + (playerHealth1 + playerRes1) * 8;
-        int playerMaxHealth2 = 150 + (playerHealth2 + playerRes2) * 8;
+        int playerMaxHealth1 = 150 + ((playerHealth1 * 2) + playerRes1) * 8;
+        int playerMaxHealth2 = 150 + ((playerHealth2 * 2) + playerRes2) * 8;
+
+        playerRes1 = playerRes1 / 2;
+        playerRes2 = playerRes2 / 2;
+
 
         int playerCurrentHealth1 = Database.getDuelPlayerHeal(messageid,1);
         int playerCurrentHealth2 = Database.getDuelPlayerHeal(messageid,2);
@@ -193,22 +200,30 @@ public class duel {
             }else if(last_attack.equals("block")){
                 if (curr_turn == 1){
 
-                    if(((playerCurrentHealth2 - ((playerDamage1 - playerArmor2) / 2))) <= 0){
+                    if(((playerCurrentHealth2 - ((playerDamage1 - playerArmor2 - playerRes2) / 2))) <= 0){
                         playerCurrentHealth2 = 0;
+                        player1HealthText = "** -" + ((playerDamage1 - playerArmor2 - playerRes2) / 2) + "**, blocked 50% damage!";
+                    }else if((playerDamage1 - playerArmor2 - playerRes2) <= 0){
+                        playerCurrentHealth2 = playerCurrentHealth2 - 25;
+                        player1HealthText = "** -25**, blocked 50% damage!";
                     }else{
-                        playerCurrentHealth2 = playerCurrentHealth2 - ((playerDamage1 - playerArmor2) / 2);
+                        playerCurrentHealth2 = playerCurrentHealth2 - ((playerDamage1 - playerArmor2 - playerRes2) / 2);
+                        player1HealthText = "** -" + ((playerDamage1 - playerArmor2 - playerRes2) / 2) + "**, blocked 50% damage!";
                     }
-                    player1HealthText = "** -" + ((playerDamage1 - playerArmor2) / 2) + "**, blocked 50% damage!";
                     player2HealthText = "";
                 }else{
 
-                    if(((playerCurrentHealth1 - ((playerDamage2 - playerArmor1) / 2))) <= 0){
+                    if(((playerCurrentHealth1 - ((playerDamage2 - playerArmor1 - playerRes1) / 2))) <= 0){
                         playerCurrentHealth1 = 0;
+                        player2HealthText = "** -" + ((playerDamage2 - playerArmor1 - playerRes1) / 2) + "**, blocked 50% damage!";
+                    }else if((playerDamage2 - playerArmor1 - playerRes1) <= 0){
+                        playerCurrentHealth1 = playerCurrentHealth1 - 25;
+                        player2HealthText = "** -25**, blocked 50% damage!";
                     }else{
-                        playerCurrentHealth1 = playerCurrentHealth1 - ((playerDamage2 - playerArmor1) / 2);
+                        playerCurrentHealth1 = playerCurrentHealth1 - ((playerDamage2 - playerArmor1 - playerRes1) / 2);
+                        player2HealthText = "** -" + ((playerDamage2 - playerArmor1 - playerRes1) / 2) + "**, blocked 50% damage!";
                     }
                     player1HealthText = "";
-                    player2HealthText = "** -" + ((playerDamage2 - playerArmor1) / 2) + "**, blocked 50% damage!";
 
                 }
             }else if(last_attack.equals("heal")){
@@ -271,7 +286,7 @@ public class duel {
                 }
             }else if(last_attack.equals("dodge")){
                 if (curr_turn == 1) {
-                    int dodgechance = Database.getStatistic("intelligence",idMember2);
+                    int dodgechance = 25 + (Database.getStatistic("intelligence",idMember2) / 2);
                     int randomNum = getRandomNumberInRange.methode(1, 100);
                     dodgeCounter2++;
                     //CAN HE DODGE
@@ -289,7 +304,7 @@ public class duel {
                     player2HealthText = "";
 
                 }else{
-                    int dodgechance = Database.getStatistic("intelligence",idMember1);
+                    int dodgechance = 25 + (Database.getStatistic("intelligence",idMember1) / 2);
                     int randomNum = getRandomNumberInRange.methode(1, 100);
                     dodgeCounter1++;
                     //CAN HE DODGE
@@ -313,22 +328,32 @@ public class duel {
             if(last_attack.equals("damage")){
                 if (curr_turn == 1){
 
-                    if(((playerCurrentHealth1 - ((playerDamage2 - playerArmor1) / 2))) <= 0){
+                    if(((playerCurrentHealth1 - ((playerDamage2 - playerArmor1 - playerRes1) / 2))) <= 0){
                         playerCurrentHealth1 = 0;
+                        player2HealthText = "** -" + ((playerDamage2 - playerArmor1 - playerRes1) / 2) + "**, blocked 50% damage!";
+                    }else if((playerDamage2 - playerArmor1 - playerRes1) <= 0){
+                        playerCurrentHealth1 = playerCurrentHealth1 - 25;
+                        player2HealthText = "** -25**, blocked 50% damage!";
                     }else{
-                        playerCurrentHealth1 = playerCurrentHealth1 - ((playerDamage2 - playerArmor1) / 2);
+                        playerCurrentHealth1 = playerCurrentHealth1 - ((playerDamage2 - playerArmor1 - playerRes1) / 2);
+                        player2HealthText = "** -" + ((playerDamage2 - playerArmor1 - playerRes1) / 2) + "**, blocked 50% damage!";
                     }
-                    player2HealthText = "** -" + ((playerDamage2 - playerArmor1) / 2) + "**, blocked 50% damage!";
                     player1HealthText = "";
                 }else{
 
-                    if(((playerCurrentHealth2 - ((playerDamage1 - playerArmor2) / 2))) <= 0){
+                    if(((playerCurrentHealth2 - ((playerDamage1 - playerArmor2 - playerRes2) / 2))) <= 0){
                         playerCurrentHealth2 = 0;
+                        player1HealthText = "** -" + ((playerDamage1 - playerArmor2 - playerRes2) / 2) + "**, blocked 50% damage!";
+
+                    }else if((playerDamage1 - playerArmor2 - playerRes2) <= 0){
+                        playerCurrentHealth2 = playerCurrentHealth2 - 25;
+                        player1HealthText = "** -25**, blocked 50% damage!";
                     }else{
-                        playerCurrentHealth2 = playerCurrentHealth2 - ((playerDamage1 - playerArmor2) / 2);
+                        playerCurrentHealth2 = playerCurrentHealth2 - ((playerDamage1 - playerArmor2 - playerRes2) / 2);
+                        player1HealthText = "** -" + ((playerDamage1 - playerArmor2 - playerRes2) / 2) + "**, blocked 50% damage!";
+
                     }
                     player2HealthText = "";
-                    player1HealthText = "** -" + ((playerDamage1 - playerArmor2) / 2) + "**, blocked 50% damage!";
 
                 }
             }else if(last_attack.equals("block")){
@@ -390,7 +415,7 @@ public class duel {
 
             if(last_attack.equals("damage")){
                 if (curr_turn == 1) {
-                    int dodgechance = Database.getStatistic("intelligence",idMember2);
+                    int dodgechance = 25 + (Database.getStatistic("intelligence",idMember2) / 2);
                     int randomNum = getRandomNumberInRange.methode(1, 100);
                     dodgeCounter2++;
                     //CAN HE DODGE
@@ -408,7 +433,7 @@ public class duel {
                     player1HealthText = "";
 
                 }else{
-                    int dodgechance = Database.getStatistic("intelligence",idMember1);
+                    int dodgechance = 25 + (Database.getStatistic("intelligence",idMember1) / 2);
                     int randomNum = getRandomNumberInRange.methode(1, 100);
                     dodgeCounter1++;
                     //CAN HE DODGE
@@ -672,23 +697,22 @@ public class duel {
 
         EmbedBuilder mb = null;
         if(playerCurrentHealth2 <= 0 && playerCurrentHealth1 <= 0) {
-            killedDeveloper(idMember1,idMember2);
-            killedDeveloper(idMember2,idMember1);
-            killedPlayer(idMember1);
-            killedPlayer(idMember2);
+            killedDeveloper(idMember1,idMember2,curr_turn);
+            killedDeveloper(idMember2,idMember1,curr_turn);
+            killedPlayer(idMember1,playerMaxHealth2,playerDamage1);
+            killedPlayer(idMember2,playerMaxHealth1,playerDamage2);
             mb = createEmbed.methode("Duel",initHealthBars.initDescriptionPvp(idMember1,idMember2, playerCurrentHealth1, playerMaxHealth1, playerCurrentHealth2, playerMaxHealth2, player1HealthText, player2HealthText,event) + "\n\n It was a draw! Nobody won! \n\n\n**React below** to choose your next **action**!\n ⚔ - attack <:sh:784184343416537141> - block \n <:hea:784185738681516053> - heal <:ddg:784349634163507240> - dodge", Color.black, null, null, null);
             Database.deleteDuelRelation(messageid);
         }else if(playerCurrentHealth1 <= 0){
-            killedDeveloper(idMember2,idMember1);
-            Database.giveKill(idMember2);
-            killedPlayer(idMember2);
+            killedDeveloper(idMember2,idMember1,curr_turn);
+
+            killedPlayer(idMember2,playerMaxHealth1,playerDamage2);
             HealthAchievement(playerMaxHealth2,playerCurrentHealth2,idMember2);
             mb = createEmbed.methode("Duel",initHealthBars.initDescriptionPvp(idMember1,idMember2, playerCurrentHealth1, playerMaxHealth1, playerCurrentHealth2, playerMaxHealth2, player1HealthText, player2HealthText,event) + "\n\n "+ player2.getAsMention() +" won the duel! \n\n\n**React below** to choose your next **action**!\n ⚔ - attack <:sh:784184343416537141> - block \n <:hea:784185738681516053> - heal <:ddg:784349634163507240> - dodge", Color.black, null, null, null);
             Database.deleteDuelRelation(messageid);
         }else if(playerCurrentHealth2 <= 0){
-            killedDeveloper(idMember1,idMember2);
-            Database.giveKill(idMember1);
-            killedPlayer(idMember1);
+            killedDeveloper(idMember1,idMember2,curr_turn);
+            killedPlayer(idMember1,playerMaxHealth2,playerDamage1);
             HealthAchievement(playerMaxHealth1,playerCurrentHealth1,idMember1);
             mb = createEmbed.methode("Duel",initHealthBars.initDescriptionPvp(idMember1,idMember2, playerCurrentHealth1, playerMaxHealth1, playerCurrentHealth2, playerMaxHealth2, player1HealthText, player2HealthText,event) + "\n\n "+ player1.getAsMention() +" won the duel! \n\n\n**React below** to choose your next **action**!\n ⚔ - attack <:sh:784184343416537141> - block \n <:hea:784185738681516053> - heal <:ddg:784349634163507240> - dodge", Color.black, null, null, null);
             Database.deleteDuelRelation(messageid);
@@ -706,27 +730,43 @@ public class duel {
     }
 
     private static void HealthAchievement(int playerMaxHealth, int playerCurrentHealth,String idMember){
-        int healthleft = (int) (10 * playerMaxHealth) / 100;
+            int healthleft = (int) (10 * playerMaxHealth) / 100;
 
-        if (playerCurrentHealth <= healthleft) {
-            if (Database.completeAchievement(idMember, 18)) {
-                rewardUser.methode(idMember, "title", 9);
+            if (playerCurrentHealth <= healthleft) {
+                if (Database.completeAchievement(idMember, 18)) {
+                    rewardUser.methode(idMember, "title", 9);
+                }
+            }
+    }
+
+    private static void killedDeveloper(String idMember, String idMember2,Integer curr_turn){
+        if(curr_turn.equals(1)){
+            if (idMember.equals("321649314382348288")) {
+
+                if (Database.completeAchievement(idMember2, 10)) {
+                    rewardUser.methode(idMember2, "item", 23);
+                }
+            }
+        }else{
+            if (idMember2.equals("321649314382348288")) {
+
+                if (Database.completeAchievement(idMember, 10)) {
+                    rewardUser.methode(idMember, "item", 23);
+                }
             }
         }
     }
 
-    private static void killedDeveloper(String idMember, String idMember2){
-        if (idMember.equals("321649314382348288")) {
-            if (Database.completeAchievement(idMember2, 10)) {
-                rewardUser.methode(idMember2, "item", 23);
+    public static void killedPlayer(String idMember,Integer maxHealth,Integer damage){
+            if (Database.completeAchievement(idMember, 6)) {
+                rewardUser.methode(idMember, "title", 2);
             }
-        }
-    }
+            Database.giveKill(idMember);
 
-    public static void killedPlayer(String idMember){
-        if (Database.completeAchievement(idMember, 6)) {
-            rewardUser.methode(idMember, "title", 2);
-        }
+            if(damage >= maxHealth){
+                Database.completeAchievement(idMember,19);
+            }
+
     }
 
     public static void dodgeAchievement(String memberID, int dodgeCounter){
@@ -738,19 +778,28 @@ public class duel {
     }
 
     public static void updateDuelMessageTimeout(String userIDWinner, String channelID, String messageid){
-
+    try {
         TextChannel channel = Main.jda.getTextChannelById(channelID);
         Guild guild = channel.getGuild();
-        Member winner = guild.retrieveMemberById(userIDWinner).complete();
-        Message msg = channel.retrieveMessageById(messageid).complete();
 
-        EmbedBuilder eb = new EmbedBuilder();
-        eb.setTitle("Duel");
-        eb.setDescription(winner.getAsMention()+" won due to their opponent not reacting for one minute.");
-        eb.setColor(Color.red);
-        msg.editMessage(eb.build()).queue();
-        msg.clearReactions().queue();
+        channel.retrieveMessageById(messageid).queue(msg -> {
+            guild.retrieveMemberById(userIDWinner).queue(winner -> {
+                EmbedBuilder eb = new EmbedBuilder();
+                eb.setTitle("Duel");
+                eb.setDescription(winner.getAsMention() + " won due to their opponent not reacting for one minute.");
+                eb.setColor(Color.red);
+                msg.editMessage(eb.build()).queue();
+                try {
+                    msg.clearReactions().queue();
+                }catch(InsufficientPermissionException in){
+
+                }
+            });
+        });
 
         Database.deleteDuelRelation(messageid);
+        }catch(InsufficientPermissionException e ){
+
+        }
     }
 }

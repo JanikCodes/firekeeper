@@ -49,15 +49,15 @@ public class GuildMessageReceived extends ListenerAdapter {
                                 Database.changePrefix(serverID, args[1]);
 
                                 EmbedBuilder messageStyle = createEmbed.methode("System", "You've successfully changed the prefix from `" + oldPrefix + "` to `" + args[1] + "`", Color.red, null, null, null);
-                                currchat.sendMessage(messageStyle.build()).complete();
+                                currchat.sendMessage(messageStyle.build()).queue();
                             } else {
-                                currchat.sendMessage(createEmbed.methode("**ERROR**", "Wrong Syntax! The prefix cannot be longer than 4 characters! ", Color.red, null, null, null).build()).complete();
+                                currchat.sendMessage(createEmbed.methode("**ERROR**", "Wrong Syntax! The prefix cannot be longer than 4 characters! ", Color.red, null, null, null).build()).queue();
                             }
                         } else {
-                            currchat.sendMessage(createEmbed.methode("**ERROR**", "Wrong Syntax! Use `" + prefix + "help` to find the right syntax.", Color.red, null, null, null).build()).complete();
+                            currchat.sendMessage(createEmbed.methode("**ERROR**", "Wrong Syntax! Use `" + prefix + "help` to find the right syntax.", Color.red, null, null, null).build()).queue();
                         }
                     } else {
-                        currchat.sendMessage(createEmbed.methode("**ERROR**", "You don't have the permissions to execute this command! Only the **server owner** can use this command.", Color.red, null, null, null).build()).complete();
+                        currchat.sendMessage(createEmbed.methode("**ERROR**", "You don't have the permissions to execute this command! Only the **server owner** can use this command.", Color.red, null, null, null).build()).queue();
                     }
                 }
             }
@@ -70,7 +70,7 @@ public class GuildMessageReceived extends ListenerAdapter {
                     Database.addMembersToDatabase(allmembers);
                     Database.getUsernames(allmembers);
                 } else {
-                    currchat.sendMessage(createEmbed.methode("**ERROR**", "You don't have the permissions to execute this command! Only the **Bot developer** can use this command.", Color.red, null, null, null).build()).complete();
+                    currchat.sendMessage(createEmbed.methode("**ERROR**", "You don't have the permissions to execute this command! Only the **Bot developer** can use this command.", Color.red, null, null, null).build()).queue();
                 }
             }
 
@@ -83,7 +83,7 @@ public class GuildMessageReceived extends ListenerAdapter {
                         Database.giveItem(realMemberCount.get(i).getId(), Integer.parseInt(args[1]));
                     }
                 } else {
-                    currchat.sendMessage(createEmbed.methode("**ERROR**", "You don't have the permissions to execute this command! Only the **Bot developer** can use this command.", Color.red, null, null, null).build()).complete();
+                    currchat.sendMessage(createEmbed.methode("**ERROR**", "You don't have the permissions to execute this command! Only the **Bot developer** can use this command.", Color.red, null, null, null).build()).queue();
                 }
             }
 
@@ -98,7 +98,7 @@ public class GuildMessageReceived extends ListenerAdapter {
                             doesUserExist(member);
                             getRank.methode(member, event, prefix);
                         } else {
-                            currchat.sendMessage(createEmbed.methode("**ERROR**", "Wrong Syntax! Type `" + prefix + "help` to see all commands.", Color.red, null, null, null).build()).complete();
+                            currchat.sendMessage(createEmbed.methode("**ERROR**", "Wrong Syntax! Type `" + prefix + "help` to see all commands.", Color.red, null, null, null).build()).queue();
                         }
                     }
                 }
@@ -110,7 +110,7 @@ public class GuildMessageReceived extends ListenerAdapter {
                         doesUserExist(event.getMember());
                         sell.methode(event, prefix, currchat);
                     } else {
-                        currchat.sendMessage(createEmbed.methode("**ERROR**", "Wrong Syntax! Type `" + prefix + "help` to see all commands.", Color.red, null, null, null).build()).complete();
+                        currchat.sendMessage(createEmbed.methode("**ERROR**", "Wrong Syntax! Type `" + prefix + "help` to see all commands.", Color.red, null, null, null).build()).queue();
                     }
                 }
             }
@@ -120,7 +120,7 @@ public class GuildMessageReceived extends ListenerAdapter {
                     if (args.length == 1) {
                         currchat.sendMessage(createEmbed.methode("Support us!", "This [link](https://www.patreon.com/firekeeperbot?fan_landing=true) will send you to our **Patreon**! Support us there and gain alot of benefits, we **appreciate every support!** \n ❤", Color.pink, "If you bought anything, message janik#0737!", null, null).build()).queue();
                     } else {
-                        currchat.sendMessage(createEmbed.methode("**ERROR**", "Wrong Syntax! Type `" + prefix + "help` to see all commands.", Color.red, null, null, null).build()).complete();
+                        currchat.sendMessage(createEmbed.methode("**ERROR**", "Wrong Syntax! Type `" + prefix + "help` to see all commands.", Color.red, null, null, null).build()).queue();
                     }
                 }
             }
@@ -134,7 +134,7 @@ public class GuildMessageReceived extends ListenerAdapter {
                         checkRewards.methode(memberID,event.getMember());
                         achievements.methode(event.getMember(), currchat);
                     } else {
-                        currchat.sendMessage(createEmbed.methode("**ERROR**", "Wrong Syntax! Type `" + prefix + "help` to see all commands.", Color.red, null, null, null).build()).complete();
+                        currchat.sendMessage(createEmbed.methode("**ERROR**", "Wrong Syntax! Type `" + prefix + "help` to see all commands.", Color.red, null, null, null).build()).queue();
                     }
                 }
             }
@@ -146,14 +146,14 @@ public class GuildMessageReceived extends ListenerAdapter {
                 if (memberID.equals(ownerID)) {        //has permissions to do that
                     if (args.length == 1) {
                         //Error
-                        currchat.sendMessage(createEmbed.methode("**ERROR**", "Wrong Syntax! You'll need to type the desired channel as the second argument! e.g. `" + prefix + "setNotificationChannel #bot-cmds`", Color.red, null, null, null).build()).complete();
+                        currchat.sendMessage(createEmbed.methode("**ERROR**", "Wrong Syntax! You'll need to type the desired channel as the second argument! e.g. `" + prefix + "setNotificationChannel #bot-cmds`", Color.red, null, null, null).build()).queue();
                     } else if (args.length == 2) {
                         setNotificationChannelID.methode(event, args[1], currchat);
                     } else {
-                        currchat.sendMessage(createEmbed.methode("**ERROR**", "Wrong Syntax! You'll need to type the desired channel as the second argument! e.g. `" + prefix + "setNotificationChannel #bot-cmds`", Color.red, null, null, null).build()).complete();
+                        currchat.sendMessage(createEmbed.methode("**ERROR**", "Wrong Syntax! You'll need to type the desired channel as the second argument! e.g. `" + prefix + "setNotificationChannel #bot-cmds`", Color.red, null, null, null).build()).queue();
                     }
                 } else {
-                    currchat.sendMessage(createEmbed.methode("**ERROR**", "You don't have the permissions to execute this command! Only the **server owner** can use this command.", Color.red, null, null, null).build()).complete();
+                    currchat.sendMessage(createEmbed.methode("**ERROR**", "You don't have the permissions to execute this command! Only the **server owner** can use this command.", Color.red, null, null, null).build()).queue();
                 }
             }
 
@@ -164,14 +164,14 @@ public class GuildMessageReceived extends ListenerAdapter {
                 if (memberID.equals(ownerID)) {        //has permissions to do that
                     if (args.length == 1) {
                         //Error
-                        currchat.sendMessage(createEmbed.methode("**ERROR**", "Wrong Syntax! You'll need to type the desired channel as the second argument! e.g. `" + prefix + "setCommandsChannel #bot-cmds`", Color.red, null, null, null).build()).complete();
+                        currchat.sendMessage(createEmbed.methode("**ERROR**", "Wrong Syntax! You'll need to type the desired channel as the second argument! e.g. `" + prefix + "setCommandsChannel #bot-cmds`", Color.red, null, null, null).build()).queue();
                     } else if (args.length == 2) {
                         setOnlyChannelID.methode(event, args[1], currchat);
                     } else {
-                        currchat.sendMessage(createEmbed.methode("**ERROR**", "Wrong Syntax! You'll need to type the desired channel as the second argument! e.g. `" + prefix + "setCommandsChannel #bot-cmds`", Color.red, null, null, null).build()).complete();
+                        currchat.sendMessage(createEmbed.methode("**ERROR**", "Wrong Syntax! You'll need to type the desired channel as the second argument! e.g. `" + prefix + "setCommandsChannel #bot-cmds`", Color.red, null, null, null).build()).queue();
                     }
                 } else {
-                    currchat.sendMessage(createEmbed.methode("**ERROR**", "You don't have the permissions to execute this command! Only the **server owner** can use this command.", Color.red, null, null, null).build()).complete();
+                    currchat.sendMessage(createEmbed.methode("**ERROR**", "You don't have the permissions to execute this command! Only the **server owner** can use this command.", Color.red, null, null, null).build()).queue();
                 }
             }
 
@@ -215,7 +215,7 @@ public class GuildMessageReceived extends ListenerAdapter {
                         checkRewards.methode(event.getMember().getId(), event.getMember());
                         inventory.methode(event.getMember(), currchat);
                     } else {
-                        currchat.sendMessage(createEmbed.methode("**ERROR**", "Wrong Syntax! Type `" + prefix + "help` to see all commands.", Color.red, null, null, null).build()).complete();
+                        currchat.sendMessage(createEmbed.methode("**ERROR**", "Wrong Syntax! Type `" + prefix + "help` to see all commands.", Color.red, null, null, null).build()).queue();
                     }
                 }
             }
@@ -238,7 +238,7 @@ public class GuildMessageReceived extends ListenerAdapter {
                             Database.clearBossTime();
                             Database.clearDailyTime();
                         } else {
-                            currchat.sendMessage(createEmbed.methode("**ERROR**", "You don't have the permissions to execute this command! Only the **Bot developer** can use this command.", Color.red, null, null, null).build()).complete();
+                            currchat.sendMessage(createEmbed.methode("**ERROR**", "You don't have the permissions to execute this command! Only the **Bot developer** can use this command.", Color.red, null, null, null).build()).queue();
                         }
                     }
                 }
@@ -251,23 +251,23 @@ public class GuildMessageReceived extends ListenerAdapter {
                 if (memberID.equals(ownerID)) { //has permissions to do that
                     if (args.length == 1) {
                         //Error
-                        currchat.sendMessage(createEmbed.methode("**ERROR**", "Wrong Syntax! You need to type additional parameters, type `" + prefix + "levelNotification false` or `" + prefix + "levelNotification true`", Color.red, null, null, null).build()).complete();
+                        currchat.sendMessage(createEmbed.methode("**ERROR**", "Wrong Syntax! You need to type additional parameters, type `" + prefix + "levelNotification false` or `" + prefix + "levelNotification true`", Color.red, null, null, null).build()).queue();
                     } else if (args.length == 2) {
                         if (args[1].equals("true") || args[1].equals("TRUE")) {
                             Database.setNotificationState(serverID, 1);
-                            currchat.sendMessage(createEmbed.methode("System", "Successfully changed the level up notification state to **true**", Color.red, null, null, null).build()).complete();
+                            currchat.sendMessage(createEmbed.methode("System", "Successfully changed the level up notification state to **true**", Color.red, null, null, null).build()).queue();
                         } else if (args[1].equals("false") || args[1].equals("FALSE")) {
                             doesUserExist(event.getMember());
                             Database.setNotificationState(serverID, 2);
-                            currchat.sendMessage(createEmbed.methode("System", "Successfully changed the level up notification state to **false**", Color.red, null, null, null).build()).complete();
+                            currchat.sendMessage(createEmbed.methode("System", "Successfully changed the level up notification state to **false**", Color.red, null, null, null).build()).queue();
                         } else {
                             //Error
-                            currchat.sendMessage(createEmbed.methode("**ERROR**", "Wrong input! Type `true` or `false`", Color.red, null, null, null).build()).complete();
+                            currchat.sendMessage(createEmbed.methode("**ERROR**", "Wrong input! Type `true` or `false`", Color.red, null, null, null).build()).queue();
                         }
                     }
                 } else {
                     //Error
-                    currchat.sendMessage(createEmbed.methode("**ERROR**", "You don't have the permissions to execute this command! Only the **server owner** can use this command.", Color.red, null, null, null).build()).complete();
+                    currchat.sendMessage(createEmbed.methode("**ERROR**", "You don't have the permissions to execute this command! Only the **server owner** can use this command.", Color.red, null, null, null).build()).queue();
                 }
             }
 
@@ -276,7 +276,7 @@ public class GuildMessageReceived extends ListenerAdapter {
                     currchat.sendMessage(createEmbed.methode("Vote", "You can use this link [top.gg](https://top.gg/bot/760993270133555231/vote) to vote! \n \uD83C\uDFC6 **Rewards:** \uD83C\uDFC6 \n - **reduced areaclear / bossfight cooldown for 12h!** \n - **5000 souls** \n - **1 random item**", Color.red, null, null, null).build()).queue();
                 } else {
                     //Error
-                    currchat.sendMessage(createEmbed.methode("**ERROR**", "Wrong Syntax! Type `" + prefix + "help` to see all commands.", Color.red, null, null, null).build()).complete();
+                    currchat.sendMessage(createEmbed.methode("**ERROR**", "Wrong Syntax! Type `" + prefix + "help` to see all commands.", Color.red, null, null, null).build()).queue();
                 }
             }
 
@@ -286,7 +286,7 @@ public class GuildMessageReceived extends ListenerAdapter {
                         doesUserExist(event.getMember());
                         equip.methode(args[1],args[2],event,currchat,prefix);
                     } else {
-                        currchat.sendMessage(createEmbed.methode("**ERROR**", "Wrong Syntax! You can only use `weapon`, `armor` or `title` as the second argument! \n Example syntax: `" + prefix + "equip weapon 17`", Color.red, null, null, null).build()).complete();
+                        currchat.sendMessage(createEmbed.methode("**ERROR**", "Wrong Syntax! You can only use `weapon`, `armor` or `title` as the second argument! \n Example syntax: `" + prefix + "equip weapon 17`", Color.red, null, null, null).build()).queue();
                     }
                 }
             }
@@ -297,7 +297,7 @@ public class GuildMessageReceived extends ListenerAdapter {
                         doesUserExist(event.getMember());
                         upgrade.methode(event,args[1],args[2],currchat,prefix);
                     } else {
-                        currchat.sendMessage(createEmbed.methode("**ERROR**", "Wrong Syntax! You can only use `weapon`, `armor` as the second argument! \n Example syntax: `" + prefix + "upgrade weapon 17`", Color.red, null, null, null).build()).complete();
+                        currchat.sendMessage(createEmbed.methode("**ERROR**", "Wrong Syntax! You can only use `weapon`, `armor` as the second argument! \n Example syntax: `" + prefix + "upgrade weapon 17`", Color.red, null, null, null).build()).queue();
                     }
                 }
             }
@@ -309,10 +309,10 @@ public class GuildMessageReceived extends ListenerAdapter {
                             doesUserExist(event.getMember());
                             giveSouls.methode(event,args[2],currchat);
                         } else {
-                            currchat.sendMessage(createEmbed.methode("**ERROR**", "Wrong Syntax! Type `" + prefix + "help` to see all commands.", Color.red, null, null, null).build()).complete();
+                            currchat.sendMessage(createEmbed.methode("**ERROR**", "Wrong Syntax! Type `" + prefix + "help` to see all commands.", Color.red, null, null, null).build()).queue();
                         }
                     } else {
-                        currchat.sendMessage(createEmbed.methode("**ERROR**", "You don't have the permissions to use this command! \n **Only patreon members** can use this command! \n Become a **patreon member** today and support us! Click [here](" + Main.patreonlink + ")! ❤", Color.red, null, null, null).build()).complete();
+                        currchat.sendMessage(createEmbed.methode("**ERROR**", "You don't have the permissions to use this command! \n **Only patreon members** can use this command! \n Become a **patreon member** today and support us! Click [here](" + Main.patreonlink + ")! ❤", Color.red, null, null, null).build()).queue();
                     }
                 }
             }
@@ -323,7 +323,7 @@ public class GuildMessageReceived extends ListenerAdapter {
                     currchat.sendMessage(createEmbed.methode("Invite", "You can use this [link](" + Main.botAddLink + ") to invite this bot to your server! \n Thank you **so much** if you add this **bot** to your server! ❤️", Color.red, null, null, null).build()).queue();
                 } else {
                     //Error
-                    currchat.sendMessage(createEmbed.methode("**ERROR**", "Wrong Syntax! Type `" + prefix + "help` to see all commands.", Color.red, null, null, null).build()).complete();
+                    currchat.sendMessage(createEmbed.methode("**ERROR**", "Wrong Syntax! Type `" + prefix + "help` to see all commands.", Color.red, null, null, null).build()).queue();
                 }
             }
 
@@ -333,11 +333,11 @@ public class GuildMessageReceived extends ListenerAdapter {
                         doesUserExist(event.getMember());
                         collectDaily.methode(event.getMember().getId(), currchat);
                     }else{
-                        currchat.sendMessage(createEmbed.methode("**ERROR**", "**Only patreon members tier 2** can use this command! \n Become a **patreon member** today and support us! Click [here](" + Main.patreonlink + ")! ❤", Color.red, null, null, null).build()).complete();
+                        currchat.sendMessage(createEmbed.methode("**ERROR**", "**Only patreon members tier 2** can use this command! \n Become a **patreon member** today and support us! Click [here](" + Main.patreonlink + ")! ❤", Color.red, null, null, null).build()).queue();
                     }
                 } else {
                     //Error
-                    currchat.sendMessage(createEmbed.methode("**ERROR**", "**Only patreon members tier 2** can use this command! \n Become a **patreon member** today and support us! Click [here](" + Main.patreonlink + ")! ❤", Color.red, null, null, null).build()).complete();
+                    currchat.sendMessage(createEmbed.methode("**ERROR**", "**Only patreon members tier 2** can use this command! \n Become a **patreon member** today and support us! Click [here](" + Main.patreonlink + ")! ❤", Color.red, null, null, null).build()).queue();
                 }
             }
 
@@ -345,9 +345,9 @@ public class GuildMessageReceived extends ListenerAdapter {
                 if (args.length == 1) {
                     if (event.getMember().getId().equals("321649314382348288")) {
                         TextChannel linkschannel = event.getChannel().getGuild().getTextChannelById("772885344202391622");
-                        linkschannel.sendMessage(createEmbed.methode("**Information**", "Thanks for using this bot! I **highly** appreciate it. \n \n \n Official top.gg website: [top.gg](https://top.gg/bot/760993270133555231) \n Support me to keep the bot alive! [paypal](https://www.paypal.com/paypalme/janiksielaff)", Color.red, "If you donate, please DM me!", null, null).build()).complete();
+                        linkschannel.sendMessage(createEmbed.methode("**Information**", "Thanks for using this bot! I **highly** appreciate it. \n \n \n Official top.gg website: [top.gg](https://top.gg/bot/760993270133555231) \n Support me to keep the bot alive! [paypal](https://www.paypal.com/paypalme/janiksielaff)", Color.red, "If you donate, please DM me!", null, null).build()).queue();
                     } else {
-                        currchat.sendMessage(createEmbed.methode("**ERROR**", "You don't have the permissions to execute this command! Only the **Bot developer** can use this command.", Color.red, null, null, null).build()).complete();
+                        currchat.sendMessage(createEmbed.methode("**ERROR**", "You don't have the permissions to execute this command! Only the **Bot developer** can use this command.", Color.red, null, null, null).build()).queue();
                     }
                 }
             }
@@ -366,7 +366,7 @@ public class GuildMessageReceived extends ListenerAdapter {
                         displaytime.methode(currchat,event);
                     }
                 }else{
-                    currchat.sendMessage(createEmbed.methode("**ERROR**", "Wrong Syntax! Type `" + prefix + "help` to see all commands.", Color.red, null, null, null).build()).complete();
+                    currchat.sendMessage(createEmbed.methode("**ERROR**", "Wrong Syntax! Type `" + prefix + "help` to see all commands.", Color.red, null, null, null).build()).queue();
                 }
             }
 
@@ -377,7 +377,7 @@ public class GuildMessageReceived extends ListenerAdapter {
                         clearArea.methode(event, currchat);
                     } else {
                         //Error
-                        currchat.sendMessage(createEmbed.methode("**ERROR**", "Wrong Syntax! Type `" + prefix + "help` to see all commands.", Color.red, null, null, null).build()).complete();
+                        currchat.sendMessage(createEmbed.methode("**ERROR**", "Wrong Syntax! Type `" + prefix + "help` to see all commands.", Color.red, null, null, null).build()).queue();
                     }
                 }
             }
@@ -388,7 +388,7 @@ public class GuildMessageReceived extends ListenerAdapter {
                         serverinfo.methode(event,serverID,prefix,currchat);
                     } else {
                         //Error
-                        currchat.sendMessage(createEmbed.methode("**ERROR**", "Wrong Syntax! Type `" + prefix + "help` to see all commands.", Color.red, null, null, null).build()).complete();
+                        currchat.sendMessage(createEmbed.methode("**ERROR**", "Wrong Syntax! Type `" + prefix + "help` to see all commands.", Color.red, null, null, null).build()).queue();
                     }
                 }
             }
@@ -399,7 +399,7 @@ public class GuildMessageReceived extends ListenerAdapter {
                         serverinfo.globalInfo(event,currchat);
                     } else {
                         //Error
-                        currchat.sendMessage(createEmbed.methode("**ERROR**", "Wrong Syntax! Type `" + prefix + "help` to see all commands.", Color.red, null, null, null).build()).complete();
+                        currchat.sendMessage(createEmbed.methode("**ERROR**", "Wrong Syntax! Type `" + prefix + "help` to see all commands.", Color.red, null, null, null).build()).queue();
                     }
                 }
             }
@@ -412,7 +412,7 @@ public class GuildMessageReceived extends ListenerAdapter {
                         fightBoss.methode(event, currchat);
                     } else {
                         //Error
-                        currchat.sendMessage(createEmbed.methode("**ERROR**", "Wrong Syntax! Type `" + prefix + "help` to see all commands.", Color.red, null, null, null).build()).complete();
+                        currchat.sendMessage(createEmbed.methode("**ERROR**", "Wrong Syntax! Type `" + prefix + "help` to see all commands.", Color.red, null, null, null).build()).queue();
                     }
                 }
             }
@@ -420,7 +420,7 @@ public class GuildMessageReceived extends ListenerAdapter {
             if (args[0].equalsIgnoreCase(prefix + "leaderboard")) {
                 if (checkChannel.methode(event, currchat, allowedChannel)) {
                     if (args.length == 1) {
-                        currchat.sendMessage(createEmbed.methode("**ERROR**", "Wrong Syntax! Type `" + prefix + "leaderboard ranks` or `" + prefix + "leaderboard souls` or \n`" + prefix + "leaderboard kills`", Color.red, null, null, null).build()).complete();
+                        currchat.sendMessage(createEmbed.methode("**ERROR**", "Wrong Syntax! Type `" + prefix + "leaderboard ranks` or `" + prefix + "leaderboard souls` or \n`" + prefix + "leaderboard kills`", Color.red, null, null, null).build()).queue();
                     } else if (args.length > 1 && args.length <= 2) {
                         doesUserExist(event.getMember());
                         leaderboard.methode(args[1],event,currchat);
@@ -444,14 +444,14 @@ public class GuildMessageReceived extends ListenerAdapter {
                                 });
 
                             } else {
-                                currchat.sendMessage(createEmbed.methode("**ERROR**", "You cannot duel yourself!", Color.red, null, null, null).build()).complete();
+                                currchat.sendMessage(createEmbed.methode("**ERROR**", "You cannot duel yourself!", Color.red, null, null, null).build()).queue();
                             }
                         } else {
-                            currchat.sendMessage(createEmbed.methode("**ERROR**", "Wrong Syntax! Type `" + prefix + "help` to see all commands.", Color.red, null, null, null).build()).complete();
+                            currchat.sendMessage(createEmbed.methode("**ERROR**", "Wrong Syntax! Type `" + prefix + "help` to see all commands.", Color.red, null, null, null).build()).queue();
                         }
                     } else {
                         //Error
-                        currchat.sendMessage(createEmbed.methode("**ERROR**", "Wrong Syntax! Type `" + prefix + "help` to see all commands.", Color.red, null, null, null).build()).complete();
+                        currchat.sendMessage(createEmbed.methode("**ERROR**", "Wrong Syntax! Type `" + prefix + "help` to see all commands.", Color.red, null, null, null).build()).queue();
                     }
                 }
             }
@@ -471,7 +471,9 @@ public class GuildMessageReceived extends ListenerAdapter {
             }
 
         */
-        } catch (InsufficientPermissionException exception) { }
+        } catch (InsufficientPermissionException exception) {
+        }catch (NullPointerException p){
+        }
     }
 
     public static void doesUserExist(Member member){

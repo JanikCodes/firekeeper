@@ -1,4 +1,5 @@
 package de.coaster;
+import com.mysql.jdbc.exceptions.MySQLNonTransientConnectionException;
 import de.commands.user.duel;
 import de.objects.Clan;
 import de.utilities.rewardUser;
@@ -19,6 +20,7 @@ public class Database {
     private static String user = "root";
     private static String pwd = !Main.test ? "87172000" : "1111";
     private static String url = "jdbc:mysql://localhost:3306/firekeeper?useSSL=false";
+
 
     public static void insertIntoDatabase(String serverID){
 
@@ -46,9 +48,12 @@ public class Database {
                 prepStmntPersonInsert.executeUpdate();
             }
 
-        } catch (SQLException e) {
+        } catch (MySQLNonTransientConnectionException e) {
+            // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally{
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
     }
@@ -68,9 +73,12 @@ public class Database {
                 channelID = myRS.getString(1);
             }
 
-        } catch(SQLException e){
+        } catch (MySQLNonTransientConnectionException e) {
+            // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally{
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
         return channelID;
@@ -86,10 +94,12 @@ public class Database {
             prepStmntPersonInsert.setString(2, serverID);
             prepStmntPersonInsert.executeUpdate();
 
-        } catch (SQLException e) {
+        } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally{
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
     }
@@ -114,10 +124,12 @@ public class Database {
                 }
             }
 
-        } catch (SQLException e) {
+        }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally{
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
     }
@@ -136,9 +148,12 @@ public class Database {
                 prefix = myRS.getString(1);
             }
 
-        } catch(SQLException e){
+        } catch (MySQLNonTransientConnectionException e) {
+            // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally{
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
         return prefix;
@@ -185,10 +200,12 @@ public class Database {
                 prepStmntPersonInsert.executeUpdate();
             }
 
-        } catch (SQLException e) {
+        } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally{
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
     }
@@ -236,10 +253,12 @@ public class Database {
                 }
             }
 
-        } catch (SQLException e) {
+        } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally{
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
     }
@@ -264,10 +283,12 @@ public class Database {
             if(myRS.next()){
                 plrxp = myRS.getInt(1);
             }
-        } catch (SQLException e) {
+        } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally {
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
 
@@ -287,9 +308,12 @@ public class Database {
             if (myRS.next()) {
                 currlev = myRS.getInt(1);
             }
-        }catch(SQLException e){
+        } catch (MySQLNonTransientConnectionException e) {
+            // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally {
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
 
@@ -309,9 +333,12 @@ public class Database {
             if (myRS.next()) {
                 currlev = myRS.getInt(1);
             }
-        }catch(SQLException e){
+        } catch (MySQLNonTransientConnectionException e) {
+            // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally {
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
 
@@ -326,9 +353,12 @@ public class Database {
             prepStmntPersonInsert = myCon.prepareStatement("update users set level = level + 1 where idUsers = ?");
             prepStmntPersonInsert.setString(1, id);
             prepStmntPersonInsert.executeUpdate();
-        }catch(SQLException e){
+        } catch (MySQLNonTransientConnectionException e) {
+            // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally {
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
     }
@@ -343,10 +373,12 @@ public class Database {
             prepStmntPersonInsert.setInt(1, second);
             prepStmntPersonInsert.setString(2, id);
             prepStmntPersonInsert.executeUpdate();
-        } catch (SQLException e) {
+        } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally {
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
     }
@@ -365,10 +397,12 @@ public class Database {
             if(myRS.next()){
                 lastm = myRS.getInt(1);
             }
-        } catch (SQLException e) {
+        } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally {
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
         return lastm;
@@ -387,10 +421,12 @@ public class Database {
             if(myRS.next()){
                 value = myRS.getInt(1);
             }
-        } catch (SQLException e) {
+        } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally {
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
         return value;
@@ -411,10 +447,12 @@ public class Database {
             if(myRS.next()){
                 pos = myRS.getInt(1);
             }
-        } catch (SQLException e) {
+        } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally {
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
         return pos;
@@ -435,10 +473,12 @@ public class Database {
             if(myRS.next()){
                 pos = myRS.getInt(1);
             }
-        } catch (SQLException e) {
+        } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally {
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
         return pos;
@@ -458,9 +498,12 @@ public class Database {
             if (myRS.next()) {
                 noti = myRS.getInt(1);
             }
-        }catch(SQLException e){
+        } catch (MySQLNonTransientConnectionException e) {
+            // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally {
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
 
@@ -485,9 +528,12 @@ public class Database {
                 prepStmntPersonInsert.executeUpdate();
             }
 
-        } catch (SQLException e) {
+        } catch (MySQLNonTransientConnectionException e) {
+            // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally{
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
     }
@@ -510,9 +556,12 @@ public class Database {
                 prepStmntPersonInsert.executeUpdate();
             }
 
-        } catch (SQLException e) {
+        }  catch (MySQLNonTransientConnectionException e) {
+            // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally{
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
     }
@@ -535,9 +584,12 @@ public class Database {
                 prepStmntPersonInsert.executeUpdate();
             }
 
-        } catch (SQLException e) {
+        }  catch (MySQLNonTransientConnectionException e) {
+            // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally{
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
     }
@@ -560,9 +612,12 @@ public class Database {
                 prepStmntPersonInsert.executeUpdate();
             }
 
-        } catch (SQLException e) {
+        } catch (MySQLNonTransientConnectionException e) {
+            // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally{
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
     }
@@ -586,9 +641,12 @@ public class Database {
                 ret = true;
             }
 
-        } catch (SQLException e) {
+        } catch (MySQLNonTransientConnectionException e) {
+            // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally{
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
 
@@ -613,9 +671,12 @@ public class Database {
                 prepStmntPersonInsert.executeUpdate();
             }
 
-        } catch (SQLException e) {
+        } catch (MySQLNonTransientConnectionException e) {
+            // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally{
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
 
@@ -628,8 +689,8 @@ public class Database {
             myCon = DriverManager.getConnection(url, user, pwd);
             prepStmntPersonInsert = myCon.prepareStatement("SELECT idMessage FROM upgrade_message WHERE idMessage = ?");
             prepStmntPersonInsert.setString(1, messageID);
-
             myRS = prepStmntPersonInsert.executeQuery();
+
             if (!myRS.next()) {
                 prepStmntPersonInsert = myCon.prepareStatement("INSERT INTO upgrade_message (idMessage, idMember) VALUES( ?, ?)");
                 prepStmntPersonInsert.setString(1, messageID);
@@ -637,10 +698,13 @@ public class Database {
                 prepStmntPersonInsert.executeUpdate();
             }
 
-        } catch (SQLException e) {
+        } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
-        }finally{
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }catch(NullPointerException np){
+
+        } finally{
             doFinally();
         }
     }
@@ -650,27 +714,36 @@ public class Database {
             try {
                 myRS.close();
                 myRS = null;
-            } catch (SQLException e) {
+            } catch (MySQLNonTransientConnectionException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
+            } catch (SQLException throwables) {
+            }catch(NullPointerException np){
+
             }
         }
         if(myStmnt != null) {
             try {
                 myStmnt.close();
                 myStmnt = null;
-            } catch (SQLException e) {
+            } catch (MySQLNonTransientConnectionException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
+            } catch (SQLException throwables) {
+            }catch(NullPointerException np){
+
             }
         }
         if(myCon != null) {
             try {
                 myCon.close();
                 myCon = null;
-            } catch (SQLException e) {
+            } catch (MySQLNonTransientConnectionException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
+            } catch (SQLException throwables) {
+            }catch(NullPointerException np){
+
             }
         }
     }
@@ -690,9 +763,12 @@ public class Database {
             if (myRS.next()) {
                 ret = true;
             }
-        }catch(SQLException e){
+        } catch (MySQLNonTransientConnectionException e) {
+            // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally {
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
 
@@ -708,10 +784,12 @@ public class Database {
             prepStmntPersonInsert.setInt(1, newtime);
             prepStmntPersonInsert.setString(2, id);
             prepStmntPersonInsert.executeUpdate();
-        } catch (SQLException e) {
+        }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally {
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
     }
@@ -729,10 +807,12 @@ public class Database {
             if(myRS.next()){
                 value = myRS.getInt(1);
             }
-        } catch (SQLException e) {
+        }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally {
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
         return value;
@@ -751,10 +831,12 @@ public class Database {
             if(myRS.next()){
                 value = myRS.getInt(1);
             }
-        } catch (SQLException e) {
+        } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally {
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
         return value;
@@ -773,10 +855,12 @@ public class Database {
             if(myRS.next()){
                 value = myRS.getInt(1);
             }
-        } catch (SQLException e) {
+        }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally {
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
         return value;
@@ -794,10 +878,12 @@ public class Database {
             if(myRS.next()){
                 value = myRS.getInt(1);
             }
-        } catch (SQLException e) {
+        } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally {
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
         return value;
@@ -816,10 +902,12 @@ public class Database {
             if(myRS.next()){
                 value = myRS.getInt(1);
             }
-        } catch (SQLException e) {
+        }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally {
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
         return value;
@@ -837,10 +925,12 @@ public class Database {
             if(myRS.next()){
                 value = myRS.getInt(1);
             }
-        } catch (SQLException e) {
+        }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally {
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
         return value;
@@ -855,10 +945,12 @@ public class Database {
             prepStmntPersonInsert.setString(1, channelID);
             prepStmntPersonInsert.setString(2, serverID);
             prepStmntPersonInsert.executeUpdate();
-        } catch (SQLException e) {
+        }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally {
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
     }
@@ -878,10 +970,12 @@ public class Database {
             }else{
                 value = "empty";
             }
-        } catch (SQLException e) {
+        }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally {
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
         return value;
@@ -894,10 +988,12 @@ public class Database {
             myCon = DriverManager.getConnection(url, user, pwd);
             prepStmntPersonInsert = myCon.prepareStatement("update users set last_clear = 0;");
             prepStmntPersonInsert.executeUpdate();
-        } catch (SQLException e) {
+        }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally {
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
     }
@@ -911,10 +1007,12 @@ public class Database {
             prepStmntPersonInsert.setInt(1, newtime);
             prepStmntPersonInsert.setString(2, id);
             prepStmntPersonInsert.executeUpdate();
-        } catch (SQLException e) {
+        }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally {
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
     }
@@ -926,10 +1024,12 @@ public class Database {
             myCon = DriverManager.getConnection(url, user, pwd);
             prepStmntPersonInsert = myCon.prepareStatement("update users set last_boss = 0;");
             prepStmntPersonInsert.executeUpdate();
-        } catch (SQLException e) {
+        }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally {
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
     }
@@ -948,10 +1048,12 @@ public class Database {
                 count++;
                 values.add(myRS.getString(1));
             }
-        } catch (SQLException e) {
+        }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally{
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
         return values;
@@ -975,10 +1077,12 @@ public class Database {
                 values.add(myRS.getString(1));
             }
 
-        } catch (SQLException e) {
+        }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally{
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
         return values;
@@ -999,10 +1103,12 @@ public class Database {
             while(myRS.next()){
                 values.add(myRS.getInt(1));
             }
-        } catch (SQLException e) {
+        }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally{
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
         return values;
@@ -1021,10 +1127,12 @@ public class Database {
             if(myRS.next()){
                 name = myRS.getString(1);
             }
-        } catch (SQLException e) {
+        }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally{
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
         return name;
@@ -1042,10 +1150,12 @@ public class Database {
             if(myRS.next()){
                 name = myRS.getString(1);
             }
-        } catch (SQLException e) {
+        } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally{
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
         return name;
@@ -1063,10 +1173,12 @@ public class Database {
             if(myRS.next()){
                 name = myRS.getString(1);
             }
-        } catch (SQLException e) {
+        }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally{
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
         return name;
@@ -1084,10 +1196,12 @@ public class Database {
             if(myRS.next()){
                 name = myRS.getString(1);
             }
-        } catch (SQLException e) {
+        }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally{
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
         return name;
@@ -1108,10 +1222,12 @@ public class Database {
 
                 cunt = myRS.getInt(1);
             }
-        } catch (SQLException e) {
+        }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally{
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
         return cunt;
@@ -1126,10 +1242,12 @@ public class Database {
             prepStmntPersonInsert.setString(1, messageId);
             prepStmntPersonInsert.executeUpdate();
 
-        } catch (SQLException e) {
+        }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally{
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
     }
@@ -1143,10 +1261,12 @@ public class Database {
             prepStmntPersonInsert.setString(1, messageId);
             prepStmntPersonInsert.executeUpdate();
 
-        } catch (SQLException e) {
+        }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally{
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
     }
@@ -1172,9 +1292,12 @@ public class Database {
                 prepStmntPersonInsert.executeUpdate();
             }
 
-        } catch (SQLException e) {
+        } catch (MySQLNonTransientConnectionException e) {
+            // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally{
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
         return ret;
@@ -1194,10 +1317,12 @@ public class Database {
                 count++;
                 values.add(myRS.getString(1));
             }
-        } catch (SQLException e) {
+        }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally{
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
         return values;
@@ -1217,10 +1342,12 @@ public class Database {
 
                 cunt = myRS.getInt(1);
             }
-        } catch (SQLException e) {
+        } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally{
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
         return cunt;
@@ -1238,10 +1365,12 @@ public class Database {
             if(myRS.next()){
                 name = myRS.getString(1);
             }
-        } catch (SQLException e) {
+        }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally{
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
         return name;
@@ -1270,10 +1399,12 @@ public class Database {
                 prepStmntPersonInsert.executeUpdate();
             }
 
-        } catch (SQLException e) {
+        }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally{
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
     }
@@ -1294,10 +1425,12 @@ public class Database {
                 prepStmntPersonInsert.executeUpdate();
             }
 
-        } catch (SQLException e) {
+        }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally{
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
     }
@@ -1317,10 +1450,12 @@ public class Database {
             if(myRS.next()){
                 value = true;
             }
-        } catch (SQLException e) {
+        }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally {
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
         return value;
@@ -1335,10 +1470,12 @@ public class Database {
             prepStmntPersonInsert.setString(1, messageId);
             prepStmntPersonInsert.executeUpdate();
 
-        } catch (SQLException e) {
+        }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally{
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
     }
@@ -1352,10 +1489,12 @@ public class Database {
             prepStmntPersonInsert.setString(1, id);
             prepStmntPersonInsert.executeUpdate();
 
-        } catch (SQLException e) {
+        }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally{
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
     }
@@ -1369,10 +1508,12 @@ public class Database {
             prepStmntPersonInsert.setString(1, channelID);
             prepStmntPersonInsert.setString(2, id);
             prepStmntPersonInsert.executeUpdate();
-        } catch (SQLException e) {
+        }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally {
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
     }
@@ -1385,10 +1526,12 @@ public class Database {
             prepStmntPersonInsert = myCon.prepareStatement("update users set souls = souls + 5000 WHERE idUsers = ?");
             prepStmntPersonInsert.setString(1, userID);
             prepStmntPersonInsert.executeUpdate();
-        } catch (SQLException e) {
+        }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally {
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
     }
@@ -1402,10 +1545,12 @@ public class Database {
             prepStmntPersonInsert.setInt(1, newtime);
             prepStmntPersonInsert.setString(2, userID);
             prepStmntPersonInsert.executeUpdate();
-        } catch (SQLException e) {
+        } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally {
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
     }
@@ -1423,10 +1568,12 @@ public class Database {
             if(myRS.next()){
                 amt = myRS.getInt(1);
             }
-        } catch (SQLException e) {
+        }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally {
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
         return amt;
@@ -1446,10 +1593,12 @@ public class Database {
                 count++;
                 values.add(myRS.getString(1));
             }
-        } catch (SQLException e) {
+        }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally{
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
         return values;
@@ -1470,10 +1619,12 @@ public class Database {
                 count++;
                 values.add(myRS.getString(1));
             }
-        } catch (SQLException e) {
+        }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally{
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
         return values;
@@ -1493,10 +1644,12 @@ public class Database {
                 count++;
                 values.add(myRS.getString(1));
             }
-        } catch (SQLException e) {
+        }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally{
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
         return values;
@@ -1516,10 +1669,12 @@ public class Database {
                 count++;
                 values.add(myRS.getString(1));
             }
-        } catch (SQLException e) {
+        }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally{
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
         return values;
@@ -1541,10 +1696,12 @@ public class Database {
                 prepStmntPersonInsert.executeUpdate();
             }
 
-        } catch (SQLException e) {
+        }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally{
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
     }
@@ -1563,10 +1720,12 @@ public class Database {
                 page = myRS.getInt(1);
             }
 
-        } catch (SQLException e) {
+        }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally {
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
 
@@ -1589,10 +1748,12 @@ public class Database {
             if(myRS.next()){
                 value = true;
             }
-        } catch (SQLException e) {
+        }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally {
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
         return value;
@@ -1618,9 +1779,12 @@ public class Database {
                 prepStmntPersonInsert.executeUpdate();
             }
 
-        } catch (SQLException e) {
+        }  catch (MySQLNonTransientConnectionException e) {
+            // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally{
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
     }
@@ -1641,9 +1805,13 @@ public class Database {
                 prepStmntPersonInsert.executeUpdate();
             }
 
-        } catch (SQLException e) {
+        }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch(NullPointerException e){
+
         }finally{
             doFinally();
         }
@@ -1664,10 +1832,12 @@ public class Database {
             if(myRS.next()){
                 value = true;
             }
-        } catch (SQLException e) {
+        }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally {
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
         return value;
@@ -1687,10 +1857,12 @@ public class Database {
                 page = myRS.getInt(1);
             }
 
-        } catch (SQLException e) {
+        }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally {
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
 
@@ -1717,9 +1889,12 @@ public class Database {
                 prepStmntPersonInsert.executeUpdate();
             }
 
-        } catch (SQLException e) {
+        }  catch (MySQLNonTransientConnectionException e) {
+            // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally{
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
     }
@@ -1745,10 +1920,12 @@ public class Database {
             if(myRS.next()){
                 num = myRS.getInt(1);
             }
-        } catch (SQLException e) {
+        } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally{
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
         return num;
@@ -1767,10 +1944,12 @@ public class Database {
             if(myRS.next()){
                 num = myRS.getInt(1);
             }
-        } catch (SQLException e) {
+        } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally{
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
         return num;
@@ -1787,10 +1966,12 @@ public class Database {
             if(myRS.next()){
                 num = myRS.getInt(1);
             }
-        } catch (SQLException e) {
+        }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally{
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
         return num;
@@ -1808,10 +1989,12 @@ public class Database {
             if(myRS.next()){
                 num = myRS.getInt(1);
             }
-        } catch (SQLException e) {
+        } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally{
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
         return num;
@@ -1831,10 +2014,12 @@ public class Database {
                 name = name + "\n <:title:781925338216923187> **" + myRS.getString(1) + "** *ID: " + myRS.getString(2) + "*";
             }
 
-        } catch (SQLException e) {
+        }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally{
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
 
@@ -1857,10 +2042,12 @@ public class Database {
                 prepStmntPersonInsert.executeUpdate();
             }
 
-        } catch (SQLException e) {
+        }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally{
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
     }
@@ -1886,9 +2073,12 @@ public class Database {
                 prepStmntPersonInsert.executeUpdate();
             }
 
-        } catch (SQLException e) {
+        } catch (MySQLNonTransientConnectionException e) {
+            // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally{
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
         return ret;
@@ -1915,9 +2105,12 @@ public class Database {
                 prepStmntPersonInsert.executeUpdate();
             }
 
-        } catch (SQLException e) {
+        } catch (MySQLNonTransientConnectionException e) {
+            // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally{
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
         return ret;
@@ -1938,9 +2131,12 @@ public class Database {
             if (myRS.next()) {
                 ret = true;
             }
-        } catch (SQLException e) {
+        } catch (MySQLNonTransientConnectionException e) {
+            // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally{
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
         return ret;
@@ -1954,9 +2150,12 @@ public class Database {
             prepStmntPersonInsert = myCon.prepareStatement("update users set kills = kills + 1 where idUsers = ?;");
             prepStmntPersonInsert.setString(1, idMember2);
             prepStmntPersonInsert.executeUpdate();
-        }catch(SQLException e) {
+        } catch (MySQLNonTransientConnectionException e) {
+            // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally{
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
     }
@@ -1976,9 +2175,12 @@ public class Database {
             if (myRS.next()) {
                 ret = myRS.getInt(1);
             }
-        } catch (SQLException e) {
+        } catch (MySQLNonTransientConnectionException e) {
+            // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally{
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
         return ret;
@@ -1999,9 +2201,12 @@ public class Database {
             if (myRS.next()) {
                 ret = myRS.getInt(1);
             }
-        } catch (SQLException e) {
+        } catch (MySQLNonTransientConnectionException e) {
+            // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally{
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
         return ret;
@@ -2028,10 +2233,12 @@ public class Database {
                 prepStmntPersonInsert.executeUpdate();
             }
 
-        } catch (SQLException e) {
+        } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally{
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
     }
@@ -2051,10 +2258,12 @@ public class Database {
             if(myRS.next()){
                 value = myRS.getString(1);
             }
-        } catch (SQLException e) {
+        }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally {
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
         return value;
@@ -2069,10 +2278,12 @@ public class Database {
             prepStmntPersonInsert.setString(1, messageId);
             prepStmntPersonInsert.executeUpdate();
 
-        } catch (SQLException e) {
+        } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally{
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
     }
@@ -2091,10 +2302,12 @@ public class Database {
             if(myRS.next()){
                 value = myRS.getInt(1);
             }
-        } catch (SQLException e) {
+        }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally {
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
         return value;
@@ -2119,9 +2332,12 @@ public class Database {
                 prepStmntPersonInsert.executeUpdate();
             }
 
-        } catch (SQLException e) {
+        }  catch (MySQLNonTransientConnectionException e) {
+            // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally{
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
     }
@@ -2135,10 +2351,12 @@ public class Database {
             prepStmntPersonInsert.setString(1, member.getId());
             prepStmntPersonInsert.executeUpdate();
 
-        } catch (SQLException e) {
+        } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally{
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
     }
@@ -2152,10 +2370,12 @@ public class Database {
             prepStmntPersonInsert.setString(1, memberid);
             prepStmntPersonInsert.executeUpdate();
 
-        } catch (SQLException e) {
+        } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally{
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
     }
@@ -2169,10 +2389,12 @@ public class Database {
             prepStmntPersonInsert.setString(1, memberid);
             prepStmntPersonInsert.executeUpdate();
 
-        } catch (SQLException e) {
+        } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally{
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
     }
@@ -2191,10 +2413,12 @@ public class Database {
             if(myRS.next()){
                 value = myRS.getInt(1);
             }
-        } catch (SQLException e) {
+        } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally {
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
         return value;
@@ -2214,10 +2438,12 @@ public class Database {
             if(myRS.next()){
                 value = myRS.getInt(1);
             }
-        } catch (SQLException e) {
+        }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally {
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
         return value;
@@ -2235,10 +2461,12 @@ public class Database {
             if(myRS.next()){
                 name = "*" + myRS.getString(1) + "*";
             }
-        } catch (SQLException e) {
+        } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally{
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
         return name;
@@ -2256,10 +2484,12 @@ public class Database {
             if(myRS.next()){
                 name = myRS.getString(1);
             }
-        } catch (SQLException e) {
+        } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally{
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
         return name;
@@ -2277,10 +2507,12 @@ public class Database {
             if(myRS.next()){
                 name = "*" + myRS.getString(1) + "*";
             }
-        } catch (SQLException e) {
+        } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally{
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
         return name;
@@ -2297,10 +2529,12 @@ public class Database {
             if(myRS.next()){
                 amount = myRS.getInt(1);
             }
-        } catch (SQLException e) {
+        } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally{
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
         return amount;
@@ -2331,10 +2565,12 @@ public class Database {
                 prepStmntPersonInsert.executeUpdate();
             }
 
-        } catch (SQLException e) {
+        }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally{
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
     }
@@ -2351,10 +2587,12 @@ public class Database {
             if(myRS.next()){
                 name = myRS.getString(1);
             }
-        } catch (SQLException e) {
+        } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally{
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
         return name;
@@ -2372,10 +2610,12 @@ public class Database {
             if(myRS.next()){
                 health = myRS.getInt(1);
             }
-        } catch (SQLException e) {
+        } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally{
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
         return health;
@@ -2394,10 +2634,12 @@ public class Database {
             if(myRS.next()){
                 ret = true;
             }
-        } catch (SQLException e) {
+        } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally{
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
         return ret;
@@ -2418,10 +2660,12 @@ public class Database {
             while(myRS.next()){
                 values.add(myRS.getString(1));
             }
-        } catch (SQLException e) {
+        } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally{
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
         return values;
@@ -2439,10 +2683,12 @@ public class Database {
             if(myRS.next()){
                 type = myRS.getInt(1);
             }
-        } catch (SQLException e) {
+        } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally{
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
         return type;
@@ -2461,10 +2707,12 @@ public class Database {
             if(myRS.next()){
                 health = myRS.getInt(1);
             }
-        } catch (SQLException e) {
+        } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally{
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
         return health;
@@ -2483,10 +2731,12 @@ public class Database {
             if(myRS.next()){
                 health = myRS.getInt(1);
             }
-        } catch (SQLException e) {
+        }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally{
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
         return health;
@@ -2505,10 +2755,12 @@ public class Database {
             if(myRS.next()){
                 id = myRS.getInt(1);
             }
-        } catch (SQLException e) {
+        }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally{
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
         return id;
@@ -2526,10 +2778,12 @@ public class Database {
             if(myRS.next()){
                 type = myRS.getString(1);
             }
-        } catch (SQLException e) {
+        } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally{
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
         return type;
@@ -2547,10 +2801,12 @@ public class Database {
             if(myRS.next()){
                 value = myRS.getInt(1);
             }
-        } catch (SQLException e) {
+        } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally{
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
         return value;
@@ -2566,9 +2822,12 @@ public class Database {
             prepStmntPersonInsert.setString(3, messageid);
 
             prepStmntPersonInsert.executeUpdate();
-        }catch(SQLException e) {
+        } catch (MySQLNonTransientConnectionException e) {
+            // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally{
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
     }
@@ -2586,10 +2845,12 @@ public class Database {
             if(myRS.next()){
                 id = myRS.getInt(1);
             }
-        } catch (SQLException e) {
+        } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally{
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
         return id;
@@ -2605,9 +2866,12 @@ public class Database {
             prepStmntPersonInsert.setString(3, messageid);
 
             prepStmntPersonInsert.executeUpdate();
-        }catch(SQLException e) {
+        } catch (MySQLNonTransientConnectionException e) {
+            // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally{
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
     }
@@ -2625,10 +2889,12 @@ public class Database {
             if(myRS.next()){
                 amt = myRS.getInt(1);
             }
-        } catch (SQLException e) {
+        } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally{
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
         return amt;
@@ -2643,9 +2909,12 @@ public class Database {
             prepStmntPersonInsert.setString(2, messageid);
 
             prepStmntPersonInsert.executeUpdate();
-        }catch(SQLException e) {
+        } catch (MySQLNonTransientConnectionException e) {
+            // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally{
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
     }
@@ -2658,9 +2927,12 @@ public class Database {
             prepStmntPersonInsert.setString(1, memberID);
 
             prepStmntPersonInsert.executeUpdate();
-        }catch(SQLException e) {
+        } catch (MySQLNonTransientConnectionException e) {
+            // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally{
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
     }
@@ -2673,9 +2945,12 @@ public class Database {
             prepStmntPersonInsert.setString(1, memberID);
 
             prepStmntPersonInsert.executeUpdate();
-        }catch(SQLException e) {
+        } catch (MySQLNonTransientConnectionException e) {
+            // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally{
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
     }
@@ -2689,10 +2964,12 @@ public class Database {
             prepStmntPersonInsert.setInt(1, newtime);
             prepStmntPersonInsert.setString(2, memberid);
             prepStmntPersonInsert.executeUpdate();
-        } catch (SQLException e) {
+        } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally {
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
     }
@@ -2704,10 +2981,12 @@ public class Database {
             myCon = DriverManager.getConnection(url, user, pwd);
             prepStmntPersonInsert = myCon.prepareStatement("update users set last_daily = 0;");
             prepStmntPersonInsert.executeUpdate();
-        } catch (SQLException e) {
+        } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally {
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
     }
@@ -2727,9 +3006,12 @@ public class Database {
             if (myRS.next()) {
                 ret = true;
             }
-        }catch(SQLException e){
+        } catch (MySQLNonTransientConnectionException e) {
+            // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally {
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
 
@@ -2748,9 +3030,12 @@ public class Database {
             if (myRS.next()) {
                 count = myRS.getInt(1);
             }
-        }catch(SQLException e){
+        } catch (MySQLNonTransientConnectionException e) {
+            // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally {
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
 
@@ -2771,9 +3056,12 @@ public class Database {
             if (myRS.next()) {
                 name = myRS.getString(1);
             }
-        }catch(SQLException e){
+        } catch (MySQLNonTransientConnectionException e) {
+            // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally {
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
 
@@ -2794,9 +3082,12 @@ public class Database {
             if (myRS.next()) {
                 name = myRS.getString(1);
             }
-        }catch(SQLException e){
+        } catch (MySQLNonTransientConnectionException e) {
+            // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally {
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
 
@@ -2817,9 +3108,12 @@ public class Database {
             if (myRS.next()) {
                 text = myRS.getString(1);
             }
-        }catch(SQLException e){
+        } catch (MySQLNonTransientConnectionException e) {
+            // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally {
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
 
@@ -2840,9 +3134,12 @@ public class Database {
             if (myRS.next()) {
                 phase = myRS.getString(1);
             }
-        }catch(SQLException e){
+        } catch (MySQLNonTransientConnectionException e) {
+            // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally {
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
 
@@ -2864,9 +3161,12 @@ public class Database {
             if (myRS.next()) {
                 count = myRS.getInt(1);
             }
-        }catch(SQLException e){
+        } catch (MySQLNonTransientConnectionException e) {
+            // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally {
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
 
@@ -2885,10 +3185,12 @@ public class Database {
 
 
             prepStmntPersonInsert.executeUpdate();
-        } catch (SQLException e) {
+        } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally {
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
     }
@@ -2906,9 +3208,12 @@ public class Database {
             if (myRS.next()) {
                 bossID = myRS.getInt(1);
             }
-        }catch(SQLException e){
+        } catch (MySQLNonTransientConnectionException e) {
+            // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally {
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
 
@@ -2939,10 +3244,12 @@ public class Database {
                 prepStmntPersonInsert.executeUpdate();
             }
 
-        } catch (SQLException e) {
+        }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally {
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
     }
@@ -2956,10 +3263,12 @@ public class Database {
             prepStmntPersonInsert.setInt(1, time);
             prepStmntPersonInsert.setString(2, memberID);
             prepStmntPersonInsert.executeUpdate();
-        } catch (SQLException e) {
+        }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally {
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
     }
@@ -2977,9 +3286,12 @@ public class Database {
             if (myRS.next()) {
                 boss = myRS.getInt(1);
             }
-        }catch(SQLException e){
+        } catch (MySQLNonTransientConnectionException e) {
+            // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally {
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
 
@@ -2999,9 +3311,12 @@ public class Database {
             if (myRS.next()) {
                 ret = true;
             }
-        }catch(SQLException e){
+        } catch (MySQLNonTransientConnectionException e) {
+            // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally {
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
 
@@ -3025,10 +3340,12 @@ public class Database {
                 prepStmntPersonInsert.executeUpdate();
             }
 
-        } catch (SQLException e) {
+        } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally{
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
     }
@@ -3044,9 +3361,12 @@ public class Database {
             if (myRS.next()) {
                 return true;
             }
-        }catch(SQLException e){
+        } catch (MySQLNonTransientConnectionException e) {
+            // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally {
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
 
@@ -3067,9 +3387,12 @@ public class Database {
             }else{
                 System.out.println("Not found");
             }
-        }catch(SQLException e){
+        } catch (MySQLNonTransientConnectionException e) {
+            // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally {
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
 
@@ -3090,9 +3413,12 @@ public class Database {
             }else{
                 System.out.println("Not found");
             }
-        }catch(SQLException e){
+        } catch (MySQLNonTransientConnectionException e) {
+            // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally {
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
 
@@ -3113,9 +3439,12 @@ public class Database {
             if (myRS.next()) {
                 return true;
             }
-        }catch(SQLException e){
+        } catch (MySQLNonTransientConnectionException e) {
+            // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally {
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
 
@@ -3140,9 +3469,12 @@ public class Database {
             prepStmntPersonInsert.setInt(11, time);
             prepStmntPersonInsert.setString(12, channelID);
             prepStmntPersonInsert.executeUpdate();
-        }catch(SQLException e){
+        } catch (MySQLNonTransientConnectionException e) {
+            // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally {
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
     }
@@ -3159,9 +3491,12 @@ public class Database {
             if (myRS.next()) {
                 new_turn = myRS.getInt(1);
             }
-        }catch(SQLException e){
+        } catch (MySQLNonTransientConnectionException e) {
+            // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally {
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
 
@@ -3181,12 +3516,14 @@ public class Database {
             if (myRS.next()) {
                 return true;
             }
-        }catch(SQLException e){
+        } catch (MySQLNonTransientConnectionException e) {
+            // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally {
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
-
         return false;
     }
 
@@ -3207,9 +3544,12 @@ public class Database {
                 prepStmntPersonInsert.executeUpdate();
             }
 
-        } catch (SQLException e) {
+        } catch (MySQLNonTransientConnectionException e) {
+            // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally{
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
     }
@@ -3231,9 +3571,12 @@ public class Database {
                 prepStmntPersonInsert.executeUpdate();
             }
 
-        } catch (SQLException e) {
+        }  catch (MySQLNonTransientConnectionException e) {
+            // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally{
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
     }
@@ -3250,9 +3593,12 @@ public class Database {
             if (myRS.next()) {
                 memberID = myRS.getString(1);
             }
-        }catch(SQLException e){
+        } catch (MySQLNonTransientConnectionException e) {
+            // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally {
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
 
@@ -3271,9 +3617,12 @@ public class Database {
             if (myRS.next()) {
                 memberID = myRS.getString(1);
             }
-        }catch(SQLException e){
+        } catch (MySQLNonTransientConnectionException e) {
+            // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally {
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
 
@@ -3292,9 +3641,12 @@ public class Database {
             if (myRS.next()) {
                 health = myRS.getInt(1);
             }
-        }catch(SQLException e){
+        } catch (MySQLNonTransientConnectionException e) {
+            // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally {
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
 
@@ -3313,9 +3665,12 @@ public class Database {
             if (myRS.next()) {
                 attack = myRS.getString(1);
             }
-        }catch(SQLException e){
+        } catch (MySQLNonTransientConnectionException e) {
+            // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally {
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
 
@@ -3339,9 +3694,12 @@ public class Database {
                 prepStmntPersonInsert.executeUpdate();
             }
 
-        } catch (SQLException e) {
+        } catch (MySQLNonTransientConnectionException e) {
+            // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally{
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
     }
@@ -3359,9 +3717,12 @@ public class Database {
             if (myRS.next()) {
                 t = myRS.getInt(1);
             }
-        }catch(SQLException e){
+        } catch (MySQLNonTransientConnectionException e) {
+            // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally {
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
 
@@ -3391,9 +3752,12 @@ public class Database {
                 }
             }
 
-        } catch (SQLException e) {
+        } catch (MySQLNonTransientConnectionException e) {
+            // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally{
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
     }
@@ -3410,9 +3774,12 @@ public class Database {
             if (myRS.next()) {
                 amt = myRS.getInt(1);
             }
-        }catch(SQLException e){
+        } catch (MySQLNonTransientConnectionException e) {
+            // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally {
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
 
@@ -3435,9 +3802,12 @@ public class Database {
                 prepStmntPersonInsert.executeUpdate();
             }
 
-        } catch (SQLException e) {
+        }  catch (MySQLNonTransientConnectionException e) {
+            // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally{
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
     }
@@ -3456,10 +3826,12 @@ public class Database {
                 count++;
                 values.add(myRS.getString(1));
             }
-        } catch (SQLException e) {
+        }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally{
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
         return values;
@@ -3479,10 +3851,12 @@ public class Database {
             if(myRS.next()){
                 pos = myRS.getInt(1);
             }
-        } catch (SQLException e) {
+        } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally {
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
         return pos;
@@ -3502,10 +3876,12 @@ public class Database {
 
                 cunt = myRS.getInt(1);
             }
-        } catch (SQLException e) {
+        } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally{
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
         return cunt;
@@ -3523,10 +3899,12 @@ public class Database {
             if(myRS.next()){
                 name = "*" + myRS.getString(1) + "*";
             }
-        } catch (SQLException e) {
+        } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally{
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
         return name;
@@ -3543,9 +3921,12 @@ public class Database {
             if (myRS.next()) {
                 return false;
             }
-        }catch(SQLException e){
+        } catch (MySQLNonTransientConnectionException e) {
+            // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally {
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
 
@@ -3565,10 +3946,13 @@ public class Database {
             pStmnt.setString(3, userId);
             pStmnt.executeUpdate();
 
+        }  catch (MySQLNonTransientConnectionException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-        } finally {
-            doFinally(con, pStmnt, rs);
+        } finally{
+            doFinally();
         }
 
     }
@@ -3591,10 +3975,13 @@ public class Database {
                 duel.updateDuelMessageTimeout(winnderID, rs.getString("channelID"), rs.getString("idMessage"));
             }
 
+        } catch (MySQLNonTransientConnectionException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-        } finally {
-            doFinally(con, pStmnt, rs);
+        } finally{
+            doFinally();
         }
 
     }
@@ -3615,10 +4002,13 @@ public class Database {
                 return true;
             }
 
+        } catch (MySQLNonTransientConnectionException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-        } finally {
-            doFinally(con, pStmnt, rs);
+        } finally{
+            doFinally();
         }
         return false;
     }
@@ -3670,10 +4060,13 @@ public class Database {
                 return true;
             }
 
+        } catch (MySQLNonTransientConnectionException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-        } finally {
-            doFinally(con, pStmnt, rs);
+        } finally{
+            doFinally();
         }
         return false;
     }
@@ -3693,10 +4086,13 @@ public class Database {
                 return true;
             }
 
+        }  catch (MySQLNonTransientConnectionException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-        } finally {
-            doFinally(con, pStmnt, rs);
+        } finally{
+            doFinally();
         }
         return false;
     }
@@ -3712,10 +4108,13 @@ public class Database {
             pStmnt.setString(1, clanOwnerID);
             pStmnt.setInt(2, clanID);
             pStmnt.executeUpdate();
+        }  catch (MySQLNonTransientConnectionException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-        } finally {
-            doFinally(con, pStmnt, rs);
+        } finally{
+            doFinally();
         }
     }
 
@@ -3735,10 +4134,13 @@ public class Database {
             else
                 return null;
 
+        } catch (MySQLNonTransientConnectionException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-        } finally {
-            doFinally(con, pStmnt, rs);
+        } finally{
+            doFinally();
         }
         return null;
     }
@@ -3771,10 +4173,13 @@ public class Database {
             pStmnt.setString(3, messageType);
             pStmnt.setString(4, messageID);
             pStmnt.executeUpdate();
+        } catch (MySQLNonTransientConnectionException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-        } finally {
-            doFinally(con, pStmnt, rs);
+        } finally{
+            doFinally();
         }
     }
 
@@ -3795,10 +4200,13 @@ public class Database {
                 return true;
             }
 
+        } catch (MySQLNonTransientConnectionException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-        } finally {
-            doFinally(con, pStmnt, rs);
+        } finally{
+            doFinally();
         }
         return false;
     }
@@ -3815,10 +4223,13 @@ public class Database {
             pStmnt.executeUpdate();
 
             deleteSingleClanMessage(messageID);
+        } catch (MySQLNonTransientConnectionException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-        } finally {
-            doFinally(con, pStmnt, rs);
+        } finally{
+            doFinally();
         }
     }
 
@@ -3833,10 +4244,13 @@ public class Database {
             pStmnt.setString(1, messageID);
             pStmnt.executeUpdate();
 
+        } catch (MySQLNonTransientConnectionException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-        } finally {
-            doFinally(con, pStmnt, rs);
+        } finally{
+            doFinally();
         }
     }
 
@@ -3861,10 +4275,13 @@ public class Database {
                 pStmnt.executeUpdate();
             }
 
+        } catch (MySQLNonTransientConnectionException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-        } finally {
-            doFinally(con, pStmnt, rs);
+        } finally{
+            doFinally();
         }
     }
 
@@ -3890,10 +4307,13 @@ public class Database {
                 ret.setUrl(rs.getString("clanURL"));
             }
 
+        } catch (MySQLNonTransientConnectionException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-        } finally {
-            doFinally(con, pStmnt, rs);
+        } finally{
+            doFinally();
         }
         return ret;
     }
@@ -3911,10 +4331,12 @@ public class Database {
 
                 cunt = myRS.getInt(1);
             }
-        } catch (SQLException e) {
+        } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally{
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
         return cunt;
@@ -3933,10 +4355,12 @@ public class Database {
 
                 cunt = myRS.getInt(1);
             }
-        } catch (SQLException e) {
+        } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally{
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
             doFinally();
         }
         return cunt;

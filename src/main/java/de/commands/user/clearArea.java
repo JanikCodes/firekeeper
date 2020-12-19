@@ -24,8 +24,8 @@ public class clearArea {
             int stageProgess = Database.getAreaProgress(memberID);
             int intelligenceChance = Database.getStatistic("Intelligence", memberID);
             int faithChance = Database.getStatistic("Faith", memberID);
-            int randomNum = getRandomNumberInRange.methode(0, 100);
-            int randomIntelligenceNum = getRandomNumberInRange.methode(0, 100);
+            int randomNum = getRandomNumberInRange.methode(1, 100);
+            int randomIntelligenceNum = getRandomNumberInRange.methode(1, 100);
             int monsterSize = Database.getMonsterSize();
             int randomEncounterNum = getRandomNumberInRange.methode(1, monsterSize - 1);
             String encounterName = Database.getMonsterName(randomEncounterNum);
@@ -67,6 +67,8 @@ public class clearArea {
             int intelligenceSouls = 0;
             String encounterString = "";
 
+            intelligenceChance = 25 + (Database.getStatistic("intelligence",memberID) / 2);
+
             if (randomIntelligenceNum < intelligenceChance) {
                 //Won against encounter
                 intelligenceSouls = (intelligenceChance * stageProgess);
@@ -101,7 +103,7 @@ public class clearArea {
                             "\uD83C\uDFC6 **Special encounter:** " + encounterString + "\n\n" +
                             "<:repairpowder:779816424952037427> You've collected **" + itemnames + "** \n\n" +
                             "\uD83D\uDCCD **Collected a total of** **" + intAllSouls + "** souls!"
-                    , Color.ORANGE, "You can clear a new stage every 2h", event.getMember(), null).build()).complete();
+                    , Color.ORANGE, "You can clear a new stage every 2h", event.getMember(), null).build()).queue();
 
             Database.updateClearTime(memberID, newtime);
             Database.giveAreaClear(event.getGuild().getId());
@@ -118,9 +120,9 @@ public class clearArea {
             String endTime = calculateTime.methode(getTime.getClearTime(time, event) - ((time / 1000) - lastclear));
             //Can't clear
             if (voted) {
-                currchat.sendMessage(createEmbed.methode("**ERROR**", "You've already cleared an area recently! \n You'll need to wait **" + endTime + "** to clear a new area!", Color.orange, null, null, null).build()).complete();
+                currchat.sendMessage(createEmbed.methode("**ERROR**", "You've already cleared an area recently! \n You'll need to wait **" + endTime + "** to clear a new area!", Color.orange, null, null, null).build()).queue();
             } else {
-                currchat.sendMessage(createEmbed.methode("**ERROR**", "You've already cleared an area recently! \n You'll need to wait **" + endTime + "** to clear a new area! \n ❕*Vote the bot on* [top.gg](https://top.gg/bot/760993270133555231/vote) *for reduced cooldown!*", Color.orange, null, null, null).build()).complete();
+                currchat.sendMessage(createEmbed.methode("**ERROR**", "You've already cleared an area recently! \n You'll need to wait **" + endTime + "** to clear a new area! \n ❕*Vote the bot on* [top.gg](https://top.gg/bot/760993270133555231/vote) *for reduced cooldown!*", Color.orange, null, null, null).build()).queue();
             }
         }
     }

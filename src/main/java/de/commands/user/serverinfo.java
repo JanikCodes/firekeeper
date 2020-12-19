@@ -34,7 +34,7 @@ public class serverinfo {
                             "Level-up notification: **" + levelUpString + "** \n" +
                             "Defeated bosses on this server: **" + bossAmount + "** \n" +
                             "Cleared areas on this server: **" + clearAmount + "** \n"
-                    , Color.red, null, null, null).build()).complete();
+                    , Color.red, null, null, null).build()).queue();
         } else {
             currchat.sendMessage(createEmbed.methode("Information",
                             "Server prefix: **" + prefix + "** \n" +
@@ -42,7 +42,7 @@ public class serverinfo {
                             "Level-up notification: **" + levelUpString + "** \n" +
                             "Defeated bosses on this server: **" + bossAmount + "** \n" +
                             "Cleared areas on this server: **" + clearAmount + "** \n"
-                    , Color.red, null, null, null).build()).complete();
+                    , Color.red, null, null, null).build()).queue();
         }
     }
 
@@ -57,6 +57,6 @@ public class serverinfo {
                         "Global active server count: **" + totalServerCount + "** \n" +
                         "Defeated bosses globally: **" + totalBossAmount + "** \n" +
                         "Cleared areas globally: **" + totalClearAmount + "** \n"
-                , Color.red, null, null, null).build()).complete();
+                , Color.red, null, null, null).build()).queue();
     }
 }
