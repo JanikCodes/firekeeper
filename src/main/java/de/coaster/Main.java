@@ -16,7 +16,7 @@ import java.net.InetSocketAddress;
 public class Main {
 
 
-    public static boolean test = false;
+    public static boolean test = true;
     public static boolean DEVELOPER_SERVER_MODE = false;
 
     public static String defaultprefix = "!";
@@ -70,7 +70,7 @@ public class Main {
             e.printStackTrace();
         }
 
-        HttpServer server = HttpServer.create(new InetSocketAddress(8100), 0); // create a Httpserver listening on port 8000
+        HttpServer server = HttpServer.create(new InetSocketAddress(8002), 0); // create a Httpserver listening on port 8000
         server.createContext("/dblwebhook", new Reciever());  // creates a handler for when a requests comes into https://yourserverip.com/dblwebhook
         server.setExecutor(null); // creates a default executor
         server.start(); // Starts your httpserver

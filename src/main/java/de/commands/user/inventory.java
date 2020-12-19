@@ -28,7 +28,7 @@ public class inventory {
         int itemOwned = Database.getTotalInventoryItemsOwned("item", member.getId());
 
         for (int i = 0; i < ownedItemName.size() - 1; i = i + 2) {
-            itemString = itemString + ownedItemEmoji.get(i) + " " + ownedItemName.get(i) + " **x" + ownedItemCount.get(i) + "** , **" + ownedItemEmoji.get(i + 1) + "** " + ownedItemName.get(i + 1) + " **x" + ownedItemCount.get(i + 1) + "** \n";
+            itemString = itemString + ownedItemEmoji.get(i) + " " + ownedItemName.get(i) + " **x" + ownedItemCount.get(i) + "** ; **" + ownedItemEmoji.get(i + 1) + "** " + ownedItemName.get(i + 1) + " **x" + ownedItemCount.get(i + 1) + "** \n";
         }
 
         if (itemString.isEmpty()) {

@@ -35,12 +35,7 @@ public class fightBoss {
             int resistance = Database.getStatistic("Resistance", memberID);
             int faith = Database.getStatistic("Faith", memberID);
 
-            int estus_amount = 0;
-            if (faith == 100) {
-                estus_amount = 10;
-            } else {
-                estus_amount = Integer.parseInt(Integer.toString(faith).substring(0, 1));
-            }
+            int estus_amount = duel.getEstus(faith);
 
             int playerMaxHealth = 150 + (vitality + resistance + playerArmor) * 8;
             int bossMaxHealth = Database.getBossHealth(bossID);

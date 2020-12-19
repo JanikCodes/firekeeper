@@ -53,7 +53,7 @@ public class duel {
 
     }
 
-    private static int getEstus(Integer faith){
+    public static int getEstus(Integer faith){
         int amt = 0;
 
         if(Integer.toString(faith).length() == 1){

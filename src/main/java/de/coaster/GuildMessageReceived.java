@@ -433,9 +433,10 @@ public class GuildMessageReceived extends ListenerAdapter {
                     doesUserExist(event.getMember());
                     if (args.length == 2) {
                         if (event.getMessage().getMentions().size() > 0) {
+                            User user = event.getMessage().getMentionedUsers().get(0);
                             Member member = event.getMessage().getMentionedMembers().get(0);
                             doesUserExist(member);
-                            if (event.getMember() != member) {
+                            if (event.getAuthor() != user) {
                                 currchat.sendMessage(createEmbed.methode("**PVP**", event.getMember().getAsMention() + " is challenging " + member.getAsMention() + " to a duel!", Color.red, "Accept or decline with the reactions below", null, null).build()).queue(message -> {
                                     message.addReaction("✅").queue();
                                     message.addReaction("❌").queue();

@@ -196,16 +196,17 @@ public class Database {
     public static void addMembersToDatabase(List<Member> allMembers) {
         try {
 
+            myCon = DriverManager.getConnection(url, user, pwd);
             for(int i=0; i<allMembers.size();i++){
                 java.sql.PreparedStatement prepStmntPersonInsert;
 
-                myCon = DriverManager.getConnection(url, user, pwd);
+
                 prepStmntPersonInsert = myCon.prepareStatement("SELECT idUsers FROM users WHERE idUsers = ?");
                 prepStmntPersonInsert.setString(1, allMembers.get(i).getId());
 
                 myRS = prepStmntPersonInsert.executeQuery();
                 if (!myRS.next()) {
-                    prepStmntPersonInsert = myCon.prepareStatement("INSERT INTO users VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,? , ?)");
+                    prepStmntPersonInsert = myCon.prepareStatement("INSERT INTO users VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
                     prepStmntPersonInsert.setString(1, allMembers.get(i).getId());
                     prepStmntPersonInsert.setInt(2, 0);
                     prepStmntPersonInsert.setInt(3, 1);
@@ -218,9 +219,9 @@ public class Database {
                     prepStmntPersonInsert.setInt(9, 1);
                     prepStmntPersonInsert.setInt(10, 1);
                     prepStmntPersonInsert.setInt(11, 1);
-                    prepStmntPersonInsert.setString(12, allMembers.get(i).getEffectiveName());
-                    prepStmntPersonInsert.setInt(13,0);
-                    prepStmntPersonInsert.setInt(14,0);
+                    prepStmntPersonInsert.setInt(12, 0);
+                    prepStmntPersonInsert.setInt(13, 0);
+                    prepStmntPersonInsert.setString(14, allMembers.get(i).getEffectiveName());
                     prepStmntPersonInsert.setInt(15, 0);
                     prepStmntPersonInsert.setInt(16, 0);
                     prepStmntPersonInsert.setInt(17, 0);
@@ -962,7 +963,11 @@ public class Database {
         try {
             java.sql.PreparedStatement prepStmntPersonInsert;
             myCon = DriverManager.getConnection(url, user, pwd);
-            prepStmntPersonInsert = myCon.prepareStatement("select " + field + " from items i, item_user_relation r where i.idItem = r.idItem AND idUser = ? and type = '" + item_type + "' ORDER BY i.bonus + (5 * r.level) DESC;");
+            if(item_type.equals("item")) {
+                prepStmntPersonInsert = myCon.prepareStatement("select " + field + " from items i, item_user_relation r where i.idItem = r.idItem AND idUser = ? and type = '" + item_type + "'");
+            }else{
+                prepStmntPersonInsert = myCon.prepareStatement("select " + field + " from items i, item_user_relation r where i.idItem = r.idItem AND idUser = ? and type = '" + item_type + "' ORDER BY i.bonus + (5 * r.level) DESC;");
+            }
             prepStmntPersonInsert.setString(1, memberid);
 
             myRS = prepStmntPersonInsert.executeQuery();
@@ -3899,7 +3904,7 @@ public class Database {
 
             java.sql.PreparedStatement prepStmntPersonInsert;
             myCon = DriverManager.getConnection(url, user, pwd);
-            prepStmntPersonInsert = myCon.prepareStatement("select count(*) from users where souls > 20000;");
+            prepStmntPersonInsert = myCon.prepareStatement("select count(*) from users");
 
             myRS = prepStmntPersonInsert.executeQuery();
             if(myRS.next()){
