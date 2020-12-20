@@ -52,9 +52,7 @@ public class Database {
 
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -77,9 +75,7 @@ public class Database {
 
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -98,9 +94,7 @@ public class Database {
 
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -128,9 +122,7 @@ public class Database {
 
         }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -152,9 +144,7 @@ public class Database {
 
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -204,9 +194,7 @@ public class Database {
 
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -257,9 +245,7 @@ public class Database {
 
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -287,9 +273,7 @@ public class Database {
             }
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -312,9 +296,7 @@ public class Database {
             }
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -337,9 +319,7 @@ public class Database {
             }
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -357,9 +337,7 @@ public class Database {
             prepStmntPersonInsert.executeUpdate();
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -377,9 +355,7 @@ public class Database {
             prepStmntPersonInsert.executeUpdate();
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -401,9 +377,7 @@ public class Database {
             }
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -425,9 +399,7 @@ public class Database {
             }
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -451,9 +423,7 @@ public class Database {
             }
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -477,9 +447,7 @@ public class Database {
             }
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -502,9 +470,7 @@ public class Database {
             }
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -532,9 +498,7 @@ public class Database {
 
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -560,9 +524,7 @@ public class Database {
 
         }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -588,9 +550,7 @@ public class Database {
 
         }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -616,9 +576,7 @@ public class Database {
 
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -645,9 +603,7 @@ public class Database {
 
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -675,9 +631,7 @@ public class Database {
 
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -717,7 +671,6 @@ public class Database {
                 myRS = null;
             } catch (MySQLNonTransientConnectionException e) {
                 // TODO Auto-generated catch block
-                e.printStackTrace();
             } catch (SQLException throwables) {
             }catch(NullPointerException np){
 
@@ -729,7 +682,6 @@ public class Database {
                 myStmnt = null;
             } catch (MySQLNonTransientConnectionException e) {
                 // TODO Auto-generated catch block
-                e.printStackTrace();
             } catch (SQLException throwables) {
             }catch(NullPointerException np){
 
@@ -741,7 +693,6 @@ public class Database {
                 myCon = null;
             } catch (MySQLNonTransientConnectionException e) {
                 // TODO Auto-generated catch block
-                e.printStackTrace();
             } catch (SQLException throwables) {
             }catch(NullPointerException np){
 
@@ -766,9 +717,7 @@ public class Database {
             }
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -787,9 +736,7 @@ public class Database {
             prepStmntPersonInsert.executeUpdate();
         }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -810,9 +757,7 @@ public class Database {
             }
         }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -834,9 +779,7 @@ public class Database {
             }
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -858,9 +801,7 @@ public class Database {
             }
         }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -881,9 +822,7 @@ public class Database {
             }
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -905,9 +844,7 @@ public class Database {
             }
         }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -928,9 +865,7 @@ public class Database {
             }
         }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -948,9 +883,7 @@ public class Database {
             prepStmntPersonInsert.executeUpdate();
         }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -973,9 +906,7 @@ public class Database {
             }
         }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -991,9 +922,7 @@ public class Database {
             prepStmntPersonInsert.executeUpdate();
         }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -1010,9 +939,7 @@ public class Database {
             prepStmntPersonInsert.executeUpdate();
         }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -1027,9 +954,7 @@ public class Database {
             prepStmntPersonInsert.executeUpdate();
         }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -1051,9 +976,7 @@ public class Database {
             }
         }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -1080,9 +1003,7 @@ public class Database {
 
         }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -1106,9 +1027,7 @@ public class Database {
             }
         }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -1130,9 +1049,7 @@ public class Database {
             }
         }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -1153,9 +1070,7 @@ public class Database {
             }
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -1176,9 +1091,7 @@ public class Database {
             }
         }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -1199,9 +1112,7 @@ public class Database {
             }
         }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -1225,9 +1136,7 @@ public class Database {
             }
         }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -1245,9 +1154,7 @@ public class Database {
 
         }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -1264,9 +1171,7 @@ public class Database {
 
         }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -1295,9 +1200,7 @@ public class Database {
 
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -1320,9 +1223,7 @@ public class Database {
             }
         }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -1345,9 +1246,7 @@ public class Database {
             }
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -1368,9 +1267,7 @@ public class Database {
             }
         }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -1402,9 +1299,7 @@ public class Database {
 
         }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -1428,9 +1323,7 @@ public class Database {
 
         }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -1453,9 +1346,7 @@ public class Database {
             }
         }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -1473,9 +1364,7 @@ public class Database {
 
         }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -1492,9 +1381,7 @@ public class Database {
 
         }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -1511,9 +1398,7 @@ public class Database {
             prepStmntPersonInsert.executeUpdate();
         }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -1529,9 +1414,7 @@ public class Database {
             prepStmntPersonInsert.executeUpdate();
         }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -1548,9 +1431,7 @@ public class Database {
             prepStmntPersonInsert.executeUpdate();
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -1571,9 +1452,7 @@ public class Database {
             }
         }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -1596,9 +1475,7 @@ public class Database {
             }
         }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -1622,9 +1499,7 @@ public class Database {
             }
         }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -1647,9 +1522,7 @@ public class Database {
             }
         }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -1672,9 +1545,7 @@ public class Database {
             }
         }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -1699,9 +1570,7 @@ public class Database {
 
         }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -1723,9 +1592,7 @@ public class Database {
 
         }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -1751,9 +1618,7 @@ public class Database {
             }
         }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -1782,9 +1647,7 @@ public class Database {
 
         }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -1808,9 +1671,7 @@ public class Database {
 
         }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } catch(NullPointerException e){
 
         }finally{
@@ -1835,9 +1696,7 @@ public class Database {
             }
         }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -1860,9 +1719,7 @@ public class Database {
 
         }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -1892,9 +1749,7 @@ public class Database {
 
         }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -1923,9 +1778,7 @@ public class Database {
             }
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -1947,9 +1800,7 @@ public class Database {
             }
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -1969,9 +1820,7 @@ public class Database {
             }
         }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -1992,9 +1841,7 @@ public class Database {
             }
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -2017,9 +1864,7 @@ public class Database {
 
         }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -2045,9 +1890,7 @@ public class Database {
 
         }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -2076,9 +1919,7 @@ public class Database {
 
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -2108,9 +1949,7 @@ public class Database {
 
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -2134,9 +1973,7 @@ public class Database {
             }
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -2153,9 +1990,7 @@ public class Database {
             prepStmntPersonInsert.executeUpdate();
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -2178,9 +2013,7 @@ public class Database {
             }
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -2204,9 +2037,7 @@ public class Database {
             }
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -2236,9 +2067,7 @@ public class Database {
 
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -2261,9 +2090,7 @@ public class Database {
             }
         }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -2281,9 +2108,7 @@ public class Database {
 
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -2305,9 +2130,7 @@ public class Database {
             }
         }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -2335,9 +2158,7 @@ public class Database {
 
         }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -2354,9 +2175,7 @@ public class Database {
 
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -2373,9 +2192,7 @@ public class Database {
 
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -2392,9 +2209,7 @@ public class Database {
 
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -2416,9 +2231,7 @@ public class Database {
             }
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -2441,9 +2254,7 @@ public class Database {
             }
         }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -2464,9 +2275,7 @@ public class Database {
             }
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -2487,9 +2296,7 @@ public class Database {
             }
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -2510,9 +2317,7 @@ public class Database {
             }
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -2532,9 +2337,7 @@ public class Database {
             }
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -2568,9 +2371,7 @@ public class Database {
 
         }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -2590,9 +2391,7 @@ public class Database {
             }
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -2613,9 +2412,7 @@ public class Database {
             }
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -2637,9 +2434,7 @@ public class Database {
             }
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -2663,9 +2458,7 @@ public class Database {
             }
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -2686,9 +2479,7 @@ public class Database {
             }
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -2710,9 +2501,7 @@ public class Database {
             }
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -2734,9 +2523,7 @@ public class Database {
             }
         }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -2758,9 +2545,7 @@ public class Database {
             }
         }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -2781,9 +2566,7 @@ public class Database {
             }
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -2804,9 +2587,7 @@ public class Database {
             }
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -2825,9 +2606,7 @@ public class Database {
             prepStmntPersonInsert.executeUpdate();
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -2848,9 +2627,7 @@ public class Database {
             }
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -2869,9 +2646,7 @@ public class Database {
             prepStmntPersonInsert.executeUpdate();
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -2892,9 +2667,7 @@ public class Database {
             }
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -2912,9 +2685,7 @@ public class Database {
             prepStmntPersonInsert.executeUpdate();
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -2930,9 +2701,7 @@ public class Database {
             prepStmntPersonInsert.executeUpdate();
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -2948,9 +2717,7 @@ public class Database {
             prepStmntPersonInsert.executeUpdate();
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -2967,9 +2734,7 @@ public class Database {
             prepStmntPersonInsert.executeUpdate();
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -2984,9 +2749,7 @@ public class Database {
             prepStmntPersonInsert.executeUpdate();
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -3009,9 +2772,7 @@ public class Database {
             }
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -3033,9 +2794,7 @@ public class Database {
             }
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -3059,9 +2818,7 @@ public class Database {
             }
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -3085,9 +2842,7 @@ public class Database {
             }
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -3111,9 +2866,7 @@ public class Database {
             }
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -3137,9 +2890,7 @@ public class Database {
             }
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -3164,9 +2915,7 @@ public class Database {
             }
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -3188,9 +2937,7 @@ public class Database {
             prepStmntPersonInsert.executeUpdate();
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -3211,9 +2958,7 @@ public class Database {
             }
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -3247,9 +2992,7 @@ public class Database {
 
         }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -3266,9 +3009,7 @@ public class Database {
             prepStmntPersonInsert.executeUpdate();
         }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -3289,9 +3030,7 @@ public class Database {
             }
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -3314,9 +3053,7 @@ public class Database {
             }
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -3343,9 +3080,7 @@ public class Database {
 
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -3364,9 +3099,7 @@ public class Database {
             }
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -3390,9 +3123,7 @@ public class Database {
             }
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -3416,9 +3147,7 @@ public class Database {
             }
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -3442,9 +3171,7 @@ public class Database {
             }
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -3472,9 +3199,7 @@ public class Database {
             prepStmntPersonInsert.executeUpdate();
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -3494,9 +3219,7 @@ public class Database {
             }
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -3519,9 +3242,7 @@ public class Database {
             }
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -3547,9 +3268,7 @@ public class Database {
 
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -3574,9 +3293,7 @@ public class Database {
 
         }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -3596,9 +3313,7 @@ public class Database {
             }
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -3620,9 +3335,7 @@ public class Database {
             }
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -3644,9 +3357,7 @@ public class Database {
             }
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -3668,9 +3379,7 @@ public class Database {
             }
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -3697,9 +3406,7 @@ public class Database {
 
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -3720,9 +3427,7 @@ public class Database {
             }
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -3755,9 +3460,7 @@ public class Database {
 
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -3777,9 +3480,7 @@ public class Database {
             }
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -3805,9 +3506,7 @@ public class Database {
 
         }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -3829,9 +3528,7 @@ public class Database {
             }
         }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -3854,9 +3551,7 @@ public class Database {
             }
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -3879,9 +3574,7 @@ public class Database {
             }
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -3902,9 +3595,7 @@ public class Database {
             }
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -3924,9 +3615,7 @@ public class Database {
             }
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -3949,9 +3638,7 @@ public class Database {
 
         }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -3978,9 +3665,7 @@ public class Database {
 
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -4005,9 +3690,7 @@ public class Database {
 
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -4019,21 +3702,18 @@ public class Database {
             try {
                 rs.close();
             } catch (SQLException e) {
-                e.printStackTrace();
             }
         }
         if (pStmnt!= null){
             try {
                 pStmnt.close();
             } catch (SQLException e) {
-                e.printStackTrace();
             }
         }
         if (con != null){
             try {
                 con.close();
             } catch (SQLException e) {
-                e.printStackTrace();
             }
         }
     }
@@ -4063,9 +3743,7 @@ public class Database {
 
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -4089,9 +3767,7 @@ public class Database {
 
         }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -4111,9 +3787,7 @@ public class Database {
             pStmnt.executeUpdate();
         }  catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -4137,9 +3811,7 @@ public class Database {
 
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -4176,9 +3848,7 @@ public class Database {
             pStmnt.executeUpdate();
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -4203,9 +3873,7 @@ public class Database {
 
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -4226,9 +3894,7 @@ public class Database {
             deleteSingleClanMessage(messageID);
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -4247,9 +3913,7 @@ public class Database {
 
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -4278,9 +3942,7 @@ public class Database {
 
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -4310,9 +3972,7 @@ public class Database {
 
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -4334,9 +3994,7 @@ public class Database {
             }
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -4358,9 +4016,7 @@ public class Database {
             }
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
@@ -4383,9 +4039,7 @@ public class Database {
 
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally{
             doFinally();
         }
