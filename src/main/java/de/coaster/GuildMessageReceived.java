@@ -23,9 +23,10 @@ public class GuildMessageReceived extends ListenerAdapter {
             String prefix = Database.getPrefix(serverID);
             TextChannel currchat = event.getChannel();
             String allowedChannel = Database.getOnlyChannel(serverID);
+            String allowedChannel2 = Database.getOnlyChannel2(serverID);
 
             if (args[0].equalsIgnoreCase(prefix + "help")) {
-                if (checkChannel.methode(event, currchat, allowedChannel)) {
+                if (checkChannel.methode(event, currchat, allowedChannel,allowedChannel2)) {
                     if (args.length == 1) {
                         //Displays whole help command list
                         help.methode(prefix,currchat);
@@ -37,7 +38,7 @@ public class GuildMessageReceived extends ListenerAdapter {
             }
 
             if (args[0].equalsIgnoreCase(prefix + "setprefix")) {
-                if (checkChannel.methode(event, currchat, allowedChannel)) {
+                if (checkChannel.methode(event, currchat, allowedChannel,allowedChannel2)) {
                     String memberID = event.getMember().getId();
                     String ownerID = event.getGuild().getOwnerId();
                     doesUserExist(event.getMember());
@@ -88,7 +89,7 @@ public class GuildMessageReceived extends ListenerAdapter {
             }
 
             if (args[0].equalsIgnoreCase(prefix + "rank")) {
-                if (checkChannel.methode(event, currchat, allowedChannel)) {
+                if (checkChannel.methode(event, currchat, allowedChannel,allowedChannel2)) {
                     if (args.length == 1) {
                         doesUserExist(event.getMember());
                         getRank.methode(event.getMember(), event, prefix);
@@ -105,7 +106,7 @@ public class GuildMessageReceived extends ListenerAdapter {
             }
 
             if (args[0].equalsIgnoreCase(prefix + "sell")) {
-                if (checkChannel.methode(event, currchat, allowedChannel)) {
+                if (checkChannel.methode(event, currchat, allowedChannel,allowedChannel2)) {
                     if (args.length == 1) {
                         doesUserExist(event.getMember());
                         sell.methode(event, prefix, currchat);
@@ -116,7 +117,7 @@ public class GuildMessageReceived extends ListenerAdapter {
             }
 
             if (args[0].equalsIgnoreCase(prefix + "patreon")) {
-                if (checkChannel.methode(event, currchat, allowedChannel)) {
+                if (checkChannel.methode(event, currchat, allowedChannel,allowedChannel2)) {
                     if (args.length == 1) {
                         currchat.sendMessage(createEmbed.methode("Support us!", "This [link](https://www.patreon.com/firekeeperbot?fan_landing=true) will send you to our **Patreon**! Support us there and gain alot of benefits, we **appreciate every support!** \n ❤", Color.pink, "If you bought anything, message janik#0737!", null, null).build()).queue();
                     } else {
@@ -125,8 +126,9 @@ public class GuildMessageReceived extends ListenerAdapter {
                 }
             }
 
+
             if (args[0].equalsIgnoreCase(prefix + "achievements")) {
-                if (checkChannel.methode(event, currchat, allowedChannel)) {
+                if (checkChannel.methode(event, currchat, allowedChannel,allowedChannel2)) {
                     if (args.length == 1) {
                         doesUserExist(event.getMember());
                         String memberID = event.getMember().getId();
@@ -166,7 +168,7 @@ public class GuildMessageReceived extends ListenerAdapter {
                         //Error
                         currchat.sendMessage(createEmbed.methode("**ERROR**", "Wrong Syntax! You'll need to type the desired channel as the second argument! e.g. `" + prefix + "setCommandsChannel #bot-cmds`", Color.red, null, null, null).build()).queue();
                     } else if (args.length == 2) {
-                        setOnlyChannelID.methode(event, args[1], currchat);
+                        setOnlyChannelID.methode(event, args[1], currchat,1);
                     } else {
                         currchat.sendMessage(createEmbed.methode("**ERROR**", "Wrong Syntax! You'll need to type the desired channel as the second argument! e.g. `" + prefix + "setCommandsChannel #bot-cmds`", Color.red, null, null, null).build()).queue();
                     }
@@ -175,8 +177,27 @@ public class GuildMessageReceived extends ListenerAdapter {
                 }
             }
 
+            if (args[0].equalsIgnoreCase(prefix + "setCommandsChannel2")) {
+                doesUserExist(event.getMember());
+                String memberID = event.getMember().getId();
+                String ownerID = event.getGuild().getOwnerId();
+                if (memberID.equals(ownerID)) {        //has permissions to do that
+                    if (args.length == 1) {
+                        //Error
+                        currchat.sendMessage(createEmbed.methode("**ERROR**", "Wrong Syntax! You'll need to type the desired channel as the second argument! e.g. `" + prefix + "setCommandsChannel #bot-cmds`", Color.red, null, null, null).build()).queue();
+                    } else if (args.length == 2) {
+                        setOnlyChannelID.methode(event, args[1], currchat,2);
+                    } else {
+                        currchat.sendMessage(createEmbed.methode("**ERROR**", "Wrong Syntax! You'll need to type the desired channel as the second argument! e.g. `" + prefix + "setCommandsChannel #bot-cmds`", Color.red, null, null, null).build()).queue();
+                    }
+                } else {
+                    currchat.sendMessage(createEmbed.methode("**ERROR**", "You don't have the permissions to execute this command! Only the **server owner** can use this command.", Color.red, null, null, null).build()).queue();
+                }
+            }
+
+
             if (args[0].equalsIgnoreCase(prefix + "profile")) {
-                if (checkChannel.methode(event, currchat, allowedChannel)) {
+                if (checkChannel.methode(event, currchat, allowedChannel,allowedChannel2)) {
                     if (args.length == 1) {
                         doesUserExist(event.getMember());
                         Database.deleteProfilRelation(event.getMember().getId());
@@ -192,7 +213,7 @@ public class GuildMessageReceived extends ListenerAdapter {
             }
 
             if (args[0].equalsIgnoreCase(prefix + "souls")) {
-                if (checkChannel.methode(event, currchat, allowedChannel)) {
+                if (checkChannel.methode(event, currchat, allowedChannel,allowedChannel2)) {
 
                     if (args.length == 1) {
                         doesUserExist(event.getMember());
@@ -208,7 +229,7 @@ public class GuildMessageReceived extends ListenerAdapter {
             }
 
             if (args[0].equalsIgnoreCase(prefix + "inventory")) {
-                if (checkChannel.methode(event, currchat, allowedChannel)) {
+                if (checkChannel.methode(event, currchat, allowedChannel,allowedChannel2)) {
                     if (args.length == 1) {
                         doesUserExist(event.getMember());
                         Database.deleteInventoryData(event.getMember());
@@ -221,7 +242,7 @@ public class GuildMessageReceived extends ListenerAdapter {
             }
 
             if (args[0].equalsIgnoreCase(prefix + "how")) {
-                if (checkChannel.methode(event, currchat, allowedChannel)) {
+                if (checkChannel.methode(event, currchat, allowedChannel,allowedChannel2)) {
                     if (args.length == 1) {
                         doesUserExist(event.getMember());
                         how.methode(currchat);
@@ -230,7 +251,7 @@ public class GuildMessageReceived extends ListenerAdapter {
             }
 
             if (args[0].equalsIgnoreCase(prefix + "cleartime")) {
-                if (checkChannel.methode(event, currchat, allowedChannel)) {
+                if (checkChannel.methode(event, currchat, allowedChannel,allowedChannel2)) {
                     if (args.length == 1) {
                         if (event.getMember().getId().equals("321649314382348288")) {
                             //Clear the time for everyone DEBUG TOOL
@@ -281,7 +302,7 @@ public class GuildMessageReceived extends ListenerAdapter {
             }
 
             if (args[0].equalsIgnoreCase(prefix + "equip")) {
-                if (checkChannel.methode(event, currchat, allowedChannel)) {
+                if (checkChannel.methode(event, currchat, allowedChannel,allowedChannel2)) {
                     if (args.length == 3) {
                         doesUserExist(event.getMember());
                         equip.methode(args[1],args[2],event,currchat,prefix);
@@ -292,7 +313,7 @@ public class GuildMessageReceived extends ListenerAdapter {
             }
 
             if (args[0].equalsIgnoreCase(prefix + "upgrade")) {
-                if (checkChannel.methode(event, currchat, allowedChannel)) {
+                if (checkChannel.methode(event, currchat, allowedChannel,allowedChannel2)) {
                     if (args.length == 3) {
                         doesUserExist(event.getMember());
                         upgrade.methode(event,args[1],args[2],currchat,prefix);
@@ -303,7 +324,7 @@ public class GuildMessageReceived extends ListenerAdapter {
             }
 
             if (args[0].equalsIgnoreCase(prefix + "givesouls")) {
-                if (checkChannel.methode(event, currchat, allowedChannel)) {
+                if (checkChannel.methode(event, currchat, allowedChannel,allowedChannel2)) {
                     if (findRole.methode(event.getMember(), Main.tier1) != null || findRole.methode(event.getMember(), Main.tier2) != null) {
                         if (args.length == 3) {
                             doesUserExist(event.getMember());
@@ -361,7 +382,7 @@ public class GuildMessageReceived extends ListenerAdapter {
 
             if (args[0].equalsIgnoreCase(prefix + "displayCD")) {
                 if (args.length == 1) {
-                    if(checkChannel.methode(event,currchat,allowedChannel)){
+                    if(checkChannel.methode(event,currchat,allowedChannel,allowedChannel2)){
                         doesUserExist(event.getMember());
                         displaytime.methode(currchat,event);
                     }
@@ -371,7 +392,7 @@ public class GuildMessageReceived extends ListenerAdapter {
             }
 
             if (args[0].equalsIgnoreCase(prefix + "cleararea")) {
-                if (checkChannel.methode(event, currchat, allowedChannel)) {
+                if (checkChannel.methode(event, currchat, allowedChannel,allowedChannel2)) {
                     if (args.length == 1) {
                         doesUserExist(event.getMember());
                         clearArea.methode(event, currchat);
@@ -383,7 +404,7 @@ public class GuildMessageReceived extends ListenerAdapter {
             }
 
             if (args[0].equalsIgnoreCase(prefix + "serverinfo")) {
-                if (checkChannel.methode(event, currchat, allowedChannel)) {
+                if (checkChannel.methode(event, currchat, allowedChannel,allowedChannel2)) {
                     if (args.length == 1) {
                         serverinfo.methode(event,serverID,prefix,currchat);
                     } else {
@@ -394,7 +415,7 @@ public class GuildMessageReceived extends ListenerAdapter {
             }
 
             if (args[0].equalsIgnoreCase(prefix + "globalinfo")) {
-                if (checkChannel.methode(event, currchat, allowedChannel)) {
+                if (checkChannel.methode(event, currchat, allowedChannel,allowedChannel2)) {
                     if (args.length == 1) {
                         serverinfo.globalInfo(event,currchat);
                     } else {
@@ -405,7 +426,7 @@ public class GuildMessageReceived extends ListenerAdapter {
             }
 
             if (args[0].equalsIgnoreCase(prefix + "fightboss")) {
-                if (checkChannel.methode(event, currchat, allowedChannel)) {
+                if (checkChannel.methode(event, currchat, allowedChannel,allowedChannel2)) {
                     if (args.length == 1) {
                         doesUserExist(event.getMember());
                         Database.deleteBossFightRelation(event.getMember().getId());
@@ -418,7 +439,7 @@ public class GuildMessageReceived extends ListenerAdapter {
             }
 
             if (args[0].equalsIgnoreCase(prefix + "leaderboard")) {
-                if (checkChannel.methode(event, currchat, allowedChannel)) {
+                if (checkChannel.methode(event, currchat, allowedChannel,allowedChannel2)) {
                     if (args.length == 1) {
                         currchat.sendMessage(createEmbed.methode("**ERROR**", "Wrong Syntax! Type `" + prefix + "leaderboard ranks` or `" + prefix + "leaderboard souls` or \n`" + prefix + "leaderboard kills`", Color.red, null, null, null).build()).queue();
                     } else if (args.length > 1 && args.length <= 2) {
@@ -429,7 +450,7 @@ public class GuildMessageReceived extends ListenerAdapter {
             }
 
             if (args[0].equalsIgnoreCase(prefix + "duel")) {
-                if (checkChannel.methode(event, currchat, allowedChannel)) {
+                if (checkChannel.methode(event, currchat, allowedChannel,allowedChannel2)) {
                     doesUserExist(event.getMember());
                     if (args.length == 2) {
                         if (event.getMessage().getMentions().size() > 0) {

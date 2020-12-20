@@ -16,8 +16,7 @@ import java.net.InetSocketAddress;
 public class Main {
 
 
-    public static boolean test = true;
-    public static boolean DEVELOPER_SERVER_MODE = false;
+    public static boolean test = false;
 
     public static String defaultprefix = "!";
     public static String botAddLink = "https://discord.com/api/oauth2/authorize?client_id=760993270133555231&permissions=1074097216&scope=bot";
