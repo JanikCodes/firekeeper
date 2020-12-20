@@ -35,7 +35,7 @@ public class Database {
             myRS = prepStmntPersonInsert.executeQuery();
 
             if (!myRS.next()) {     //Didnt found the server already in the database
-                prepStmntPersonInsert = myCon.prepareStatement("INSERT INTO server (idServer, prefix, enableNotification, clearedAreas, defeatedBosses, notificationChannel, onlychannel) VALUES(?, ?, ?, ?, ?, ?, ?)");
+                prepStmntPersonInsert = myCon.prepareStatement("INSERT INTO server VALUES(?, ?, ?, ?, ?, ?, ?, ?)");
                 prepStmntPersonInsert.setString(1, serverID);
                 prepStmntPersonInsert.setString(2, Main.defaultprefix);
                 prepStmntPersonInsert.setInt(3, 1);
@@ -43,6 +43,8 @@ public class Database {
                 prepStmntPersonInsert.setInt(5, 0);
                 prepStmntPersonInsert.setString(6, "0");
                 prepStmntPersonInsert.setString(7, "0");
+                prepStmntPersonInsert.setString(8, "0");
+
 
 
                 prepStmntPersonInsert.executeUpdate();
@@ -65,7 +67,7 @@ public class Database {
             java.sql.PreparedStatement prepStmntPersonInsert;
 
             myCon = DriverManager.getConnection(url, user, pwd);
-            prepStmntPersonInsert = myCon.prepareStatement("SELECT onlyChannel FROM server WHERE idServer = ?");
+            prepStmntPersonInsert = myCon.prepareStatement("SELECT onlyChannel1 FROM server WHERE idServer = ?");
             prepStmntPersonInsert.setString(1, serverID);
 
             myRS = prepStmntPersonInsert.executeQuery();
@@ -700,8 +702,7 @@ public class Database {
 
         } catch (MySQLNonTransientConnectionException e) {
             // TODO Auto-generated catch block
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException hh) {
         }catch(NullPointerException np){
 
         } finally{
@@ -1499,12 +1500,12 @@ public class Database {
         }
     }
 
-    public static void setOnlyChannelID(String id, String channelID) {
+    public static void setOnlyChannelID(String id, String channelID, int which_only) {
         try {
             java.sql.PreparedStatement prepStmntPersonInsert;
 
             myCon = DriverManager.getConnection(url, user, pwd);
-            prepStmntPersonInsert = myCon.prepareStatement("update server set onlychannel = ? WHERE idServer = ?");
+            prepStmntPersonInsert = myCon.prepareStatement("update server set onlychannel" + which_only +" = ? WHERE idServer = ?");
             prepStmntPersonInsert.setString(1, channelID);
             prepStmntPersonInsert.setString(2, id);
             prepStmntPersonInsert.executeUpdate();
@@ -4364,5 +4365,30 @@ public class Database {
             doFinally();
         }
         return cunt;
+    }
+
+    public static String getOnlyChannel2(String serverID) {
+        String channelID = "0";
+        try {
+            java.sql.PreparedStatement prepStmntPersonInsert;
+
+            myCon = DriverManager.getConnection(url, user, pwd);
+            prepStmntPersonInsert = myCon.prepareStatement("SELECT onlyChannel2 FROM server WHERE idServer = ?");
+            prepStmntPersonInsert.setString(1, serverID);
+
+            myRS = prepStmntPersonInsert.executeQuery();
+            if(myRS.next()){
+                channelID = myRS.getString(1);
+            }
+
+        } catch (MySQLNonTransientConnectionException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally{
+            doFinally();
+        }
+        return channelID;
     }
 }
