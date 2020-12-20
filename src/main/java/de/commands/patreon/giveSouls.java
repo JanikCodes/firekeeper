@@ -28,7 +28,7 @@ public class giveSouls {
                         currchat.sendMessage(createEmbed.methode("Error", "You don't have enough souls to give away!", Color.red, null, null, null).build()).queue();
                     }
                 } catch (NumberFormatException e) {
-                    currchat.sendMessage(createEmbed.methode("**ERROR**", "Wrong number input! Please make sure it's a right number!", Color.red, null, null, null).build()).complete();
+                    currchat.sendMessage(createEmbed.methode("**ERROR**", "Wrong number input! Please make sure it's a right number!", Color.red, null, null, null).build()).queue();
                 }
             } else {
                 //no number

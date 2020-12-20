@@ -19,7 +19,7 @@ public class setNotificationChannelID {
             Database.setNotificationChannel(event.getGuild().getId(), channelID);
             currchat.sendMessage(createEmbed.methode("System", "You've successfully changed the level-up notification channel!", Color.green, "You can also disable the notification.", null, null).build()).queue();
         } else {
-            currchat.sendMessage(createEmbed.methode("**ERROR**", "Could not find a mentioned channel! Please make sure to mention a channel!", Color.red, null, null, null).build()).complete();
+            currchat.sendMessage(createEmbed.methode("**ERROR**", "Could not find a mentioned channel! Please make sure to mention a channel!", Color.red, null, null, null).build()).queue();
         }
     }
 
