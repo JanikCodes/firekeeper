@@ -23,7 +23,7 @@ public class collectDaily extends ListenerAdapter {
         }else {
             //Can't do boss
             String endTime = calculateTime.methode(86400 - ((time / 1000) - lastdaily));
-            currchat.sendMessage(createEmbed.methode("**ERROR**", "You've already collected your daily bonus! \n You'll need to wait **" + endTime + "** to collect it again!", Color.orange, null, null, null).build()).complete();
+            currchat.sendMessage(createEmbed.methode("**ERROR**", "You've already collected your daily bonus! \n You'll need to wait **" + endTime + "** to collect it again!", Color.orange, null, null, null).build()).queue();
         }
     }
 
