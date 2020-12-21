@@ -8,8 +8,8 @@ import java.awt.*;
 
 public class checkChannel {
 
-    public static boolean methode(GuildMessageReceivedEvent event, TextChannel currchat, String allowedChannel,String allowedChannel2) {
-        if (allowedChannel.equals(currchat.getId()) || allowedChannel.equals("0") || allowedChannel2.equals(currchat.getId())) {
+    public static boolean methode(GuildMessageReceivedEvent event, TextChannel currchat, String allowedChannel,String allowedChannel2,String allowedChannel3) {
+        if (allowedChannel.equals(currchat.getId()) || allowedChannel.equals("0") || allowedChannel2.equals(currchat.getId()) || allowedChannel3.equals(currchat.getId())) {
             return true;
         } else {
             TextChannel channelstring = event.getChannel().getGuild().getTextChannelById(allowedChannel);

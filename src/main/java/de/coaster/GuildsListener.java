@@ -25,6 +25,8 @@ public class GuildsListener extends ListenerAdapter {
             System.out.println("Wrote server welcome message while joining new server");
         } catch (InsufficientPermissionException exception) {
             System.out.println("Didnt have the permission to write when he joined a new server");
+        } catch(NullPointerException np){
+
         }
     }
 

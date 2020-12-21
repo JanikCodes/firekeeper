@@ -25,14 +25,14 @@ public class displaytime {
         String endTimeDaily = calculateTime.methode(86400 - ((time / 1000) - lastdaily));
 
         if(endTimeClear.contains("-")){
-            endTimeClear = "**no cooldown**";
+            endTimeClear = "**ready to use!**";
         }
         if(endTimeBoss.contains("-")){
-            endTimeBoss = "**no cooldown**";
+            endTimeBoss = "**ready to use!**";
         }
         if (findRole.methode(event.getMember(), Main.tier2) != null) {
             if(endTimeDaily.contains("-")) {
-                endTimeDaily = "**no cooldown**";
+                endTimeDaily = "**ready to use!**";
             }
         }else{
             endTimeDaily = "**Patreon only**";

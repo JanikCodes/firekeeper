@@ -9,39 +9,43 @@ import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.exceptions.ErrorResponseException;
+import net.dv8tion.jda.api.exceptions.InsufficientPermissionException;
 
 import java.awt.*;
 
 public class getProfil {
 
     public static void methode(Member memmber, GuildMessageReceivedEvent event, String prefix, boolean myself) {
-        int strength = Database.getStatistic("strength", memmber.getId());
-        int dexterity = Database.getStatistic("dexterity", memmber.getId());
-        int vitality = Database.getStatistic("vitality", memmber.getId());
-        int intelligence = Database.getStatistic("intelligence", memmber.getId());
-        int resistance = Database.getStatistic("resistance", memmber.getId());
-        int faith = Database.getStatistic("faith", memmber.getId());
-        int souls = Database.getStatistic("souls", memmber.getId());
-        int rank = Database.getStatistic("level", memmber.getId());
+        try {
+            int strength = Database.getStatistic("strength", memmber.getId());
+            int dexterity = Database.getStatistic("dexterity", memmber.getId());
+            int vitality = Database.getStatistic("vitality", memmber.getId());
+            int intelligence = Database.getStatistic("intelligence", memmber.getId());
+            int resistance = Database.getStatistic("resistance", memmber.getId());
+            int faith = Database.getStatistic("faith", memmber.getId());
+            int souls = Database.getStatistic("souls", memmber.getId());
+            int rank = Database.getStatistic("level", memmber.getId());
 
-        final String[] messageID = {null};
+            final String[] messageID = {null};
 
-        TextChannel currchat = event.getChannel();
-        currchat.sendMessage(createProfilEmbed(strength, dexterity, vitality, intelligence, resistance, faith, rank, memmber, "React below to upgrade your skills", Color.black, souls).build()).queue(message -> {
-            if (myself) {
-                message.addReaction("str:761547258205437982").queue();
-                message.addReaction("dex:761546853279203328").queue();
-                message.addReaction("vt:761544992648855564").queue();
-                message.addReaction("in:761546824703410207").queue();
-                message.addReaction("res:761546973115056128").queue();
-                message.addReaction("ft:761546791891894282").queue();
-                message.addReaction("lv:761544969546629170").queue();
-                messageID[0] = message.getId();
-                Database.createUpgradeRelation(messageID[0], memmber.getId());
-            }
-        });
+            TextChannel currchat = event.getChannel();
+            currchat.sendMessage(createProfilEmbed(strength, dexterity, vitality, intelligence, resistance, faith, rank, memmber, "React below to upgrade your skills", Color.black, souls).build()).queue(message -> {
+                if (myself) {
+                    message.addReaction("str:761547258205437982").queue();
+                    message.addReaction("dex:761546853279203328").queue();
+                    message.addReaction("vt:761544992648855564").queue();
+                    message.addReaction("in:761546824703410207").queue();
+                    message.addReaction("res:761546973115056128").queue();
+                    message.addReaction("ft:761546791891894282").queue();
+                    message.addReaction("lv:761544969546629170").queue();
+                    messageID[0] = message.getId();
+                    Database.createUpgradeRelation(messageID[0], memmber.getId());
+                }
+            });
 
+        }catch(InsufficientPermissionException ip){
 
+        }
     }
 
     public static EmbedBuilder createProfilEmbed(int strength, int dexterity, int vitality, int intelligence, int resistance, int faith, int rank, Member member, String foot, Color col, Integer souls) {

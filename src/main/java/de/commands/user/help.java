@@ -36,7 +36,8 @@ public class help {
             {"LEVELNOTIFICATION", "levelNotification [true/false]", "Determinds if the bot will alert the user that he has leveled up!"},
             {"SETNOTIFICATIONCHANNEL", "setNotificationChannel [#channel]", "Configures the channel where the level up notification will be send!"},
             {"SETCOMMANDSCHANNEL", "setCommandsChannel [#channel]", "Configures the channel where user can write the commands! \n If this is not set, users will be able to type commands in every channel."},
-            {"SETCOMMANDSCHANNEL2","setCommandsChannel2 [#channel]","Configures the second channel where user can write the commands! \n If this is not set, users will be able to type commands in every channel."}
+            {"SETCOMMANDSCHANNEL2","setCommandsChannel2 [#channel]","Configures the second channel where user can write the commands!"},
+            {"SETCOMMANDSCHANNEL3","setCommandsChannel3 [#channel]","Configures the third channel where user can write the commands!"}
     };
 
     static String[][] cmdsPatreon = {

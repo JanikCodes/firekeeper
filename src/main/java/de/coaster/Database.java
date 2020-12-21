@@ -35,7 +35,7 @@ public class Database {
             myRS = prepStmntPersonInsert.executeQuery();
 
             if (!myRS.next()) {     //Didnt found the server already in the database
-                prepStmntPersonInsert = myCon.prepareStatement("INSERT INTO server VALUES(?, ?, ?, ?, ?, ?, ?, ?)");
+                prepStmntPersonInsert = myCon.prepareStatement("INSERT INTO server VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)");
                 prepStmntPersonInsert.setString(1, serverID);
                 prepStmntPersonInsert.setString(2, Main.defaultprefix);
                 prepStmntPersonInsert.setInt(3, 1);
@@ -44,6 +44,8 @@ public class Database {
                 prepStmntPersonInsert.setString(6, "0");
                 prepStmntPersonInsert.setString(7, "0");
                 prepStmntPersonInsert.setString(8, "0");
+                prepStmntPersonInsert.setString(9, "0");
+
 
 
 
@@ -4030,6 +4032,29 @@ public class Database {
 
             myCon = DriverManager.getConnection(url, user, pwd);
             prepStmntPersonInsert = myCon.prepareStatement("SELECT onlyChannel2 FROM server WHERE idServer = ?");
+            prepStmntPersonInsert.setString(1, serverID);
+
+            myRS = prepStmntPersonInsert.executeQuery();
+            if(myRS.next()){
+                channelID = myRS.getString(1);
+            }
+
+        } catch (MySQLNonTransientConnectionException e) {
+            // TODO Auto-generated catch block
+        } catch (SQLException throwables) {
+        } finally{
+            doFinally();
+        }
+        return channelID;
+    }
+
+    public static String getOnlyChannel3(String serverID) {
+        String channelID = "0";
+        try {
+            java.sql.PreparedStatement prepStmntPersonInsert;
+
+            myCon = DriverManager.getConnection(url, user, pwd);
+            prepStmntPersonInsert = myCon.prepareStatement("SELECT onlyChannel3 FROM server WHERE idServer = ?");
             prepStmntPersonInsert.setString(1, serverID);
 
             myRS = prepStmntPersonInsert.executeQuery();

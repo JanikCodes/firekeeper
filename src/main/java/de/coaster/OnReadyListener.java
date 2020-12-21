@@ -52,7 +52,7 @@ public class OnReadyListener extends ListenerAdapter {
                             status++;
                             break;
                         } case 1: {
-                            a = Activity.of(Activity.ActivityType.WATCHING, "Update 2.6.2!");
+                            a = Activity.of(Activity.ActivityType.WATCHING, Main.displayVersion);
                             status = 0;
                             break;
                         }

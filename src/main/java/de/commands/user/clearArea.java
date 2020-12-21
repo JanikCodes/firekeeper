@@ -103,7 +103,7 @@ public class clearArea {
                             "\uD83C\uDFC6 **Special encounter:** " + encounterString + "\n\n" +
                             "<:repairpowder:779816424952037427> You've collected **" + itemnames + "** \n\n" +
                             "\uD83D\uDCCD **Collected a total of** **" + intAllSouls + "** souls!"
-                    , Color.ORANGE, "You can clear a new stage every 2h", event.getMember(), null).build()).queue();
+                    , Color.ORANGE, "You can clear a new stage every 30min", event.getMember(), null).build()).queue();
 
             Database.updateClearTime(memberID, newtime);
             Database.giveAreaClear(event.getGuild().getId());

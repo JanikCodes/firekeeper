@@ -17,6 +17,7 @@ public class Main {
 
 
     public static boolean test = false;
+    public static String displayVersion = "2.6.3";
 
     public static String defaultprefix = "!";
     public static String botAddLink = "https://discord.com/api/oauth2/authorize?client_id=760993270133555231&permissions=1074097216&scope=bot";
